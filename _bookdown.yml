@@ -1,4 +1,5 @@
 book_filename: "eda_poblacion_mundial"
+output_dir: "docs"
 delete_merged_file: true
 language:
   ui:

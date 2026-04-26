@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 4 Distribución de Variables | Análisis Exploratorio de Datos: Población Mundial y Migración</title>
+  <meta name="description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
+Población Mundial y Migración del Banco Mundial.</p>" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 4 Distribución de Variables | Análisis Exploratorio de Datos: Población Mundial y Migración" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
+Población Mundial y Migración del Banco Mundial.</p>" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 4 Distribución de Variables | Análisis Exploratorio de Datos: Población Mundial y Migración" />
+  
+  <meta name="twitter:description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
+Población Mundial y Migración del Banco Mundial.</p>" />
+  
+
+<meta name="author" content="Lia Castillo" />
+
+
+<meta name="date" content="2026-04-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="limpieza.html"/>
+<link rel="next" href="temporal.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">EDA - Población Mundial</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introducción</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#objetivos-del-eda"><i class="fa fa-check"></i>Objetivos del EDA</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#metodología"><i class="fa fa-check"></i>Metodología</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#fuente-de-datos"><i class="fa fa-check"></i>Fuente de Datos</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="diccionario.html"><a href="diccionario.html"><i class="fa fa-check"></i><b>1</b> Diccionario de Variables</a></li>
+<li class="chapter" data-level="2" data-path="estructura.html"><a href="estructura.html"><i class="fa fa-check"></i><b>2</b> Estructura y Calidad del Dataset</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="estructura.html"><a href="estructura.html#dimensiones-y-estructura-general"><i class="fa fa-check"></i><b>2.1</b> Dimensiones y Estructura General</a></li>
+<li class="chapter" data-level="2.2" data-path="estructura.html"><a href="estructura.html#resumen-estadístico"><i class="fa fa-check"></i><b>2.2</b> Resumen Estadístico</a></li>
+<li class="chapter" data-level="2.3" data-path="estructura.html"><a href="estructura.html#análisis-de-valores-faltantes-na"><i class="fa fa-check"></i><b>2.3</b> Análisis de Valores Faltantes (NA)</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="limpieza.html"><a href="limpieza.html"><i class="fa fa-check"></i><b>3</b> Limpieza y Preparación de Datos</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="limpieza.html"><a href="limpieza.html#verificación-de-duplicados"><i class="fa fa-check"></i><b>3.1</b> Verificación de Duplicados</a></li>
+<li class="chapter" data-level="3.2" data-path="limpieza.html"><a href="limpieza.html#corrección-de-tipos-de-datos"><i class="fa fa-check"></i><b>3.2</b> Corrección de Tipos de Datos</a></li>
+<li class="chapter" data-level="3.3" data-path="limpieza.html"><a href="limpieza.html#limpieza-de-variables-categóricas"><i class="fa fa-check"></i><b>3.3</b> Limpieza de Variables Categóricas</a></li>
+<li class="chapter" data-level="3.4" data-path="limpieza.html"><a href="limpieza.html#separación-de-agregados-y-países"><i class="fa fa-check"></i><b>3.4</b> Separación de Agregados y Países</a></li>
+<li class="chapter" data-level="3.5" data-path="limpieza.html"><a href="limpieza.html#tratamiento-de-valores-faltantes-nas"><i class="fa fa-check"></i><b>3.5</b> Tratamiento de Valores Faltantes (NAs)</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="limpieza.html"><a href="limpieza.html#estrategia-de-tratamiento"><i class="fa fa-check"></i><b>3.5.1</b> Estrategia de Tratamiento</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="limpieza.html"><a href="limpieza.html#detección-de-valores-atípicos-outliers"><i class="fa fa-check"></i><b>3.6</b> Detección de Valores Atípicos (Outliers)</a></li>
+<li class="chapter" data-level="3.7" data-path="limpieza.html"><a href="limpieza.html#validación-de-rangos-y-consistencia"><i class="fa fa-check"></i><b>3.7</b> Validación de Rangos y Consistencia</a></li>
+<li class="chapter" data-level="3.8" data-path="limpieza.html"><a href="limpieza.html#resumen-de-la-limpieza"><i class="fa fa-check"></i><b>3.8</b> Resumen de la Limpieza</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="distribucion.html"><a href="distribucion.html"><i class="fa fa-check"></i><b>4</b> Distribución de Variables</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="distribucion.html"><a href="distribucion.html#variables-categóricas"><i class="fa fa-check"></i><b>4.1</b> Variables Categóricas</a></li>
+<li class="chapter" data-level="4.2" data-path="distribucion.html"><a href="distribucion.html#variables-numéricas"><i class="fa fa-check"></i><b>4.2</b> Variables Numéricas</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="distribucion.html"><a href="distribucion.html#distribución-de-la-población"><i class="fa fa-check"></i><b>4.2.1</b> Distribución de la Población</a></li>
+<li class="chapter" data-level="4.2.2" data-path="distribucion.html"><a href="distribucion.html#distribución-de-la-densidad-poblacional"><i class="fa fa-check"></i><b>4.2.2</b> Distribución de la Densidad Poblacional</a></li>
+<li class="chapter" data-level="4.2.3" data-path="distribucion.html"><a href="distribucion.html#población-por-nivel-de-ingreso"><i class="fa fa-check"></i><b>4.2.3</b> Población por Nivel de Ingreso</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="temporal.html"><a href="temporal.html"><i class="fa fa-check"></i><b>5</b> Evolución Temporal</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="temporal.html"><a href="temporal.html#población-mundial-total"><i class="fa fa-check"></i><b>5.1</b> Población Mundial Total</a></li>
+<li class="chapter" data-level="5.2" data-path="temporal.html"><a href="temporal.html#top-10-países-más-poblados"><i class="fa fa-check"></i><b>5.2</b> Top 10 Países Más Poblados</a></li>
+<li class="chapter" data-level="5.3" data-path="temporal.html"><a href="temporal.html#evolución-de-los-top-5-países"><i class="fa fa-check"></i><b>5.3</b> Evolución de los Top 5 Países</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="migracion.html"><a href="migracion.html"><i class="fa fa-check"></i><b>6</b> Análisis de Migración Neta</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="migracion.html"><a href="migracion.html#estadísticas-de-migración"><i class="fa fa-check"></i><b>6.1</b> Estadísticas de Migración</a></li>
+<li class="chapter" data-level="6.2" data-path="migracion.html"><a href="migracion.html#principales-receptores-y-emisores"><i class="fa fa-check"></i><b>6.2</b> Principales Receptores y Emisores</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="correlacion.html"><a href="correlacion.html"><i class="fa fa-check"></i><b>7</b> Correlación y Densidad Poblacional</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="correlacion.html"><a href="correlacion.html#análisis-de-correlación"><i class="fa fa-check"></i><b>7.1</b> Análisis de Correlación</a></li>
+<li class="chapter" data-level="7.2" data-path="correlacion.html"><a href="correlacion.html#densidad-poblacional"><i class="fa fa-check"></i><b>7.2</b> Densidad Poblacional</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="correlacion.html"><a href="correlacion.html#top-15-territorios-más-densos"><i class="fa fa-check"></i><b>7.2.1</b> Top 15 Territorios Más Densos</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ingreso-region.html"><a href="ingreso-region.html"><i class="fa fa-check"></i><b>8</b> Análisis por Nivel de Ingreso y Región</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="ingreso-region.html"><a href="ingreso-region.html#análisis-por-nivel-de-ingreso"><i class="fa fa-check"></i><b>8.1</b> Análisis por Nivel de Ingreso</a></li>
+<li class="chapter" data-level="8.2" data-path="ingreso-region.html"><a href="ingreso-region.html#análisis-por-región"><i class="fa fa-check"></i><b>8.2</b> Análisis por Región</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>9</b> Tasa de Crecimiento y Conclusiones</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="conclusiones.html"><a href="conclusiones.html#tasa-de-crecimiento-poblacional"><i class="fa fa-check"></i><b>9.1</b> Tasa de Crecimiento Poblacional</a></li>
+<li class="chapter" data-level="9.2" data-path="conclusiones.html"><a href="conclusiones.html#conclusiones-1"><i class="fa fa-check"></i><b>9.2</b> Conclusiones</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Publicado con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis Exploratorio de Datos: Población Mundial y Migración</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="distribucion" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Capítulo 4</span> Distribución de Variables<a href="distribucion.html#distribucion" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="variables-categóricas" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Variables Categóricas<a href="distribucion.html#variables-categóricas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="distribucion.html#cb35-1" tabindex="-1"></a>resumen_cat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb35-2"><a href="distribucion.html#cb35-2" tabindex="-1"></a>  <span class="at">Metrica =</span> <span class="fu">c</span>(<span class="st">&quot;Países/entidades únicas&quot;</span>, <span class="st">&quot;Rango de años&quot;</span>, <span class="st">&quot;Regiones únicas&quot;</span>,</span>
+<span id="cb35-3"><a href="distribucion.html#cb35-3" tabindex="-1"></a>              <span class="st">&quot;Niveles de ingreso&quot;</span>, <span class="st">&quot;Filas (solo países)&quot;</span>, <span class="st">&quot;Países únicos (sin agregados)&quot;</span>),</span>
+<span id="cb35-4"><a href="distribucion.html#cb35-4" tabindex="-1"></a>  <span class="at">Valor =</span> <span class="fu">c</span>(</span>
+<span id="cb35-5"><a href="distribucion.html#cb35-5" tabindex="-1"></a>    <span class="fu">n_distinct</span>(df<span class="sc">$</span>country),</span>
+<span id="cb35-6"><a href="distribucion.html#cb35-6" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="fu">min</span>(df<span class="sc">$</span>year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="st">&quot;-&quot;</span>, <span class="fu">max</span>(df<span class="sc">$</span>year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb35-7"><a href="distribucion.html#cb35-7" tabindex="-1"></a>    <span class="fu">n_distinct</span>(df<span class="sc">$</span>region),</span>
+<span id="cb35-8"><a href="distribucion.html#cb35-8" tabindex="-1"></a>    <span class="fu">n_distinct</span>(df<span class="sc">$</span>incomeLevel),</span>
+<span id="cb35-9"><a href="distribucion.html#cb35-9" tabindex="-1"></a>    <span class="fu">nrow</span>(df_paises),</span>
+<span id="cb35-10"><a href="distribucion.html#cb35-10" tabindex="-1"></a>    <span class="fu">n_distinct</span>(df_paises<span class="sc">$</span>country)</span>
+<span id="cb35-11"><a href="distribucion.html#cb35-11" tabindex="-1"></a>  )</span>
+<span id="cb35-12"><a href="distribucion.html#cb35-12" tabindex="-1"></a>)</span>
+<span id="cb35-13"><a href="distribucion.html#cb35-13" tabindex="-1"></a></span>
+<span id="cb35-14"><a href="distribucion.html#cb35-14" tabindex="-1"></a><span class="fu">kable</span>(resumen_cat, <span class="at">caption =</span> <span class="st">&quot;Resumen de variables categóricas&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:categoricas-resumen">Table 4.1: </span>Resumen de variables categóricas</caption>
+<thead>
+<tr class="header">
+<th align="left">Metrica</th>
+<th align="left">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Países/entidades únicas</td>
+<td align="left">264</td>
+</tr>
+<tr class="even">
+<td align="left">Rango de años</td>
+<td align="left">1960 - 2018</td>
+</tr>
+<tr class="odd">
+<td align="left">Regiones únicas</td>
+<td align="left">9</td>
+</tr>
+<tr class="even">
+<td align="left">Niveles de ingreso</td>
+<td align="left">6</td>
+</tr>
+<tr class="odd">
+<td align="left">Filas (solo países)</td>
+<td align="left">12695</td>
+</tr>
+<tr class="even">
+<td align="left">Países únicos (sin agregados)</td>
+<td align="left">217</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="distribucion.html#cb36-1" tabindex="-1"></a>region_counts <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">count</span>(region, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb36-2"><a href="distribucion.html#cb36-2" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="distribucion.html#cb36-3" tabindex="-1"></a><span class="fu">kable</span>(region_counts, <span class="at">caption =</span> <span class="st">&quot;Observaciones por región&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:region-counts">Table 4.2: </span>Observaciones por región</caption>
+<thead>
+<tr class="header">
+<th align="left">region</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Europe &amp; Central Asia</td>
+<td align="right">3422</td>
+</tr>
+<tr class="even">
+<td align="left">Sub-Saharan Africa</td>
+<td align="right">2832</td>
+</tr>
+<tr class="odd">
+<td align="left">Aggregates</td>
+<td align="right">2655</td>
+</tr>
+<tr class="even">
+<td align="left">Latin America &amp; Caribbean</td>
+<td align="right">2478</td>
+</tr>
+<tr class="odd">
+<td align="left">East Asia &amp; Pacific</td>
+<td align="right">2183</td>
+</tr>
+<tr class="even">
+<td align="left">Middle East &amp; North Africa</td>
+<td align="right">1239</td>
+</tr>
+<tr class="odd">
+<td align="left">South Asia</td>
+<td align="right">472</td>
+</tr>
+<tr class="even">
+<td align="left">North America</td>
+<td align="right">177</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="right">118</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="distribucion.html#cb37-1" tabindex="-1"></a><span class="fu">ggplot</span>(region_counts, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(region, n), <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb37-2"><a href="distribucion.html#cb37-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;#3498DB&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb37-3"><a href="distribucion.html#cb37-3" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb37-4"><a href="distribucion.html#cb37-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Número de Observaciones por Región&quot;</span>,</span>
+<span id="cb37-5"><a href="distribucion.html#cb37-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Región&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Número de Observaciones&quot;</span>) <span class="sc">+</span></span>
+<span id="cb37-6"><a href="distribucion.html#cb37-6" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb37-7"><a href="distribucion.html#cb37-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:plot-region"></span>
+<img src="eda_poblacion_mundial_files/figure-html/plot-region-1.png" alt="Distribución de observaciones por región" width="90%" />
+<p class="caption">
+Figure 4.1: Distribución de observaciones por región
+</p>
+</div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="distribucion.html#cb38-1" tabindex="-1"></a>income_counts <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">count</span>(incomeLevel, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb38-2"><a href="distribucion.html#cb38-2" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="distribucion.html#cb38-3" tabindex="-1"></a><span class="fu">kable</span>(income_counts, <span class="at">caption =</span> <span class="st">&quot;Observaciones por nivel de ingreso&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:income-counts">Table 4.3: </span>Observaciones por nivel de ingreso</caption>
+<thead>
+<tr class="header">
+<th align="left">incomeLevel</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">High income</td>
+<td align="right">4661</td>
+</tr>
+<tr class="even">
+<td align="left">Upper middle income</td>
+<td align="right">3540</td>
+</tr>
+<tr class="odd">
+<td align="left">Lower middle income</td>
+<td align="right">2773</td>
+</tr>
+<tr class="even">
+<td align="left">Aggregates</td>
+<td align="right">2655</td>
+</tr>
+<tr class="odd">
+<td align="left">Low income</td>
+<td align="right">1829</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="right">118</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="distribucion.html#cb39-1" tabindex="-1"></a><span class="fu">ggplot</span>(income_counts, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(incomeLevel, n), <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb39-2"><a href="distribucion.html#cb39-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;#2ECC71&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb39-3"><a href="distribucion.html#cb39-3" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb39-4"><a href="distribucion.html#cb39-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Número de Observaciones por Nivel de Ingreso&quot;</span>,</span>
+<span id="cb39-5"><a href="distribucion.html#cb39-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Nivel de Ingreso&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Número de Observaciones&quot;</span>) <span class="sc">+</span></span>
+<span id="cb39-6"><a href="distribucion.html#cb39-6" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb39-7"><a href="distribucion.html#cb39-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:plot-income"></span>
+<img src="eda_poblacion_mundial_files/figure-html/plot-income-1.png" alt="Distribución de observaciones por nivel de ingreso" width="90%" />
+<p class="caption">
+Figure 4.2: Distribución de observaciones por nivel de ingreso
+</p>
+</div>
+<blockquote>
+<p>Las regiones con mayor representación son las que contienen mayor cantidad de países (África Subsahariana, Europa y Asia Central). La categoría “Aggregates” corresponde a totales regionales y mundiales que el Banco Mundial incluye como filas separadas; es fundamental filtrarlos para evitar doble conteo en análisis a nivel de país.</p>
+</blockquote>
+</div>
+<div id="variables-numéricas" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Variables Numéricas<a href="distribucion.html#variables-numéricas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="distribución-de-la-población" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Distribución de la Población<a href="distribucion.html#distribución-de-la-población" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="distribucion.html#cb40-1" tabindex="-1"></a><span class="fu">ggplot</span>(df_paises, <span class="fu">aes</span>(<span class="at">x =</span> population)) <span class="sc">+</span></span>
+<span id="cb40-2"><a href="distribucion.html#cb40-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">50</span>, <span class="at">fill =</span> <span class="st">&quot;#9B59B6&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb40-3"><a href="distribucion.html#cb40-3" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb40-4"><a href="distribucion.html#cb40-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de la Población (escala log10)&quot;</span>,</span>
+<span id="cb40-5"><a href="distribucion.html#cb40-5" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Solo países (excluyendo agregados regionales)&quot;</span>,</span>
+<span id="cb40-6"><a href="distribucion.html#cb40-6" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Población (log10)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">+</span></span>
+<span id="cb40-7"><a href="distribucion.html#cb40-7" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb40-8"><a href="distribucion.html#cb40-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb40-9"><a href="distribucion.html#cb40-9" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;grey50&quot;</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:hist-poblacion"></span>
+<img src="eda_poblacion_mundial_files/figure-html/hist-poblacion-1.png" alt="Distribución de la población en escala logarítmica" width="90%" />
+<p class="caption">
+Figure 4.3: Distribución de la población en escala logarítmica
+</p>
+</div>
+</div>
+<div id="distribución-de-la-densidad-poblacional" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Distribución de la Densidad Poblacional<a href="distribucion.html#distribución-de-la-densidad-poblacional" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="distribucion.html#cb41-1" tabindex="-1"></a><span class="fu">ggplot</span>(df_paises <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(pop_density)), <span class="fu">aes</span>(<span class="at">x =</span> pop_density)) <span class="sc">+</span></span>
+<span id="cb41-2"><a href="distribucion.html#cb41-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">50</span>, <span class="at">fill =</span> <span class="st">&quot;#E67E22&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb41-3"><a href="distribucion.html#cb41-3" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb41-4"><a href="distribucion.html#cb41-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de la Densidad Poblacional (escala log10)&quot;</span>,</span>
+<span id="cb41-5"><a href="distribucion.html#cb41-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Densidad Poblacional (hab/km²) - log10&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">+</span></span>
+<span id="cb41-6"><a href="distribucion.html#cb41-6" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb41-7"><a href="distribucion.html#cb41-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:hist-densidad"></span>
+<img src="eda_poblacion_mundial_files/figure-html/hist-densidad-1.png" alt="Distribución de la densidad poblacional en escala logarítmica" width="90%" />
+<p class="caption">
+Figure 4.4: Distribución de la densidad poblacional en escala logarítmica
+</p>
+</div>
+<blockquote>
+<p>La distribución de la densidad poblacional es fuertemente asimétrica (sesgada a la derecha), confirmando que la mayoría de países tienen densidades poblacionales relativamente pequeñas, mientras unos pocos países concentran gran parte de la densidad poblacional mundial.</p>
+</blockquote>
+</div>
+<div id="población-por-nivel-de-ingreso" class="section level3 hasAnchor" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Población por Nivel de Ingreso<a href="distribucion.html#población-por-nivel-de-ingreso" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="distribucion.html#cb42-1" tabindex="-1"></a><span class="fu">ggplot</span>(df_paises <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(population) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(incomeLevel)),</span>
+<span id="cb42-2"><a href="distribucion.html#cb42-2" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> incomeLevel, <span class="at">y =</span> population, <span class="at">fill =</span> incomeLevel)) <span class="sc">+</span></span>
+<span id="cb42-3"><a href="distribucion.html#cb42-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb42-4"><a href="distribucion.html#cb42-4" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb42-5"><a href="distribucion.html#cb42-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Población por Nivel de Ingreso&quot;</span>,</span>
+<span id="cb42-6"><a href="distribucion.html#cb42-6" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Nivel de Ingreso&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Población (log10)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb42-7"><a href="distribucion.html#cb42-7" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb42-8"><a href="distribucion.html#cb42-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb42-9"><a href="distribucion.html#cb42-9" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">30</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb42-10"><a href="distribucion.html#cb42-10" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb42-11"><a href="distribucion.html#cb42-11" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set2&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:boxplot-pop-income"></span>
+<img src="eda_poblacion_mundial_files/figure-html/boxplot-pop-income-1.png" alt="Distribución de población por nivel de ingreso" width="90%" />
+<p class="caption">
+Figure 4.5: Distribución de población por nivel de ingreso
+</p>
+</div>
+<blockquote>
+<p>El boxplot por nivel de ingreso sugiere que los países de ingreso medio-bajo tienden a tener poblaciones mayores, consistente con el hecho de que India y varias naciones del Sudeste Asiático y África pertenecen a esta categoría.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="limpieza.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="temporal.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["eda_poblacion_mundial.pdf", "eda_poblacion_mundial.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

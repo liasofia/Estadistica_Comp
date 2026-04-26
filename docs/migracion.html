@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 6 Análisis de Migración Neta | Análisis Exploratorio de Datos: Población Mundial y Migración</title>
+  <meta name="description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
+Población Mundial y Migración del Banco Mundial.</p>" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 6 Análisis de Migración Neta | Análisis Exploratorio de Datos: Población Mundial y Migración" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
+Población Mundial y Migración del Banco Mundial.</p>" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 6 Análisis de Migración Neta | Análisis Exploratorio de Datos: Población Mundial y Migración" />
+  
+  <meta name="twitter:description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
+Población Mundial y Migración del Banco Mundial.</p>" />
+  
+
+<meta name="author" content="Lia Castillo" />
+
+
+<meta name="date" content="2026-04-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="temporal.html"/>
+<link rel="next" href="correlacion.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">EDA - Población Mundial</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introducción</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#objetivos-del-eda"><i class="fa fa-check"></i>Objetivos del EDA</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#metodología"><i class="fa fa-check"></i>Metodología</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#fuente-de-datos"><i class="fa fa-check"></i>Fuente de Datos</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="diccionario.html"><a href="diccionario.html"><i class="fa fa-check"></i><b>1</b> Diccionario de Variables</a></li>
+<li class="chapter" data-level="2" data-path="estructura.html"><a href="estructura.html"><i class="fa fa-check"></i><b>2</b> Estructura y Calidad del Dataset</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="estructura.html"><a href="estructura.html#dimensiones-y-estructura-general"><i class="fa fa-check"></i><b>2.1</b> Dimensiones y Estructura General</a></li>
+<li class="chapter" data-level="2.2" data-path="estructura.html"><a href="estructura.html#resumen-estadístico"><i class="fa fa-check"></i><b>2.2</b> Resumen Estadístico</a></li>
+<li class="chapter" data-level="2.3" data-path="estructura.html"><a href="estructura.html#análisis-de-valores-faltantes-na"><i class="fa fa-check"></i><b>2.3</b> Análisis de Valores Faltantes (NA)</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="limpieza.html"><a href="limpieza.html"><i class="fa fa-check"></i><b>3</b> Limpieza y Preparación de Datos</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="limpieza.html"><a href="limpieza.html#verificación-de-duplicados"><i class="fa fa-check"></i><b>3.1</b> Verificación de Duplicados</a></li>
+<li class="chapter" data-level="3.2" data-path="limpieza.html"><a href="limpieza.html#corrección-de-tipos-de-datos"><i class="fa fa-check"></i><b>3.2</b> Corrección de Tipos de Datos</a></li>
+<li class="chapter" data-level="3.3" data-path="limpieza.html"><a href="limpieza.html#limpieza-de-variables-categóricas"><i class="fa fa-check"></i><b>3.3</b> Limpieza de Variables Categóricas</a></li>
+<li class="chapter" data-level="3.4" data-path="limpieza.html"><a href="limpieza.html#separación-de-agregados-y-países"><i class="fa fa-check"></i><b>3.4</b> Separación de Agregados y Países</a></li>
+<li class="chapter" data-level="3.5" data-path="limpieza.html"><a href="limpieza.html#tratamiento-de-valores-faltantes-nas"><i class="fa fa-check"></i><b>3.5</b> Tratamiento de Valores Faltantes (NAs)</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="limpieza.html"><a href="limpieza.html#estrategia-de-tratamiento"><i class="fa fa-check"></i><b>3.5.1</b> Estrategia de Tratamiento</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="limpieza.html"><a href="limpieza.html#detección-de-valores-atípicos-outliers"><i class="fa fa-check"></i><b>3.6</b> Detección de Valores Atípicos (Outliers)</a></li>
+<li class="chapter" data-level="3.7" data-path="limpieza.html"><a href="limpieza.html#validación-de-rangos-y-consistencia"><i class="fa fa-check"></i><b>3.7</b> Validación de Rangos y Consistencia</a></li>
+<li class="chapter" data-level="3.8" data-path="limpieza.html"><a href="limpieza.html#resumen-de-la-limpieza"><i class="fa fa-check"></i><b>3.8</b> Resumen de la Limpieza</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="distribucion.html"><a href="distribucion.html"><i class="fa fa-check"></i><b>4</b> Distribución de Variables</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="distribucion.html"><a href="distribucion.html#variables-categóricas"><i class="fa fa-check"></i><b>4.1</b> Variables Categóricas</a></li>
+<li class="chapter" data-level="4.2" data-path="distribucion.html"><a href="distribucion.html#variables-numéricas"><i class="fa fa-check"></i><b>4.2</b> Variables Numéricas</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="distribucion.html"><a href="distribucion.html#distribución-de-la-población"><i class="fa fa-check"></i><b>4.2.1</b> Distribución de la Población</a></li>
+<li class="chapter" data-level="4.2.2" data-path="distribucion.html"><a href="distribucion.html#distribución-de-la-densidad-poblacional"><i class="fa fa-check"></i><b>4.2.2</b> Distribución de la Densidad Poblacional</a></li>
+<li class="chapter" data-level="4.2.3" data-path="distribucion.html"><a href="distribucion.html#población-por-nivel-de-ingreso"><i class="fa fa-check"></i><b>4.2.3</b> Población por Nivel de Ingreso</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="temporal.html"><a href="temporal.html"><i class="fa fa-check"></i><b>5</b> Evolución Temporal</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="temporal.html"><a href="temporal.html#población-mundial-total"><i class="fa fa-check"></i><b>5.1</b> Población Mundial Total</a></li>
+<li class="chapter" data-level="5.2" data-path="temporal.html"><a href="temporal.html#top-10-países-más-poblados"><i class="fa fa-check"></i><b>5.2</b> Top 10 Países Más Poblados</a></li>
+<li class="chapter" data-level="5.3" data-path="temporal.html"><a href="temporal.html#evolución-de-los-top-5-países"><i class="fa fa-check"></i><b>5.3</b> Evolución de los Top 5 Países</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="migracion.html"><a href="migracion.html"><i class="fa fa-check"></i><b>6</b> Análisis de Migración Neta</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="migracion.html"><a href="migracion.html#estadísticas-de-migración"><i class="fa fa-check"></i><b>6.1</b> Estadísticas de Migración</a></li>
+<li class="chapter" data-level="6.2" data-path="migracion.html"><a href="migracion.html#principales-receptores-y-emisores"><i class="fa fa-check"></i><b>6.2</b> Principales Receptores y Emisores</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="correlacion.html"><a href="correlacion.html"><i class="fa fa-check"></i><b>7</b> Correlación y Densidad Poblacional</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="correlacion.html"><a href="correlacion.html#análisis-de-correlación"><i class="fa fa-check"></i><b>7.1</b> Análisis de Correlación</a></li>
+<li class="chapter" data-level="7.2" data-path="correlacion.html"><a href="correlacion.html#densidad-poblacional"><i class="fa fa-check"></i><b>7.2</b> Densidad Poblacional</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="correlacion.html"><a href="correlacion.html#top-15-territorios-más-densos"><i class="fa fa-check"></i><b>7.2.1</b> Top 15 Territorios Más Densos</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ingreso-region.html"><a href="ingreso-region.html"><i class="fa fa-check"></i><b>8</b> Análisis por Nivel de Ingreso y Región</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="ingreso-region.html"><a href="ingreso-region.html#análisis-por-nivel-de-ingreso"><i class="fa fa-check"></i><b>8.1</b> Análisis por Nivel de Ingreso</a></li>
+<li class="chapter" data-level="8.2" data-path="ingreso-region.html"><a href="ingreso-region.html#análisis-por-región"><i class="fa fa-check"></i><b>8.2</b> Análisis por Región</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>9</b> Tasa de Crecimiento y Conclusiones</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="conclusiones.html"><a href="conclusiones.html#tasa-de-crecimiento-poblacional"><i class="fa fa-check"></i><b>9.1</b> Tasa de Crecimiento Poblacional</a></li>
+<li class="chapter" data-level="9.2" data-path="conclusiones.html"><a href="conclusiones.html#conclusiones-1"><i class="fa fa-check"></i><b>9.2</b> Conclusiones</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Publicado con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis Exploratorio de Datos: Población Mundial y Migración</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="migracion" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Capítulo 6</span> Análisis de Migración Neta<a href="migracion.html#migracion" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="migracion.html#cb48-1" tabindex="-1"></a>df_migracion <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(net_migration))</span></code></pre></div>
+<p>El dataset contiene <strong>2313</strong> observaciones con datos de migración neta.</p>
+<div id="estadísticas-de-migración" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Estadísticas de Migración<a href="migracion.html#estadísticas-de-migración" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="migracion.html#cb49-1" tabindex="-1"></a><span class="fu">summary</span>(df_migracion<span class="sc">$</span>net_migration)</span></code></pre></div>
+<pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+## -5386986   -80263    -6000      477    27450  8859954</code></pre>
+</div>
+<div id="principales-receptores-y-emisores" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Principales Receptores y Emisores<a href="migracion.html#principales-receptores-y-emisores" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="migracion.html#cb51-1" tabindex="-1"></a>ultimo_anio_mig <span class="ot">&lt;-</span> <span class="fu">max</span>(df_migracion<span class="sc">$</span>year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb51-2"><a href="migracion.html#cb51-2" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="migracion.html#cb51-3" tabindex="-1"></a>top_inmigracion <span class="ot">&lt;-</span> df_migracion <span class="sc">%&gt;%</span></span>
+<span id="cb51-4"><a href="migracion.html#cb51-4" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> ultimo_anio_mig) <span class="sc">%&gt;%</span></span>
+<span id="cb51-5"><a href="migracion.html#cb51-5" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(net_migration)) <span class="sc">%&gt;%</span></span>
+<span id="cb51-6"><a href="migracion.html#cb51-6" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span>
+<span id="cb51-7"><a href="migracion.html#cb51-7" tabindex="-1"></a></span>
+<span id="cb51-8"><a href="migracion.html#cb51-8" tabindex="-1"></a>top_emigracion <span class="ot">&lt;-</span> df_migracion <span class="sc">%&gt;%</span></span>
+<span id="cb51-9"><a href="migracion.html#cb51-9" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> ultimo_anio_mig) <span class="sc">%&gt;%</span></span>
+<span id="cb51-10"><a href="migracion.html#cb51-10" tabindex="-1"></a>  <span class="fu">arrange</span>(net_migration) <span class="sc">%&gt;%</span></span>
+<span id="cb51-11"><a href="migracion.html#cb51-11" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span>
+<span id="cb51-12"><a href="migracion.html#cb51-12" tabindex="-1"></a></span>
+<span id="cb51-13"><a href="migracion.html#cb51-13" tabindex="-1"></a><span class="fu">kable</span>(top_inmigracion <span class="sc">%&gt;%</span> <span class="fu">select</span>(country, net_migration, migration_perc),</span>
+<span id="cb51-14"><a href="migracion.html#cb51-14" tabindex="-1"></a>      <span class="at">caption =</span> <span class="fu">paste</span>(<span class="st">&quot;Top 10 países con mayor inmigración neta (año&quot;</span>, ultimo_anio_mig, <span class="st">&quot;)&quot;</span>))</span></code></pre></div>
+<table>
+<caption><span id="tab:top-migracion">Table 6.1: </span>Top 10 países con mayor inmigración neta (año 2017 )</caption>
+<thead>
+<tr class="header">
+<th align="left">country</th>
+<th align="right">net_migration</th>
+<th align="right">migration_perc</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">United States</td>
+<td align="right">4774029</td>
+<td align="right">0.0146827</td>
+</tr>
+<tr class="even">
+<td align="left">Germany</td>
+<td align="right">2719112</td>
+<td align="right">0.0328963</td>
+</tr>
+<tr class="odd">
+<td align="left">Turkey</td>
+<td align="right">1419610</td>
+<td align="right">0.0175040</td>
+</tr>
+<tr class="even">
+<td align="left">United Kingdom</td>
+<td align="right">1303250</td>
+<td align="right">0.0197286</td>
+</tr>
+<tr class="odd">
+<td align="left">Canada</td>
+<td align="right">1210159</td>
+<td align="right">0.0331185</td>
+</tr>
+<tr class="even">
+<td align="left">Colombia</td>
+<td align="right">1023981</td>
+<td align="right">0.0209399</td>
+</tr>
+<tr class="odd">
+<td align="left">Russian Federation</td>
+<td align="right">912279</td>
+<td align="right">0.0063135</td>
+</tr>
+<tr class="even">
+<td align="left">Uganda</td>
+<td align="right">843469</td>
+<td align="right">0.0204912</td>
+</tr>
+<tr class="odd">
+<td align="left">Australia</td>
+<td align="right">791229</td>
+<td align="right">0.0321613</td>
+</tr>
+<tr class="even">
+<td align="left">Italy</td>
+<td align="right">744713</td>
+<td align="right">0.0123018</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="migracion.html#cb52-1" tabindex="-1"></a><span class="fu">kable</span>(top_emigracion <span class="sc">%&gt;%</span> <span class="fu">select</span>(country, net_migration, migration_perc),</span>
+<span id="cb52-2"><a href="migracion.html#cb52-2" tabindex="-1"></a>      <span class="at">caption =</span> <span class="fu">paste</span>(<span class="st">&quot;Top 10 países con mayor emigración neta (año&quot;</span>, ultimo_anio_mig, <span class="st">&quot;)&quot;</span>))</span></code></pre></div>
+<table>
+<caption><span id="tab:top-migracion">Table 6.1: </span>Top 10 países con mayor emigración neta (año 2017 )</caption>
+<thead>
+<tr class="header">
+<th align="left">country</th>
+<th align="right">net_migration</th>
+<th align="right">migration_perc</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Venezuela, RB</td>
+<td align="right">-3266243</td>
+<td align="right">-0.1111330</td>
+</tr>
+<tr class="even">
+<td align="left">India</td>
+<td align="right">-2663434</td>
+<td align="right">-0.0019896</td>
+</tr>
+<tr class="odd">
+<td align="left">Syrian Arab Republic</td>
+<td align="right">-2136954</td>
+<td align="right">-0.1252024</td>
+</tr>
+<tr class="even">
+<td align="left">Bangladesh</td>
+<td align="right">-1847503</td>
+<td align="right">-0.0115707</td>
+</tr>
+<tr class="odd">
+<td align="left">China</td>
+<td align="right">-1741996</td>
+<td align="right">-0.0012565</td>
+</tr>
+<tr class="even">
+<td align="left">Pakistan</td>
+<td align="right">-1166895</td>
+<td align="right">-0.0056129</td>
+</tr>
+<tr class="odd">
+<td align="left">South Sudan</td>
+<td align="right">-870998</td>
+<td align="right">-0.0798293</td>
+</tr>
+<tr class="even">
+<td align="left">Myanmar</td>
+<td align="right">-816564</td>
+<td align="right">-0.0152965</td>
+</tr>
+<tr class="odd">
+<td align="left">Zimbabwe</td>
+<td align="right">-584288</td>
+<td align="right">-0.0410408</td>
+</tr>
+<tr class="even">
+<td align="left">Indonesia</td>
+<td align="right">-494777</td>
+<td align="right">-0.0018696</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Los principales receptores netos, como Estados Unidos, Alemania y los Emiratos Árabes Unidos, corresponden a economías de alto ingreso que funcionan como polos de atracción laboral y refugio. En contraste, los mayores emisores netos India, Bangladesh y Siria, son conocidos por sus problemas de pobreza o geopoliticos y reflejan dinámicas de expulsión vinculadas a factores económicos (mercados laborales saturados, bajos salarios relativos) y geopolíticos (conflictos armados, inestabilidad institucional). Es relevante señalar que la variable <code>migration_perc</code> relativiza estos flujos respecto al tamaño poblacional, lo que permite contextualizar el impacto real de la migración en la estructura demográfica de cada país; por ejemplo, un flujo migratorio que resulta marginal para India puede ser transformador para un estado pequeño del Golfo Pérsico.</p>
+</blockquote>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="migracion.html#cb53-1" tabindex="-1"></a>top_mig_combined <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb53-2"><a href="migracion.html#cb53-2" tabindex="-1"></a>  top_inmigracion <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">tipo =</span> <span class="st">&quot;Inmigración&quot;</span>),</span>
+<span id="cb53-3"><a href="migracion.html#cb53-3" tabindex="-1"></a>  top_emigracion <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">tipo =</span> <span class="st">&quot;Emigración&quot;</span>)</span>
+<span id="cb53-4"><a href="migracion.html#cb53-4" tabindex="-1"></a>)</span>
+<span id="cb53-5"><a href="migracion.html#cb53-5" tabindex="-1"></a></span>
+<span id="cb53-6"><a href="migracion.html#cb53-6" tabindex="-1"></a><span class="fu">ggplot</span>(top_mig_combined,</span>
+<span id="cb53-7"><a href="migracion.html#cb53-7" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(country, net_migration), <span class="at">y =</span> net_migration, <span class="at">fill =</span> tipo)) <span class="sc">+</span></span>
+<span id="cb53-8"><a href="migracion.html#cb53-8" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb53-9"><a href="migracion.html#cb53-9" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb53-10"><a href="migracion.html#cb53-10" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="fu">round</span>(x <span class="sc">/</span> <span class="fl">1e6</span>, <span class="dv">1</span>), <span class="st">&quot;M&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb53-11"><a href="migracion.html#cb53-11" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Inmigración&quot;</span> <span class="ot">=</span> <span class="st">&quot;#27AE60&quot;</span>, <span class="st">&quot;Emigración&quot;</span> <span class="ot">=</span> <span class="st">&quot;#E74C3C&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb53-12"><a href="migracion.html#cb53-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Migración Neta: Mayores Receptores y Emisores&quot;</span>,</span>
+<span id="cb53-13"><a href="migracion.html#cb53-13" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">&quot;Año:&quot;</span>, ultimo_anio_mig),</span>
+<span id="cb53-14"><a href="migracion.html#cb53-14" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Migración Neta&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb53-15"><a href="migracion.html#cb53-15" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb53-16"><a href="migracion.html#cb53-16" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb53-17"><a href="migracion.html#cb53-17" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;grey50&quot;</span>),</span>
+<span id="cb53-18"><a href="migracion.html#cb53-18" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:plot-migracion"></span>
+<img src="eda_poblacion_mundial_files/figure-html/plot-migracion-1.png" alt="Mayores receptores y emisores de migración neta" width="90%" />
+<p class="caption">
+Figure 6.1: Mayores receptores y emisores de migración neta
+</p>
+</div>
+<blockquote>
+<p>El gráfico de barras horizontales evidencia la asimetría en la magnitud absoluta de los flujos migratorios. Estados Unidos destaca como el principal receptor neto a nivel global, con un saldo migratorio positivo que supera en varios millones al de cualquier otro país, lo cual se explica por su papel histórico como destino de migración económica y de refugio.
+Del lado de la emigración, India y Bangladesh presentan los saldos negativos más pronunciados, asociados a la emigración laboral hacia las economías del Golfo Pérsico y el Sudeste Asiático.
+## Distribución del Porcentaje de Migración</p>
+</blockquote>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="migracion.html#cb54-1" tabindex="-1"></a><span class="fu">ggplot</span>(df_migracion <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(migration_perc)),</span>
+<span id="cb54-2"><a href="migracion.html#cb54-2" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> migration_perc <span class="sc">*</span> <span class="dv">100</span>)) <span class="sc">+</span></span>
+<span id="cb54-3"><a href="migracion.html#cb54-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">40</span>, <span class="at">fill =</span> <span class="st">&quot;#8E44AD&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb54-4"><a href="migracion.html#cb54-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución del Porcentaje de Migración Neta&quot;</span>,</span>
+<span id="cb54-5"><a href="migracion.html#cb54-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Migración Neta como % de la Población&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">+</span></span>
+<span id="cb54-6"><a href="migracion.html#cb54-6" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb54-7"><a href="migracion.html#cb54-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:plot-mig-perc"></span>
+<img src="eda_poblacion_mundial_files/figure-html/plot-mig-perc-1.png" alt="Distribución del porcentaje de migración neta respecto a la población" width="90%" />
+<p class="caption">
+Figure 6.2: Distribución del porcentaje de migración neta respecto a la población
+</p>
+</div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="temporal.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="correlacion.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["eda_poblacion_mundial.pdf", "eda_poblacion_mundial.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

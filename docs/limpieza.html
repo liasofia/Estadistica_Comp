@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 3 Limpieza y Preparación de Datos | Análisis Exploratorio de Datos: Población Mundial y Migración</title>
+  <meta name="description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
+Población Mundial y Migración del Banco Mundial.</p>" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 3 Limpieza y Preparación de Datos | Análisis Exploratorio de Datos: Población Mundial y Migración" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
+Población Mundial y Migración del Banco Mundial.</p>" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 3 Limpieza y Preparación de Datos | Análisis Exploratorio de Datos: Población Mundial y Migración" />
+  
+  <meta name="twitter:description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
+Población Mundial y Migración del Banco Mundial.</p>" />
+  
+
+<meta name="author" content="Lia Castillo" />
+
+
+<meta name="date" content="2026-04-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="estructura.html"/>
+<link rel="next" href="distribucion.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">EDA - Población Mundial</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introducción</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#objetivos-del-eda"><i class="fa fa-check"></i>Objetivos del EDA</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#metodología"><i class="fa fa-check"></i>Metodología</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#fuente-de-datos"><i class="fa fa-check"></i>Fuente de Datos</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="diccionario.html"><a href="diccionario.html"><i class="fa fa-check"></i><b>1</b> Diccionario de Variables</a></li>
+<li class="chapter" data-level="2" data-path="estructura.html"><a href="estructura.html"><i class="fa fa-check"></i><b>2</b> Estructura y Calidad del Dataset</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="estructura.html"><a href="estructura.html#dimensiones-y-estructura-general"><i class="fa fa-check"></i><b>2.1</b> Dimensiones y Estructura General</a></li>
+<li class="chapter" data-level="2.2" data-path="estructura.html"><a href="estructura.html#resumen-estadístico"><i class="fa fa-check"></i><b>2.2</b> Resumen Estadístico</a></li>
+<li class="chapter" data-level="2.3" data-path="estructura.html"><a href="estructura.html#análisis-de-valores-faltantes-na"><i class="fa fa-check"></i><b>2.3</b> Análisis de Valores Faltantes (NA)</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="limpieza.html"><a href="limpieza.html"><i class="fa fa-check"></i><b>3</b> Limpieza y Preparación de Datos</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="limpieza.html"><a href="limpieza.html#verificación-de-duplicados"><i class="fa fa-check"></i><b>3.1</b> Verificación de Duplicados</a></li>
+<li class="chapter" data-level="3.2" data-path="limpieza.html"><a href="limpieza.html#corrección-de-tipos-de-datos"><i class="fa fa-check"></i><b>3.2</b> Corrección de Tipos de Datos</a></li>
+<li class="chapter" data-level="3.3" data-path="limpieza.html"><a href="limpieza.html#limpieza-de-variables-categóricas"><i class="fa fa-check"></i><b>3.3</b> Limpieza de Variables Categóricas</a></li>
+<li class="chapter" data-level="3.4" data-path="limpieza.html"><a href="limpieza.html#separación-de-agregados-y-países"><i class="fa fa-check"></i><b>3.4</b> Separación de Agregados y Países</a></li>
+<li class="chapter" data-level="3.5" data-path="limpieza.html"><a href="limpieza.html#tratamiento-de-valores-faltantes-nas"><i class="fa fa-check"></i><b>3.5</b> Tratamiento de Valores Faltantes (NAs)</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="limpieza.html"><a href="limpieza.html#estrategia-de-tratamiento"><i class="fa fa-check"></i><b>3.5.1</b> Estrategia de Tratamiento</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="limpieza.html"><a href="limpieza.html#detección-de-valores-atípicos-outliers"><i class="fa fa-check"></i><b>3.6</b> Detección de Valores Atípicos (Outliers)</a></li>
+<li class="chapter" data-level="3.7" data-path="limpieza.html"><a href="limpieza.html#validación-de-rangos-y-consistencia"><i class="fa fa-check"></i><b>3.7</b> Validación de Rangos y Consistencia</a></li>
+<li class="chapter" data-level="3.8" data-path="limpieza.html"><a href="limpieza.html#resumen-de-la-limpieza"><i class="fa fa-check"></i><b>3.8</b> Resumen de la Limpieza</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="distribucion.html"><a href="distribucion.html"><i class="fa fa-check"></i><b>4</b> Distribución de Variables</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="distribucion.html"><a href="distribucion.html#variables-categóricas"><i class="fa fa-check"></i><b>4.1</b> Variables Categóricas</a></li>
+<li class="chapter" data-level="4.2" data-path="distribucion.html"><a href="distribucion.html#variables-numéricas"><i class="fa fa-check"></i><b>4.2</b> Variables Numéricas</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="distribucion.html"><a href="distribucion.html#distribución-de-la-población"><i class="fa fa-check"></i><b>4.2.1</b> Distribución de la Población</a></li>
+<li class="chapter" data-level="4.2.2" data-path="distribucion.html"><a href="distribucion.html#distribución-de-la-densidad-poblacional"><i class="fa fa-check"></i><b>4.2.2</b> Distribución de la Densidad Poblacional</a></li>
+<li class="chapter" data-level="4.2.3" data-path="distribucion.html"><a href="distribucion.html#población-por-nivel-de-ingreso"><i class="fa fa-check"></i><b>4.2.3</b> Población por Nivel de Ingreso</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="temporal.html"><a href="temporal.html"><i class="fa fa-check"></i><b>5</b> Evolución Temporal</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="temporal.html"><a href="temporal.html#población-mundial-total"><i class="fa fa-check"></i><b>5.1</b> Población Mundial Total</a></li>
+<li class="chapter" data-level="5.2" data-path="temporal.html"><a href="temporal.html#top-10-países-más-poblados"><i class="fa fa-check"></i><b>5.2</b> Top 10 Países Más Poblados</a></li>
+<li class="chapter" data-level="5.3" data-path="temporal.html"><a href="temporal.html#evolución-de-los-top-5-países"><i class="fa fa-check"></i><b>5.3</b> Evolución de los Top 5 Países</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="migracion.html"><a href="migracion.html"><i class="fa fa-check"></i><b>6</b> Análisis de Migración Neta</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="migracion.html"><a href="migracion.html#estadísticas-de-migración"><i class="fa fa-check"></i><b>6.1</b> Estadísticas de Migración</a></li>
+<li class="chapter" data-level="6.2" data-path="migracion.html"><a href="migracion.html#principales-receptores-y-emisores"><i class="fa fa-check"></i><b>6.2</b> Principales Receptores y Emisores</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="correlacion.html"><a href="correlacion.html"><i class="fa fa-check"></i><b>7</b> Correlación y Densidad Poblacional</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="correlacion.html"><a href="correlacion.html#análisis-de-correlación"><i class="fa fa-check"></i><b>7.1</b> Análisis de Correlación</a></li>
+<li class="chapter" data-level="7.2" data-path="correlacion.html"><a href="correlacion.html#densidad-poblacional"><i class="fa fa-check"></i><b>7.2</b> Densidad Poblacional</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="correlacion.html"><a href="correlacion.html#top-15-territorios-más-densos"><i class="fa fa-check"></i><b>7.2.1</b> Top 15 Territorios Más Densos</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ingreso-region.html"><a href="ingreso-region.html"><i class="fa fa-check"></i><b>8</b> Análisis por Nivel de Ingreso y Región</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="ingreso-region.html"><a href="ingreso-region.html#análisis-por-nivel-de-ingreso"><i class="fa fa-check"></i><b>8.1</b> Análisis por Nivel de Ingreso</a></li>
+<li class="chapter" data-level="8.2" data-path="ingreso-region.html"><a href="ingreso-region.html#análisis-por-región"><i class="fa fa-check"></i><b>8.2</b> Análisis por Región</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>9</b> Tasa de Crecimiento y Conclusiones</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="conclusiones.html"><a href="conclusiones.html#tasa-de-crecimiento-poblacional"><i class="fa fa-check"></i><b>9.1</b> Tasa de Crecimiento Poblacional</a></li>
+<li class="chapter" data-level="9.2" data-path="conclusiones.html"><a href="conclusiones.html#conclusiones-1"><i class="fa fa-check"></i><b>9.2</b> Conclusiones</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Publicado con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis Exploratorio de Datos: Población Mundial y Migración</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="limpieza" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Capítulo 3</span> Limpieza y Preparación de Datos<a href="limpieza.html#limpieza" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Antes de proceder con el análisis exploratorio, es fundamental realizar una limpieza de los datos para garantizar la calidad y confiabilidad de los resultados. En esta sección se documentan todas las transformaciones aplicadas al dataset original.</p>
+<div id="verificación-de-duplicados" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Verificación de Duplicados<a href="limpieza.html#verificación-de-duplicados" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="limpieza.html#cb12-1" tabindex="-1"></a>n_duplicados <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">duplicated</span>(df))</span></code></pre></div>
+<p>Se encontraron <strong>0</strong> filas duplicadas en el dataset.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="limpieza.html#cb13-1" tabindex="-1"></a><span class="cf">if</span> (n_duplicados <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb13-2"><a href="limpieza.html#cb13-2" tabindex="-1"></a>  df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
+<span id="cb13-3"><a href="limpieza.html#cb13-3" tabindex="-1"></a>}</span></code></pre></div>
+<p>No se encontraron duplicados. No se requiere acción.</p>
+<blockquote>
+<p>La verificación de duplicados es un paso crítico en cualquier EDA. En datasets del Banco Mundial, los duplicados son raros pero pueden ocurrir por errores en la descarga o fusión de fuentes.</p>
+</blockquote>
+</div>
+<div id="corrección-de-tipos-de-datos" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Corrección de Tipos de Datos<a href="limpieza.html#corrección-de-tipos-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Verificamos que cada variable tenga el tipo de dato correcto y realizamos las conversiones necesarias.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="limpieza.html#cb14-1" tabindex="-1"></a>tipos_antes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb14-2"><a href="limpieza.html#cb14-2" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">names</span>(df),</span>
+<span id="cb14-3"><a href="limpieza.html#cb14-3" tabindex="-1"></a>  <span class="at">Tipo =</span> <span class="fu">sapply</span>(df, class)</span>
+<span id="cb14-4"><a href="limpieza.html#cb14-4" tabindex="-1"></a>)</span>
+<span id="cb14-5"><a href="limpieza.html#cb14-5" tabindex="-1"></a><span class="fu">kable</span>(tipos_antes, <span class="at">row.names =</span> <span class="cn">FALSE</span>, <span class="at">caption =</span> <span class="st">&quot;Tipos de datos antes de la conversión&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:tipos-datos">Table 3.1: </span>Tipos de datos antes de la conversión</caption>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">country</td>
+<td align="left">character</td>
+</tr>
+<tr class="even">
+<td align="left">year</td>
+<td align="left">integer</td>
+</tr>
+<tr class="odd">
+<td align="left">population</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="even">
+<td align="left">pop_density</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="odd">
+<td align="left">net_migration</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="even">
+<td align="left">migration_perc</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="odd">
+<td align="left">iso3c</td>
+<td align="left">character</td>
+</tr>
+<tr class="even">
+<td align="left">iso2c</td>
+<td align="left">character</td>
+</tr>
+<tr class="odd">
+<td align="left">region</td>
+<td align="left">character</td>
+</tr>
+<tr class="even">
+<td align="left">adminregion</td>
+<td align="left">character</td>
+</tr>
+<tr class="odd">
+<td align="left">incomeLevel</td>
+<td align="left">character</td>
+</tr>
+<tr class="even">
+<td align="left">lendingType</td>
+<td align="left">character</td>
+</tr>
+<tr class="odd">
+<td align="left">capitalCity</td>
+<td align="left">character</td>
+</tr>
+<tr class="even">
+<td align="left">longitude</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="odd">
+<td align="left">latitude</td>
+<td align="left">numeric</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="limpieza.html#cb15-1" tabindex="-1"></a><span class="co"># Asegurar que &#39;year&#39; sea entero</span></span>
+<span id="cb15-2"><a href="limpieza.html#cb15-2" tabindex="-1"></a>df<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(df<span class="sc">$</span>year)</span>
+<span id="cb15-3"><a href="limpieza.html#cb15-3" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="limpieza.html#cb15-4" tabindex="-1"></a><span class="co"># Asegurar que las variables numéricas sean numéricas</span></span>
+<span id="cb15-5"><a href="limpieza.html#cb15-5" tabindex="-1"></a>df<span class="sc">$</span>population <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>population)</span>
+<span id="cb15-6"><a href="limpieza.html#cb15-6" tabindex="-1"></a>df<span class="sc">$</span>pop_density <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>pop_density)</span>
+<span id="cb15-7"><a href="limpieza.html#cb15-7" tabindex="-1"></a>df<span class="sc">$</span>net_migration <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>net_migration)</span>
+<span id="cb15-8"><a href="limpieza.html#cb15-8" tabindex="-1"></a>df<span class="sc">$</span>migration_perc <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>migration_perc)</span>
+<span id="cb15-9"><a href="limpieza.html#cb15-9" tabindex="-1"></a>df<span class="sc">$</span>longitude <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>longitude)</span>
+<span id="cb15-10"><a href="limpieza.html#cb15-10" tabindex="-1"></a>df<span class="sc">$</span>latitude <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>latitude)</span>
+<span id="cb15-11"><a href="limpieza.html#cb15-11" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="limpieza.html#cb15-12" tabindex="-1"></a>tipos_despues <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb15-13"><a href="limpieza.html#cb15-13" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">names</span>(df),</span>
+<span id="cb15-14"><a href="limpieza.html#cb15-14" tabindex="-1"></a>  <span class="at">Tipo =</span> <span class="fu">sapply</span>(df, class)</span>
+<span id="cb15-15"><a href="limpieza.html#cb15-15" tabindex="-1"></a>)</span>
+<span id="cb15-16"><a href="limpieza.html#cb15-16" tabindex="-1"></a><span class="fu">kable</span>(tipos_despues, <span class="at">row.names =</span> <span class="cn">FALSE</span>, <span class="at">caption =</span> <span class="st">&quot;Tipos de datos después de la conversión&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:conversion-tipos">Table 3.2: </span>Tipos de datos después de la conversión</caption>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">country</td>
+<td align="left">character</td>
+</tr>
+<tr class="even">
+<td align="left">year</td>
+<td align="left">integer</td>
+</tr>
+<tr class="odd">
+<td align="left">population</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="even">
+<td align="left">pop_density</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="odd">
+<td align="left">net_migration</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="even">
+<td align="left">migration_perc</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="odd">
+<td align="left">iso3c</td>
+<td align="left">character</td>
+</tr>
+<tr class="even">
+<td align="left">iso2c</td>
+<td align="left">character</td>
+</tr>
+<tr class="odd">
+<td align="left">region</td>
+<td align="left">character</td>
+</tr>
+<tr class="even">
+<td align="left">adminregion</td>
+<td align="left">character</td>
+</tr>
+<tr class="odd">
+<td align="left">incomeLevel</td>
+<td align="left">character</td>
+</tr>
+<tr class="even">
+<td align="left">lendingType</td>
+<td align="left">character</td>
+</tr>
+<tr class="odd">
+<td align="left">capitalCity</td>
+<td align="left">character</td>
+</tr>
+<tr class="even">
+<td align="left">longitude</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="odd">
+<td align="left">latitude</td>
+<td align="left">numeric</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="limpieza-de-variables-categóricas" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Limpieza de Variables Categóricas<a href="limpieza.html#limpieza-de-variables-categóricas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Las variables categóricas pueden contener valores vacíos, espacios extra o inconsistencias que es necesario estandarizar.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="limpieza.html#cb16-1" tabindex="-1"></a><span class="co"># Eliminar espacios en blanco al inicio y final</span></span>
+<span id="cb16-2"><a href="limpieza.html#cb16-2" tabindex="-1"></a>df<span class="sc">$</span>country <span class="ot">&lt;-</span> <span class="fu">trimws</span>(df<span class="sc">$</span>country)</span>
+<span id="cb16-3"><a href="limpieza.html#cb16-3" tabindex="-1"></a>df<span class="sc">$</span>iso3c <span class="ot">&lt;-</span> <span class="fu">trimws</span>(df<span class="sc">$</span>iso3c)</span>
+<span id="cb16-4"><a href="limpieza.html#cb16-4" tabindex="-1"></a>df<span class="sc">$</span>iso2c <span class="ot">&lt;-</span> <span class="fu">trimws</span>(df<span class="sc">$</span>iso2c)</span>
+<span id="cb16-5"><a href="limpieza.html#cb16-5" tabindex="-1"></a>df<span class="sc">$</span>region <span class="ot">&lt;-</span> <span class="fu">trimws</span>(df<span class="sc">$</span>region)</span>
+<span id="cb16-6"><a href="limpieza.html#cb16-6" tabindex="-1"></a>df<span class="sc">$</span>incomeLevel <span class="ot">&lt;-</span> <span class="fu">trimws</span>(df<span class="sc">$</span>incomeLevel)</span>
+<span id="cb16-7"><a href="limpieza.html#cb16-7" tabindex="-1"></a>df<span class="sc">$</span>adminregion <span class="ot">&lt;-</span> <span class="fu">trimws</span>(df<span class="sc">$</span>adminregion)</span>
+<span id="cb16-8"><a href="limpieza.html#cb16-8" tabindex="-1"></a>df<span class="sc">$</span>lendingType <span class="ot">&lt;-</span> <span class="fu">trimws</span>(df<span class="sc">$</span>lendingType)</span>
+<span id="cb16-9"><a href="limpieza.html#cb16-9" tabindex="-1"></a>df<span class="sc">$</span>capitalCity <span class="ot">&lt;-</span> <span class="fu">trimws</span>(df<span class="sc">$</span>capitalCity)</span>
+<span id="cb16-10"><a href="limpieza.html#cb16-10" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="limpieza.html#cb16-11" tabindex="-1"></a><span class="co"># Conteo de valores vacíos</span></span>
+<span id="cb16-12"><a href="limpieza.html#cb16-12" tabindex="-1"></a>vacios <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb16-13"><a href="limpieza.html#cb16-13" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;iso3c&quot;</span>, <span class="st">&quot;region&quot;</span>, <span class="st">&quot;incomeLevel&quot;</span>, <span class="st">&quot;adminregion&quot;</span>),</span>
+<span id="cb16-14"><a href="limpieza.html#cb16-14" tabindex="-1"></a>  <span class="at">Vacios_o_NA =</span> <span class="fu">c</span>(</span>
+<span id="cb16-15"><a href="limpieza.html#cb16-15" tabindex="-1"></a>    <span class="fu">sum</span>(df<span class="sc">$</span>country <span class="sc">==</span> <span class="st">&quot;&quot;</span> <span class="sc">|</span> <span class="fu">is.na</span>(df<span class="sc">$</span>country)),</span>
+<span id="cb16-16"><a href="limpieza.html#cb16-16" tabindex="-1"></a>    <span class="fu">sum</span>(df<span class="sc">$</span>iso3c <span class="sc">==</span> <span class="st">&quot;&quot;</span> <span class="sc">|</span> <span class="fu">is.na</span>(df<span class="sc">$</span>iso3c)),</span>
+<span id="cb16-17"><a href="limpieza.html#cb16-17" tabindex="-1"></a>    <span class="fu">sum</span>(df<span class="sc">$</span>region <span class="sc">==</span> <span class="st">&quot;&quot;</span> <span class="sc">|</span> <span class="fu">is.na</span>(df<span class="sc">$</span>region)),</span>
+<span id="cb16-18"><a href="limpieza.html#cb16-18" tabindex="-1"></a>    <span class="fu">sum</span>(df<span class="sc">$</span>incomeLevel <span class="sc">==</span> <span class="st">&quot;&quot;</span> <span class="sc">|</span> <span class="fu">is.na</span>(df<span class="sc">$</span>incomeLevel)),</span>
+<span id="cb16-19"><a href="limpieza.html#cb16-19" tabindex="-1"></a>    <span class="fu">sum</span>(df<span class="sc">$</span>adminregion <span class="sc">==</span> <span class="st">&quot;&quot;</span> <span class="sc">|</span> <span class="fu">is.na</span>(df<span class="sc">$</span>adminregion))</span>
+<span id="cb16-20"><a href="limpieza.html#cb16-20" tabindex="-1"></a>  )</span>
+<span id="cb16-21"><a href="limpieza.html#cb16-21" tabindex="-1"></a>)</span>
+<span id="cb16-22"><a href="limpieza.html#cb16-22" tabindex="-1"></a><span class="fu">kable</span>(vacios, <span class="at">row.names =</span> <span class="cn">FALSE</span>, <span class="at">caption =</span> <span class="st">&quot;Valores vacíos o NA por variable categórica&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:limpieza-categoricas">Table 3.3: </span>Valores vacíos o NA por variable categórica</caption>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">Vacios_o_NA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">country</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">iso3c</td>
+<td align="right">118</td>
+</tr>
+<tr class="odd">
+<td align="left">region</td>
+<td align="right">118</td>
+</tr>
+<tr class="even">
+<td align="left">incomeLevel</td>
+<td align="right">118</td>
+</tr>
+<tr class="odd">
+<td align="left">adminregion</td>
+<td align="right">7434</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="limpieza.html#cb17-1" tabindex="-1"></a><span class="co"># Reemplazar cadenas vacías por NA para tratamiento uniforme</span></span>
+<span id="cb17-2"><a href="limpieza.html#cb17-2" tabindex="-1"></a>df<span class="sc">$</span>region[df<span class="sc">$</span>region <span class="sc">==</span> <span class="st">&quot;&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb17-3"><a href="limpieza.html#cb17-3" tabindex="-1"></a>df<span class="sc">$</span>incomeLevel[df<span class="sc">$</span>incomeLevel <span class="sc">==</span> <span class="st">&quot;&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb17-4"><a href="limpieza.html#cb17-4" tabindex="-1"></a>df<span class="sc">$</span>adminregion[df<span class="sc">$</span>adminregion <span class="sc">==</span> <span class="st">&quot;&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb17-5"><a href="limpieza.html#cb17-5" tabindex="-1"></a>df<span class="sc">$</span>lendingType[df<span class="sc">$</span>lendingType <span class="sc">==</span> <span class="st">&quot;&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb17-6"><a href="limpieza.html#cb17-6" tabindex="-1"></a>df<span class="sc">$</span>capitalCity[df<span class="sc">$</span>capitalCity <span class="sc">==</span> <span class="st">&quot;&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code></pre></div>
+<p>Valores únicos de <code>region</code>:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="limpieza.html#cb18-1" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">unique</span>(df<span class="sc">$</span>region))</span></code></pre></div>
+<pre><code>## [1] &quot;Aggregates&quot;                 &quot;East Asia &amp; Pacific&quot;       
+## [3] &quot;Europe &amp; Central Asia&quot;      &quot;Latin America &amp; Caribbean&quot; 
+## [5] &quot;Middle East &amp; North Africa&quot; &quot;North America&quot;             
+## [7] &quot;South Asia&quot;                 &quot;Sub-Saharan Africa&quot;</code></pre>
+<p>Valores únicos de <code>incomeLevel</code>:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="limpieza.html#cb20-1" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">unique</span>(df<span class="sc">$</span>incomeLevel))</span></code></pre></div>
+<pre><code>## [1] &quot;Aggregates&quot;          &quot;High income&quot;         &quot;Low income&quot;         
+## [4] &quot;Lower middle income&quot; &quot;Upper middle income&quot;</code></pre>
+</div>
+<div id="separación-de-agregados-y-países" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Separación de Agregados y Países<a href="limpieza.html#separación-de-agregados-y-países" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El dataset incluye tanto países individuales como filas de <strong>agregados regionales</strong> (e.g., “World”, “East Asia &amp; Pacific”) que el Banco Mundial calcula sumando los países individuales. Es fundamental separarlos para evitar doble conteo.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="limpieza.html#cb22-1" tabindex="-1"></a><span class="co"># Crear dataset solo de países (sin agregados)</span></span>
+<span id="cb22-2"><a href="limpieza.html#cb22-2" tabindex="-1"></a>df_paises <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(region <span class="sc">!=</span> <span class="st">&quot;Aggregates&quot;</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(region))</span>
+<span id="cb22-3"><a href="limpieza.html#cb22-3" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="limpieza.html#cb22-4" tabindex="-1"></a><span class="co"># Crear dataset de agregados para referencia</span></span>
+<span id="cb22-5"><a href="limpieza.html#cb22-5" tabindex="-1"></a>df_agregados <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(region <span class="sc">==</span> <span class="st">&quot;Aggregates&quot;</span> <span class="sc">|</span> <span class="fu">is.na</span>(region))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Conjunto</th>
+<th align="right">Filas</th>
+<th align="right">Entidades únicas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Dataset completo</td>
+<td align="right">15576</td>
+<td align="right">264</td>
+</tr>
+<tr class="even">
+<td align="left">Solo países</td>
+<td align="right">12803</td>
+<td align="right">217</td>
+</tr>
+<tr class="odd">
+<td align="left">Agregados</td>
+<td align="right">2773</td>
+<td align="right">47</td>
+</tr>
+</tbody>
+</table>
+<p>Entidades clasificadas como agregados:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="limpieza.html#cb23-1" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">unique</span>(df_agregados<span class="sc">$</span>country))</span></code></pre></div>
+<pre><code>##  [1] &quot;Arab World&quot;                                          
+##  [2] &quot;Caribbean small states&quot;                              
+##  [3] &quot;Central Europe and the Baltics&quot;                      
+##  [4] &quot;Early-demographic dividend&quot;                          
+##  [5] &quot;East Asia &amp; Pacific&quot;                                 
+##  [6] &quot;East Asia &amp; Pacific (excluding high income)&quot;         
+##  [7] &quot;East Asia &amp; Pacific (IDA &amp; IBRD countries)&quot;          
+##  [8] &quot;Euro area&quot;                                           
+##  [9] &quot;Europe &amp; Central Asia&quot;                               
+## [10] &quot;Europe &amp; Central Asia (excluding high income)&quot;       
+## [11] &quot;Europe &amp; Central Asia (IDA &amp; IBRD countries)&quot;        
+## [12] &quot;European Union&quot;                                      
+## [13] &quot;Fragile and conflict affected situations&quot;            
+## [14] &quot;Heavily indebted poor countries (HIPC)&quot;              
+## [15] &quot;High income&quot;                                         
+## [16] &quot;IBRD only&quot;                                           
+## [17] &quot;IDA &amp; IBRD total&quot;                                    
+## [18] &quot;IDA blend&quot;                                           
+## [19] &quot;IDA only&quot;                                            
+## [20] &quot;IDA total&quot;                                           
+## [21] &quot;Late-demographic dividend&quot;                           
+## [22] &quot;Latin America &amp; Caribbean&quot;                           
+## [23] &quot;Latin America &amp; Caribbean (excluding high income)&quot;   
+## [24] &quot;Latin America &amp; the Caribbean (IDA &amp; IBRD countries)&quot;
+## [25] &quot;Least developed countries: UN classification&quot;        
+## [26] &quot;Low &amp; middle income&quot;                                 
+## [27] &quot;Low income&quot;                                          
+## [28] &quot;Lower middle income&quot;                                 
+## [29] &quot;Middle East &amp; North Africa&quot;                          
+## [30] &quot;Middle East &amp; North Africa (excluding high income)&quot;  
+## [31] &quot;Middle East &amp; North Africa (IDA &amp; IBRD countries)&quot;   
+## [32] &quot;Middle income&quot;                                       
+## [33] &quot;North America&quot;                                       
+## [34] &quot;Not classified&quot;                                      
+## [35] &quot;OECD members&quot;                                        
+## [36] &quot;Other small states&quot;                                  
+## [37] &quot;Pacific island small states&quot;                         
+## [38] &quot;Post-demographic dividend&quot;                           
+## [39] &quot;Pre-demographic dividend&quot;                            
+## [40] &quot;Small states&quot;                                        
+## [41] &quot;South Asia&quot;                                          
+## [42] &quot;South Asia (IDA &amp; IBRD)&quot;                             
+## [43] &quot;Sub-Saharan Africa&quot;                                  
+## [44] &quot;Sub-Saharan Africa (excluding high income)&quot;          
+## [45] &quot;Sub-Saharan Africa (IDA &amp; IBRD countries)&quot;           
+## [46] &quot;Upper middle income&quot;                                 
+## [47] &quot;World&quot;</code></pre>
+<blockquote>
+<p>Si no se filtran los agregados, se inflarían artificialmente los totales de población y se distorsionarían todas las estadísticas descriptivas. A partir de este punto, el análisis a nivel de país utiliza exclusivamente <code>df_paises</code>.</p>
+</blockquote>
+</div>
+<div id="tratamiento-de-valores-faltantes-nas" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Tratamiento de Valores Faltantes (NAs)<a href="limpieza.html#tratamiento-de-valores-faltantes-nas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="estrategia-de-tratamiento" class="section level3 hasAnchor" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> Estrategia de Tratamiento<a href="limpieza.html#estrategia-de-tratamiento" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Definimos una estrategia diferenciada según la naturaleza de cada variable:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="limpieza.html#cb25-1" tabindex="-1"></a>na_resumen_limpio <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb25-2"><a href="limpieza.html#cb25-2" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">names</span>(df_paises),</span>
+<span id="cb25-3"><a href="limpieza.html#cb25-3" tabindex="-1"></a>  <span class="at">NAs =</span> <span class="fu">colSums</span>(<span class="fu">is.na</span>(df_paises)),</span>
+<span id="cb25-4"><a href="limpieza.html#cb25-4" tabindex="-1"></a>  <span class="at">Porcentaje =</span> <span class="fu">round</span>(<span class="fu">colSums</span>(<span class="fu">is.na</span>(df_paises)) <span class="sc">/</span> <span class="fu">nrow</span>(df_paises) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>)</span>
+<span id="cb25-5"><a href="limpieza.html#cb25-5" tabindex="-1"></a>)</span>
+<span id="cb25-6"><a href="limpieza.html#cb25-6" tabindex="-1"></a>na_resumen_limpio <span class="ot">&lt;-</span> na_resumen_limpio[<span class="fu">order</span>(<span class="sc">-</span>na_resumen_limpio<span class="sc">$</span>Porcentaje), ]</span>
+<span id="cb25-7"><a href="limpieza.html#cb25-7" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="limpieza.html#cb25-8" tabindex="-1"></a><span class="fu">kable</span>(na_resumen_limpio, <span class="at">row.names =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb25-9"><a href="limpieza.html#cb25-9" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Valores faltantes en el dataset de países (después de limpieza inicial)&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:estrategia-na">Table 3.4: </span>Valores faltantes en el dataset de países (después de limpieza inicial)</caption>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">NAs</th>
+<th align="right">Porcentaje</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">migration_perc</td>
+<td align="right">10490</td>
+<td align="right">81.93</td>
+</tr>
+<tr class="even">
+<td align="left">net_migration</td>
+<td align="right">10487</td>
+<td align="right">81.91</td>
+</tr>
+<tr class="odd">
+<td align="left">adminregion</td>
+<td align="right">4661</td>
+<td align="right">36.41</td>
+</tr>
+<tr class="even">
+<td align="left">pop_density</td>
+<td align="right">641</td>
+<td align="right">5.01</td>
+</tr>
+<tr class="odd">
+<td align="left">capitalCity</td>
+<td align="right">354</td>
+<td align="right">2.76</td>
+</tr>
+<tr class="even">
+<td align="left">longitude</td>
+<td align="right">354</td>
+<td align="right">2.76</td>
+</tr>
+<tr class="odd">
+<td align="left">latitude</td>
+<td align="right">354</td>
+<td align="right">2.76</td>
+</tr>
+<tr class="even">
+<td align="left">population</td>
+<td align="right">108</td>
+<td align="right">0.84</td>
+</tr>
+<tr class="odd">
+<td align="left">iso2c</td>
+<td align="right">59</td>
+<td align="right">0.46</td>
+</tr>
+<tr class="even">
+<td align="left">country</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">year</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">iso3c</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">region</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">incomeLevel</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">lendingType</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col width="27%" />
+<col width="32%" />
+<col width="40%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Estrategia</th>
+<th align="left">Justificación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>population</code></td>
+<td align="left">Eliminar filas si es NA</td>
+<td align="left">Es la variable central del análisis; sin ella la observación carece de utilidad.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>pop_density</code></td>
+<td align="left">Conservar NAs</td>
+<td align="left">Se filtrará en cada análisis específico. No es prudente imputar densidad sin conocer la superficie exacta.</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>net_migration</code></td>
+<td align="left">Conservar NAs</td>
+<td align="left">Los NAs son estructurales (datos quinquenales). Imputar sería introducir sesgo.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>migration_perc</code></td>
+<td align="left">Conservar NAs</td>
+<td align="left">Derivada de <code>net_migration</code>, mismo razonamiento.</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>longitude</code> / <code>latitude</code></td>
+<td align="left">Conservar NAs</td>
+<td align="left">Solo faltan en agregados (ya filtrados).</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="limpieza.html#cb26-1" tabindex="-1"></a>filas_antes <span class="ot">&lt;-</span> <span class="fu">nrow</span>(df_paises)</span>
+<span id="cb26-2"><a href="limpieza.html#cb26-2" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="limpieza.html#cb26-3" tabindex="-1"></a><span class="co"># Eliminar filas sin población (variable esencial)</span></span>
+<span id="cb26-4"><a href="limpieza.html#cb26-4" tabindex="-1"></a>df_paises <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(population))</span>
+<span id="cb26-5"><a href="limpieza.html#cb26-5" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="limpieza.html#cb26-6" tabindex="-1"></a>filas_despues <span class="ot">&lt;-</span> <span class="fu">nrow</span>(df_paises)</span>
+<span id="cb26-7"><a href="limpieza.html#cb26-7" tabindex="-1"></a>filas_eliminadas <span class="ot">&lt;-</span> filas_antes <span class="sc">-</span> filas_despues</span></code></pre></div>
+<p>Se eliminaron <strong>108</strong> filas por falta de datos de población. Quedan <strong>12695</strong> filas.</p>
+</div>
+</div>
+<div id="detección-de-valores-atípicos-outliers" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Detección de Valores Atípicos (Outliers)<a href="limpieza.html#detección-de-valores-atípicos-outliers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Identificamos valores atípicos en las variables numéricas principales utilizando el criterio del rango intercuartílico (IQR).</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="limpieza.html#cb27-1" tabindex="-1"></a>detectar_outliers <span class="ot">&lt;-</span> <span class="cf">function</span>(x, nombre_var) {</span>
+<span id="cb27-2"><a href="limpieza.html#cb27-2" tabindex="-1"></a>  x_limpio <span class="ot">&lt;-</span> x[<span class="sc">!</span><span class="fu">is.na</span>(x)]</span>
+<span id="cb27-3"><a href="limpieza.html#cb27-3" tabindex="-1"></a>  Q1 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(x_limpio, <span class="fl">0.25</span>)</span>
+<span id="cb27-4"><a href="limpieza.html#cb27-4" tabindex="-1"></a>  Q3 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(x_limpio, <span class="fl">0.75</span>)</span>
+<span id="cb27-5"><a href="limpieza.html#cb27-5" tabindex="-1"></a>  IQR_val <span class="ot">&lt;-</span> Q3 <span class="sc">-</span> Q1</span>
+<span id="cb27-6"><a href="limpieza.html#cb27-6" tabindex="-1"></a>  limite_inf <span class="ot">&lt;-</span> Q1 <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> IQR_val</span>
+<span id="cb27-7"><a href="limpieza.html#cb27-7" tabindex="-1"></a>  limite_sup <span class="ot">&lt;-</span> Q3 <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> IQR_val</span>
+<span id="cb27-8"><a href="limpieza.html#cb27-8" tabindex="-1"></a>  n_outliers <span class="ot">&lt;-</span> <span class="fu">sum</span>(x_limpio <span class="sc">&lt;</span> limite_inf <span class="sc">|</span> x_limpio <span class="sc">&gt;</span> limite_sup)</span>
+<span id="cb27-9"><a href="limpieza.html#cb27-9" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb27-10"><a href="limpieza.html#cb27-10" tabindex="-1"></a>    <span class="at">Variable =</span> nombre_var,</span>
+<span id="cb27-11"><a href="limpieza.html#cb27-11" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">round</span>(Q1, <span class="dv">2</span>),</span>
+<span id="cb27-12"><a href="limpieza.html#cb27-12" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">round</span>(Q3, <span class="dv">2</span>),</span>
+<span id="cb27-13"><a href="limpieza.html#cb27-13" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">round</span>(IQR_val, <span class="dv">2</span>),</span>
+<span id="cb27-14"><a href="limpieza.html#cb27-14" tabindex="-1"></a>    <span class="at">Lim_Inferior =</span> <span class="fu">round</span>(limite_inf, <span class="dv">2</span>),</span>
+<span id="cb27-15"><a href="limpieza.html#cb27-15" tabindex="-1"></a>    <span class="at">Lim_Superior =</span> <span class="fu">round</span>(limite_sup, <span class="dv">2</span>),</span>
+<span id="cb27-16"><a href="limpieza.html#cb27-16" tabindex="-1"></a>    <span class="at">N_Outliers =</span> n_outliers,</span>
+<span id="cb27-17"><a href="limpieza.html#cb27-17" tabindex="-1"></a>    <span class="at">Pct_Outliers =</span> <span class="fu">round</span>(n_outliers <span class="sc">/</span> <span class="fu">length</span>(x_limpio) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>)</span>
+<span id="cb27-18"><a href="limpieza.html#cb27-18" tabindex="-1"></a>  )</span>
+<span id="cb27-19"><a href="limpieza.html#cb27-19" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="limpieza.html#cb28-1" tabindex="-1"></a>outliers_resumen <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb28-2"><a href="limpieza.html#cb28-2" tabindex="-1"></a>  <span class="fu">detectar_outliers</span>(df_paises<span class="sc">$</span>population, <span class="st">&quot;population&quot;</span>),</span>
+<span id="cb28-3"><a href="limpieza.html#cb28-3" tabindex="-1"></a>  <span class="fu">detectar_outliers</span>(df_paises<span class="sc">$</span>pop_density, <span class="st">&quot;pop_density&quot;</span>),</span>
+<span id="cb28-4"><a href="limpieza.html#cb28-4" tabindex="-1"></a>  <span class="fu">detectar_outliers</span>(df_paises<span class="sc">$</span>net_migration, <span class="st">&quot;net_migration&quot;</span>),</span>
+<span id="cb28-5"><a href="limpieza.html#cb28-5" tabindex="-1"></a>  <span class="fu">detectar_outliers</span>(df_paises<span class="sc">$</span>migration_perc, <span class="st">&quot;migration_perc&quot;</span>)</span>
+<span id="cb28-6"><a href="limpieza.html#cb28-6" tabindex="-1"></a>)</span>
+<span id="cb28-7"><a href="limpieza.html#cb28-7" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="limpieza.html#cb28-8" tabindex="-1"></a><span class="fu">kable</span>(outliers_resumen, <span class="at">caption =</span> <span class="st">&quot;Detección de valores atípicos por variable numérica&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:outliers-tabla">Table 3.5: </span>Detección de valores atípicos por variable numérica</caption>
+<colgroup>
+<col width="7%" />
+<col width="14%" />
+<col width="9%" />
+<col width="11%" />
+<col width="11%" />
+<col width="12%" />
+<col width="12%" />
+<col width="10%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Variable</th>
+<th align="right">Q1</th>
+<th align="right">Q3</th>
+<th align="right">IQR</th>
+<th align="right">Lim_Inferior</th>
+<th align="right">Lim_Superior</th>
+<th align="right">N_Outliers</th>
+<th align="right">Pct_Outliers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">25%…1</td>
+<td align="left">population</td>
+<td align="right">462834.50</td>
+<td align="right">13119786.50</td>
+<td align="right">12656952.00</td>
+<td align="right">-18522593.50</td>
+<td align="right">32105214.50</td>
+<td align="right">1733</td>
+<td align="right">13.65</td>
+</tr>
+<tr class="even">
+<td align="left">25%…2</td>
+<td align="left">pop_density</td>
+<td align="right">20.25</td>
+<td align="right">153.07</td>
+<td align="right">132.81</td>
+<td align="right">-178.97</td>
+<td align="right">352.29</td>
+<td align="right">1182</td>
+<td align="right">9.72</td>
+</tr>
+<tr class="odd">
+<td align="left">25%…3</td>
+<td align="left">net_migration</td>
+<td align="right">-80263.00</td>
+<td align="right">27450.00</td>
+<td align="right">107713.00</td>
+<td align="right">-241832.50</td>
+<td align="right">189019.50</td>
+<td align="right">502</td>
+<td align="right">21.70</td>
+</tr>
+<tr class="even">
+<td align="left">25%…4</td>
+<td align="left">migration_perc</td>
+<td align="right">-0.02</td>
+<td align="right">0.01</td>
+<td align="right">0.02</td>
+<td align="right">-0.05</td>
+<td align="right">0.04</td>
+<td align="right">309</td>
+<td align="right">13.36</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="limpieza.html#cb29-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>))</span>
+<span id="cb29-2"><a href="limpieza.html#cb29-2" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="limpieza.html#cb29-3" tabindex="-1"></a><span class="fu">boxplot</span>(df_paises<span class="sc">$</span>population, <span class="at">main =</span> <span class="st">&quot;Población&quot;</span>, <span class="at">col =</span> <span class="st">&quot;#3498DB&quot;</span>,</span>
+<span id="cb29-4"><a href="limpieza.html#cb29-4" tabindex="-1"></a>        <span class="at">outline =</span> <span class="cn">TRUE</span>, <span class="at">horizontal =</span> <span class="cn">TRUE</span>, <span class="at">log =</span> <span class="st">&quot;x&quot;</span>)</span>
+<span id="cb29-5"><a href="limpieza.html#cb29-5" tabindex="-1"></a><span class="fu">boxplot</span>(df_paises<span class="sc">$</span>pop_density[<span class="sc">!</span><span class="fu">is.na</span>(df_paises<span class="sc">$</span>pop_density)],</span>
+<span id="cb29-6"><a href="limpieza.html#cb29-6" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Densidad Poblacional&quot;</span>, <span class="at">col =</span> <span class="st">&quot;#E67E22&quot;</span>,</span>
+<span id="cb29-7"><a href="limpieza.html#cb29-7" tabindex="-1"></a>        <span class="at">outline =</span> <span class="cn">TRUE</span>, <span class="at">horizontal =</span> <span class="cn">TRUE</span>, <span class="at">log =</span> <span class="st">&quot;x&quot;</span>)</span>
+<span id="cb29-8"><a href="limpieza.html#cb29-8" tabindex="-1"></a><span class="fu">boxplot</span>(df_paises<span class="sc">$</span>net_migration[<span class="sc">!</span><span class="fu">is.na</span>(df_paises<span class="sc">$</span>net_migration)],</span>
+<span id="cb29-9"><a href="limpieza.html#cb29-9" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Migración Neta&quot;</span>, <span class="at">col =</span> <span class="st">&quot;#27AE60&quot;</span>,</span>
+<span id="cb29-10"><a href="limpieza.html#cb29-10" tabindex="-1"></a>        <span class="at">outline =</span> <span class="cn">TRUE</span>, <span class="at">horizontal =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb29-11"><a href="limpieza.html#cb29-11" tabindex="-1"></a><span class="fu">boxplot</span>(df_paises<span class="sc">$</span>migration_perc[<span class="sc">!</span><span class="fu">is.na</span>(df_paises<span class="sc">$</span>migration_perc)],</span>
+<span id="cb29-12"><a href="limpieza.html#cb29-12" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;% Migración&quot;</span>, <span class="at">col =</span> <span class="st">&quot;#8E44AD&quot;</span>,</span>
+<span id="cb29-13"><a href="limpieza.html#cb29-13" tabindex="-1"></a>        <span class="at">outline =</span> <span class="cn">TRUE</span>, <span class="at">horizontal =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:boxplots-outliers"></span>
+<img src="eda_poblacion_mundial_files/figure-html/boxplots-outliers-1.png" alt="Boxplots para visualización de valores atípicos" width="90%" />
+<p class="caption">
+Figure 3.1: Boxplots para visualización de valores atípicos
+</p>
+</div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="limpieza.html#cb30-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<blockquote>
+<p>Las variables demográficas presentan un alto porcentaje de outliers según el criterio IQR, pero esto <strong>no significa que sean errores</strong>. En población, valores como los de China e India son extremos pero legítimos. De manera similar, ciudades-estado como Macao o Mónaco son outliers válidos en densidad.
+<strong>Decisión:</strong> se conservan todos los outliers dado que representan la variabilidad real del fenómeno demográfico mundial. Eliminarlos sería descartar información valiosa.</p>
+</blockquote>
+</div>
+<div id="validación-de-rangos-y-consistencia" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Validación de Rangos y Consistencia<a href="limpieza.html#validación-de-rangos-y-consistencia" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="limpieza.html#cb31-1" tabindex="-1"></a>validacion <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb31-2"><a href="limpieza.html#cb31-2" tabindex="-1"></a>  <span class="at">Verificacion =</span> <span class="fu">c</span>(</span>
+<span id="cb31-3"><a href="limpieza.html#cb31-3" tabindex="-1"></a>    <span class="st">&quot;Años fuera de rango 1960-2025&quot;</span>,</span>
+<span id="cb31-4"><a href="limpieza.html#cb31-4" tabindex="-1"></a>    <span class="st">&quot;Poblaciones negativas&quot;</span>,</span>
+<span id="cb31-5"><a href="limpieza.html#cb31-5" tabindex="-1"></a>    <span class="st">&quot;Poblaciones iguales a 0&quot;</span>,</span>
+<span id="cb31-6"><a href="limpieza.html#cb31-6" tabindex="-1"></a>    <span class="st">&quot;Densidades negativas&quot;</span>,</span>
+<span id="cb31-7"><a href="limpieza.html#cb31-7" tabindex="-1"></a>    <span class="st">&quot;Latitudes fuera de [-90, 90]&quot;</span>,</span>
+<span id="cb31-8"><a href="limpieza.html#cb31-8" tabindex="-1"></a>    <span class="st">&quot;Longitudes fuera de [-180, 180]&quot;</span></span>
+<span id="cb31-9"><a href="limpieza.html#cb31-9" tabindex="-1"></a>  ),</span>
+<span id="cb31-10"><a href="limpieza.html#cb31-10" tabindex="-1"></a>  <span class="at">Resultado =</span> <span class="fu">c</span>(</span>
+<span id="cb31-11"><a href="limpieza.html#cb31-11" tabindex="-1"></a>    <span class="fu">sum</span>(df_paises<span class="sc">$</span>year <span class="sc">&lt;</span> <span class="dv">1960</span> <span class="sc">|</span> df_paises<span class="sc">$</span>year <span class="sc">&gt;</span> <span class="dv">2025</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb31-12"><a href="limpieza.html#cb31-12" tabindex="-1"></a>    <span class="fu">sum</span>(df_paises<span class="sc">$</span>population <span class="sc">&lt;</span> <span class="dv">0</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb31-13"><a href="limpieza.html#cb31-13" tabindex="-1"></a>    <span class="fu">sum</span>(df_paises<span class="sc">$</span>population <span class="sc">==</span> <span class="dv">0</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb31-14"><a href="limpieza.html#cb31-14" tabindex="-1"></a>    <span class="fu">sum</span>(df_paises<span class="sc">$</span>pop_density <span class="sc">&lt;</span> <span class="dv">0</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb31-15"><a href="limpieza.html#cb31-15" tabindex="-1"></a>    <span class="fu">sum</span>(<span class="fu">abs</span>(df_paises<span class="sc">$</span>latitude) <span class="sc">&gt;</span> <span class="dv">90</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb31-16"><a href="limpieza.html#cb31-16" tabindex="-1"></a>    <span class="fu">sum</span>(<span class="fu">abs</span>(df_paises<span class="sc">$</span>longitude) <span class="sc">&gt;</span> <span class="dv">180</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb31-17"><a href="limpieza.html#cb31-17" tabindex="-1"></a>  )</span>
+<span id="cb31-18"><a href="limpieza.html#cb31-18" tabindex="-1"></a>)</span>
+<span id="cb31-19"><a href="limpieza.html#cb31-19" tabindex="-1"></a></span>
+<span id="cb31-20"><a href="limpieza.html#cb31-20" tabindex="-1"></a><span class="fu">kable</span>(validacion, <span class="at">caption =</span> <span class="st">&quot;Validación de rangos en variables numéricas&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:validacion-rangos">Table 3.6: </span>Validación de rangos en variables numéricas</caption>
+<thead>
+<tr class="header">
+<th align="left">Verificacion</th>
+<th align="right">Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Años fuera de rango 1960-2025</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Poblaciones negativas</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Poblaciones iguales a 0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Densidades negativas</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Latitudes fuera de [-90, 90]</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Longitudes fuera de [-180, 180]</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="limpieza.html#cb32-1" tabindex="-1"></a><span class="co"># Verificar que cada país tiene un solo código, región y nivel de ingreso</span></span>
+<span id="cb32-2"><a href="limpieza.html#cb32-2" tabindex="-1"></a>consistencia <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="limpieza.html#cb32-3" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span></span>
+<span id="cb32-4"><a href="limpieza.html#cb32-4" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb32-5"><a href="limpieza.html#cb32-5" tabindex="-1"></a>    <span class="at">n_codigos =</span> <span class="fu">n_distinct</span>(iso3c),</span>
+<span id="cb32-6"><a href="limpieza.html#cb32-6" tabindex="-1"></a>    <span class="at">n_regiones =</span> <span class="fu">n_distinct</span>(region),</span>
+<span id="cb32-7"><a href="limpieza.html#cb32-7" tabindex="-1"></a>    <span class="at">n_income =</span> <span class="fu">n_distinct</span>(incomeLevel, <span class="at">na.rm =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb32-8"><a href="limpieza.html#cb32-8" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb32-9"><a href="limpieza.html#cb32-9" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb32-10"><a href="limpieza.html#cb32-10" tabindex="-1"></a>  <span class="fu">filter</span>(n_codigos <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> n_regiones <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">|</span> n_income <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>Todos los países tienen atributos consistentes (código, región, nivel de ingreso) a lo largo del tiempo.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="limpieza.html#cb33-1" tabindex="-1"></a><span class="fu">kable</span>(consistencia, <span class="at">caption =</span> <span class="st">&quot;Países con inconsistencias&quot;</span>)</span></code></pre></div>
+<blockquote>
+<p>La validación de rangos confirma que los datos no contienen errores evidentes como poblaciones negativas o coordenadas fuera de rango. La verificación de consistencia asegura que cada país mantiene los mismos atributos categóricos a lo largo del tiempo, lo cual es esencial para la integridad de los análisis longitudinales.</p>
+</blockquote>
+</div>
+<div id="resumen-de-la-limpieza" class="section level2 hasAnchor" number="3.8">
+<h2><span class="header-section-number">3.8</span> Resumen de la Limpieza<a href="limpieza.html#resumen-de-la-limpieza" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="limpieza.html#cb34-1" tabindex="-1"></a>resumen_limpieza <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb34-2"><a href="limpieza.html#cb34-2" tabindex="-1"></a>  <span class="at">Concepto =</span> <span class="fu">c</span>(</span>
+<span id="cb34-3"><a href="limpieza.html#cb34-3" tabindex="-1"></a>    <span class="st">&quot;Dataset original&quot;</span>,</span>
+<span id="cb34-4"><a href="limpieza.html#cb34-4" tabindex="-1"></a>    <span class="st">&quot;Duplicados eliminados&quot;</span>,</span>
+<span id="cb34-5"><a href="limpieza.html#cb34-5" tabindex="-1"></a>    <span class="st">&quot;Agregados separados&quot;</span>,</span>
+<span id="cb34-6"><a href="limpieza.html#cb34-6" tabindex="-1"></a>    <span class="st">&quot;Filas sin población eliminadas&quot;</span>,</span>
+<span id="cb34-7"><a href="limpieza.html#cb34-7" tabindex="-1"></a>    <span class="st">&quot;Outliers&quot;</span>,</span>
+<span id="cb34-8"><a href="limpieza.html#cb34-8" tabindex="-1"></a>    <span class="st">&quot;Cadenas vacías&quot;</span>,</span>
+<span id="cb34-9"><a href="limpieza.html#cb34-9" tabindex="-1"></a>    <span class="st">&quot;Dataset final (países)&quot;</span>,</span>
+<span id="cb34-10"><a href="limpieza.html#cb34-10" tabindex="-1"></a>    <span class="st">&quot;Países únicos&quot;</span>,</span>
+<span id="cb34-11"><a href="limpieza.html#cb34-11" tabindex="-1"></a>    <span class="st">&quot;Rango temporal&quot;</span></span>
+<span id="cb34-12"><a href="limpieza.html#cb34-12" tabindex="-1"></a>  ),</span>
+<span id="cb34-13"><a href="limpieza.html#cb34-13" tabindex="-1"></a>  <span class="at">Valor =</span> <span class="fu">c</span>(</span>
+<span id="cb34-14"><a href="limpieza.html#cb34-14" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="fu">nrow</span>(df), <span class="st">&quot;filas x&quot;</span>, <span class="fu">ncol</span>(df), <span class="st">&quot;columnas&quot;</span>),</span>
+<span id="cb34-15"><a href="limpieza.html#cb34-15" tabindex="-1"></a>    <span class="fu">as.character</span>(n_duplicados),</span>
+<span id="cb34-16"><a href="limpieza.html#cb34-16" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="fu">nrow</span>(df_agregados), <span class="st">&quot;filas&quot;</span>),</span>
+<span id="cb34-17"><a href="limpieza.html#cb34-17" tabindex="-1"></a>    <span class="fu">as.character</span>(filas_eliminadas),</span>
+<span id="cb34-18"><a href="limpieza.html#cb34-18" tabindex="-1"></a>    <span class="st">&quot;Conservados (valores legítimos)&quot;</span>,</span>
+<span id="cb34-19"><a href="limpieza.html#cb34-19" tabindex="-1"></a>    <span class="st">&quot;Convertidas a NA&quot;</span>,</span>
+<span id="cb34-20"><a href="limpieza.html#cb34-20" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="fu">nrow</span>(df_paises), <span class="st">&quot;filas x&quot;</span>, <span class="fu">ncol</span>(df_paises), <span class="st">&quot;columnas&quot;</span>),</span>
+<span id="cb34-21"><a href="limpieza.html#cb34-21" tabindex="-1"></a>    <span class="fu">as.character</span>(<span class="fu">n_distinct</span>(df_paises<span class="sc">$</span>country)),</span>
+<span id="cb34-22"><a href="limpieza.html#cb34-22" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="fu">min</span>(df_paises<span class="sc">$</span>year), <span class="st">&quot;-&quot;</span>, <span class="fu">max</span>(df_paises<span class="sc">$</span>year))</span>
+<span id="cb34-23"><a href="limpieza.html#cb34-23" tabindex="-1"></a>  )</span>
+<span id="cb34-24"><a href="limpieza.html#cb34-24" tabindex="-1"></a>)</span>
+<span id="cb34-25"><a href="limpieza.html#cb34-25" tabindex="-1"></a><span class="fu">kable</span>(resumen_limpieza, <span class="at">caption =</span> <span class="st">&quot;Resumen del proceso de limpieza de datos&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:resumen-limpieza">Table 3.7: </span>Resumen del proceso de limpieza de datos</caption>
+<thead>
+<tr class="header">
+<th align="left">Concepto</th>
+<th align="left">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Dataset original</td>
+<td align="left">15576 filas x 15 columnas</td>
+</tr>
+<tr class="even">
+<td align="left">Duplicados eliminados</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Agregados separados</td>
+<td align="left">2773 filas</td>
+</tr>
+<tr class="even">
+<td align="left">Filas sin población eliminadas</td>
+<td align="left">108</td>
+</tr>
+<tr class="odd">
+<td align="left">Outliers</td>
+<td align="left">Conservados (valores legítimos)</td>
+</tr>
+<tr class="even">
+<td align="left">Cadenas vacías</td>
+<td align="left">Convertidas a NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Dataset final (países)</td>
+<td align="left">12695 filas x 15 columnas</td>
+</tr>
+<tr class="even">
+<td align="left">Países únicos</td>
+<td align="left">217</td>
+</tr>
+<tr class="odd">
+<td align="left">Rango temporal</td>
+<td align="left">1960 - 2018</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>La limpieza realizada es de tipo conservador, priorizando la preservación de la información sobre la eliminación de datos. Los principales cambios son la separación de agregados (para evitar doble conteo), la estandarización de valores vacíos, y la eliminación de observaciones sin la variable central (<code>population</code>). El dataset resultante está listo para el análisis exploratorio.</p>
+</blockquote>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="estructura.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="distribucion.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["eda_poblacion_mundial.pdf", "eda_poblacion_mundial.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
