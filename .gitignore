@@ -1,8 +1,8 @@
-# Bookdown generated files (old output)
+# Bookdown generated files (root level only)
 _book/
 _bookdown_files/
-eda_poblacion_mundial.Rmd
-eda_poblacion_mundial_files/
+/eda_poblacion_mundial.Rmd
+/eda_poblacion_mundial_files/
 
 # R session
 .Rhistory
