@@ -1,0 +1,69 @@
+---
+title: "Análisis Exploratorio de Datos: Población Mundial y Migración"
+author: "Lia Castillo"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: []
+description: |
+  Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
+  Población Mundial y Migración del Banco Mundial.
+link-citations: yes
+---
+
+# Introducción {-}
+
+Este documento presenta un análisis exploratorio de datos (EDA) de los flujos migratorios globales y la densidad poblacional. En el contexto actual de globalización, entender dinámicas de migración es crucial para establecer planes de respuesta ante un fenómeno migratorio
+Este tipo de datos resulta fundamental para comprender las dinámicas poblacionales globales, los patrones de crecimiento demográfico, y los flujos migratorios que moldean la distribución de la población a lo largo del tiempo.
+Además, entender estas dinámica permite el desarrollo de políticas públicas 
+
+Se utilizará conjunto de datos de Migration and Population Density (https://data.world/eliasdabbas/migration-and-population-density). El dataset recopila información demográfica y migratoria de países y territorios a nivel mundial, cubriendo un periodo histórico que abarca desde 1960 hasta 2018.
+La densidad poblacional ($\rho$) se define generalmente mediante la relación:$$\rho = \frac{P}{A}$$Donde:$P$ es la población total.$A$ es el área de la superficie terrestre en $km^2$.
+
+## Objetivos del EDA {-}
+
+1. **Analizar la estructura** del dataset mediante la exploración de sus dimensiones, tipos de variables y evaluación de la calidad de los datos, para garantizar la confiabilidad del análisis posterior.
+2. **Identificar patrones** en la distribución poblacional a través de visualizaciones segmentadas a nivel global, regional y por nivel de ingreso, para comprender las desigualdades demográficas existentes.
+3. **Comparar dinámicas demográficas** entre regiones mediante el cálculo de tasas de crecimiento poblacional, para evaluar disparidades en el desarrollo demográfico a nivel mundial.
+
+## Metodología {-}
+
+El análisis se realiza en **R** utilizando los paquetes `ggplot2`, `dplyr`, `tidyr`, `corrplot`, `scales`, y `skimr`. Se emplean técnicas de estadística descriptiva, visualización de datos, y análisis de correlación.
+
+## Fuente de Datos {-}
+
+- **Proveedor:** Banco Mundial (World Bank)
+- **Plataforma:** data.world
+- **URL:** `https://query.data.world/s/kyzrcbixkyhsiuj4qb3773ampd333o`
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center",
+  fig.width = 10,
+  fig.height = 6,
+  out.width = "90%"
+)
+```
+
+```{r paquetes, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(scales)
+library(corrplot)
+library(RColorBrewer)
+library(gridExtra)
+library(knitr)
+library(skimr)
+```
+
+```{r carga-datos}
+df <- read.csv(
+  "https://query.data.world/s/kyzrcbixkyhsiuj4qb3773ampd333o?dws=00000",
+  header = TRUE,
+  stringsAsFactors = FALSE
+)
+```

@@ -1,0 +1,65 @@
+# Correlación y Densidad Poblacional {#correlacion}
+
+## Análisis de Correlación
+
+```{r correlacion}
+vars_numericas <- df_paises %>%
+  select(population, pop_density, net_migration, migration_perc, longitude, latitude) %>%
+  drop_na()
+```
+
+```{r matriz-cor}
+if (nrow(vars_numericas) > 10) {
+  cor_matrix <- cor(vars_numericas, use = "complete.obs")
+
+  kable(round(cor_matrix, 3), caption = "Matriz de correlación entre variables numéricas")
+}
+```
+
+> La tabla de correlaciones de Pearson permite evaluar la fuerza y dirección de las asociaciones lineales entre las variables numéricas del dataset. 
+> Se observa que la mayoría de los coeficientes son cercanos a cero, lo que indica una baja colinealidad entre las variables y sugiere que cada indicador aporta información relativamente independiente al análisis. La correlación más destacada se presenta entre `net_migration` y `population`, lo cual responde a un efecto de escala: los países con mayor población tienden a registrar flujos migratorios absolutos más elevados, sin que ello implique necesariamente una mayor propensión migratoria per cápita. 
+>Las coordenadas geográficas (`latitude` y `longitude`) muestran correlaciones débiles con el resto de las variables, indicando que la posición geográfica por sí sola no es un predictor directo de los indicadores demográficos analizados.
+
+```{r plot-corrplot, fig.cap="Mapa de calor de la matriz de correlación"}
+if (nrow(vars_numericas) > 10) {
+  corrplot(cor_matrix,
+           method = "color", type = "upper", order = "hclust",
+           addCoef.col = "black", tl.col = "black", tl.srt = 45,
+           title = "Matriz de Correlación - Variables Numéricas",
+           mar = c(0, 0, 2, 0), number.cex = 0.8)
+}
+```
+
+
+## Densidad Poblacional
+
+### Top 15 Territorios Más Densos
+
+```{r top-densidad}
+top_densidad <- df_paises %>%
+  filter(year == max(year, na.rm = TRUE) & !is.na(pop_density)) %>%
+  arrange(desc(pop_density)) %>%
+  head(15)
+
+kable(top_densidad %>% select(country, pop_density, population, incomeLevel),
+      caption = "Top 15 territorios más densamente poblados")
+```
+
+```{r plot-densidad, fig.cap="Territorios con mayor densidad poblacional"}
+ggplot(top_densidad, aes(x = reorder(country, pop_density), y = pop_density)) +
+  geom_bar(stat = "identity", fill = "#F39C12", alpha = 0.85) +
+  geom_text(aes(label = round(pop_density, 0)), hjust = -0.1, size = 3.2) +
+  coord_flip() +
+  labs(title = "Top 15 Territorios Más Densamente Poblados",
+       subtitle = paste("Año:", max(df_paises$year, na.rm = TRUE)),
+       x = "", y = "Densidad Poblacional (hab/km²)") +
+  theme_minimal(base_size = 11) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5, color = "grey50")) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15)))
+```
+
+> El gráfico de barras del Top 15 revela un patrón consistente: los territorios con mayor densidad poblacional son predominantemente ciudades-estado, regiones administrativas especiales o territorios insulares de superficie reducida. Macao, Singapur y Hong Kong encabezan la lista con densidades que superan ampliamente las 1,000 hab/km², lo cual se explica por la relación inversa entre la densidad $\rho = P/A$ y la superficie territorial $A$. 
+> Estos territorios, a pesar de contar con poblaciones relativamente pequeñas en términos absolutos, concentran a sus habitantes en áreas extremadamente reducidas, generando indicadores de densidad que no son directamente comparables con los de países de extensión territorial convencional. Es importante destacar que la mayoría de estos territorios pertenecen a categorías de ingreso alto, lo que sugiere que las altas densidades no están necesariamente asociadas a condiciones de hacinamiento.
+
+

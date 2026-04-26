@@ -1,0 +1,64 @@
+# Tasa de Crecimiento y Conclusiones {#conclusiones}
+
+## Tasa de Crecimiento Poblacional
+
+```{r crecimiento}
+crecimiento <- df_paises %>%
+  filter(!is.na(population)) %>%
+  group_by(country) %>%
+  arrange(year) %>%
+  mutate(tasa_crecimiento = (population / lag(population) - 1) * 100) %>%
+  ungroup()
+
+crecimiento_promedio <- crecimiento %>%
+  filter(!is.na(tasa_crecimiento)) %>%
+  group_by(country, region, incomeLevel) %>%
+  summarise(tasa_media = mean(tasa_crecimiento, na.rm = TRUE),
+            tasa_mediana = median(tasa_crecimiento, na.rm = TRUE),
+            .groups = "drop") %>%
+  arrange(desc(tasa_media))
+```
+
+```{r top-crecimiento}
+kable(head(crecimiento_promedio, 10),
+      caption = "Top 10 países con mayor crecimiento promedio anual")
+
+kable(tail(crecimiento_promedio, 10),
+      caption = "Top 10 países con menor crecimiento (o decrecimiento)")
+```
+
+> Las tablas de crecimiento promedio anual revelan patrones demográficos consistentes con la teoría de la transición demográfica. Los países con mayor crecimiento se concentran en Medio Oriente (Emiratos Árabes, Qatar, Kuwait) y África Subsahariana, regiones donde convergen altas tasas de fecundidad, estructuras etarias jóvenes y, en el caso del Golfo Pérsico, flujos masivos de inmigración laboral que inflan artificialmente las tasas de crecimiento. En el extremo opuesto, los países con decrecimiento pertenecen predominantemente a Europa del Este y territorios insulares del Pacífico, reflejando fenómenos de envejecimiento poblacional, emigración sostenida y tasas de natalidad por debajo del nivel de reemplazo. La diferencia entre la tasa media y la mediana en algunos países sugiere la presencia de años atípicos con crecimientos o decrecimientos extraordinarios, posiblemente vinculados a eventos geopolíticos puntuales como conflictos o procesos de independencia.
+
+```{r plot-crec-region, fig.cap="Distribución de la tasa de crecimiento poblacional anual por región"}
+ggplot(crecimiento %>%
+         filter(!is.na(tasa_crecimiento) & !is.na(region) & region != "Aggregates"),
+       aes(x = region, y = tasa_crecimiento, fill = region)) +
+  geom_boxplot(alpha = 0.7, outlier.alpha = 0.3) +
+  coord_flip() +
+  labs(title = "Tasa de Crecimiento Poblacional Anual por Región",
+       x = "", y = "Tasa de Crecimiento (%)") +
+  theme_minimal(base_size = 11) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        legend.position = "none") +
+  scale_fill_brewer(palette = "Set3") +
+  ylim(-5, 15)
+```
+
+> El boxplot regional constituye una herramienta analítica robusta para comparar las distribuciones de las tasas de crecimiento entre regiones. **África Subsahariana** presenta la mediana más elevada y una distribución con sesgo positivo, confirmando que la mayoría de los países africanos experimentan crecimientos superiores al promedio global. **Medio Oriente y Norte de África** exhibe la mayor dispersión intercuartílica, lo que refleja la heterogeneidad demográfica de la región: coexisten países con crecimiento explosivo impulsado por la inmigración (Estados del Golfo) con otros de crecimiento moderado (Túnez, Líbano). **Europa y Asia Central** destaca por tener la mediana más baja y una dispersión significativa que incluye valores negativos, evidenciando los procesos de despoblación activa en varios países del este europeo. América Latina y el Caribe muestra una distribución compacta centrada en tasas moderadas (1-2%), consistente con una región que avanza en su transición demográfica pero que aún no ha alcanzado la estabilización poblacional. Los valores atípicos (*outliers*) visibles en todas las regiones corresponden a eventos demográficos extraordinarios como migraciones masivas, conflictos o booms petroleros que generaron crecimientos o decrecimientos anómalos en periodos específicos.
+
+## Conclusiones
+
+A partir del análisis exploratorio realizado, se destacan los siguientes hallazgos principales:
+
+1. **Estructura del dataset:** El dataset contiene información longitudinal robusta con buena cobertura para las variables demográficas básicas. Las variables de migración presentan un porcentaje significativo de valores faltantes debido a su periodicidad quinquenal.
+
+2. **Crecimiento poblacional:** La población mundial presenta una tendencia positiva entre 1960 y 2018, con un crecimiento que se concentra cada vez más en los países de ingreso bajo y medio-bajo, especialmente en África Subsahariana y Asia del Sur.
+
+3. **Desigualdad demográfica:** Existe una enorme disparidad poblacional entre países. China e India concentran más de un tercio de la población mundial, mientras que decenas de microestados tienen poblaciones inferiores al millón.
+
+4. **Patrones migratorios:** Los flujos migratorios netos reflejan la brecha económica global: las economías de alto ingreso atraen migrantes, mientras que los países de ingreso bajo y medio son emisores netos.
+
+5. **Densidad poblacional:** No existe una relación directa entre tamaño poblacional y densidad. Los territorios más densos son generalmente ciudades-estado o islas pequeñas, donde la relación $\rho = P/A$ se ve amplificada por superficies territoriales reducidas.
+
+6. **Transición demográfica:** Las tasas de crecimiento muestran una clara diferenciación regional, con Europa en un proceso avanzado de estabilización/decrecimiento y África en pleno auge demográfico, lo que configura un escenario de redistribución poblacional global en las próximas décadas.
+

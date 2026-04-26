@@ -1,0 +1,16 @@
+book_filename: "eda_poblacion_mundial"
+delete_merged_file: true
+language:
+  ui:
+    chapter_name: "Capítulo "
+rmd_files:
+  - index.Rmd
+  - 01-diccionario.Rmd
+  - 02-estructura.Rmd
+  - 03-limpieza.Rmd
+  - 04-distribucion.Rmd
+  - 05-temporal.Rmd
+  - 06-migracion.Rmd
+  - 07-correlacion-densidad.Rmd
+  - 08-ingreso-region.Rmd
+  - 09-conclusiones.Rmd

@@ -1,0 +1,102 @@
+# Distribución de Variables {#distribucion}
+
+## Variables Categóricas
+
+```{r categoricas-resumen}
+resumen_cat <- data.frame(
+  Metrica = c("Países/entidades únicas", "Rango de años", "Regiones únicas",
+              "Niveles de ingreso", "Filas (solo países)", "Países únicos (sin agregados)"),
+  Valor = c(
+    n_distinct(df$country),
+    paste(min(df$year, na.rm = TRUE), "-", max(df$year, na.rm = TRUE)),
+    n_distinct(df$region),
+    n_distinct(df$incomeLevel),
+    nrow(df_paises),
+    n_distinct(df_paises$country)
+  )
+)
+
+kable(resumen_cat, caption = "Resumen de variables categóricas")
+```
+
+```{r region-counts}
+region_counts <- df %>% count(region, sort = TRUE)
+
+kable(region_counts, caption = "Observaciones por región")
+```
+
+```{r plot-region, fig.cap="Distribución de observaciones por región"}
+ggplot(region_counts, aes(x = reorder(region, n), y = n)) +
+  geom_bar(stat = "identity", fill = "#3498DB", alpha = 0.8) +
+  coord_flip() +
+  labs(title = "Número de Observaciones por Región",
+       x = "Región", y = "Número de Observaciones") +
+  theme_minimal(base_size = 11) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5))
+```
+
+```{r income-counts}
+income_counts <- df %>% count(incomeLevel, sort = TRUE)
+
+kable(income_counts, caption = "Observaciones por nivel de ingreso")
+```
+
+```{r plot-income, fig.cap="Distribución de observaciones por nivel de ingreso"}
+ggplot(income_counts, aes(x = reorder(incomeLevel, n), y = n)) +
+  geom_bar(stat = "identity", fill = "#2ECC71", alpha = 0.8) +
+  coord_flip() +
+  labs(title = "Número de Observaciones por Nivel de Ingreso",
+       x = "Nivel de Ingreso", y = "Número de Observaciones") +
+  theme_minimal(base_size = 11) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5))
+```
+
+> Las regiones con mayor representación son las que contienen mayor cantidad de países (África Subsahariana, Europa y Asia Central). La categoría "Aggregates" corresponde a totales regionales y mundiales que el Banco Mundial incluye como filas separadas; es fundamental filtrarlos para evitar doble conteo en análisis a nivel de país.
+
+## Variables Numéricas
+
+### Distribución de la Población
+
+```{r hist-poblacion, fig.cap="Distribución de la población en escala logarítmica"}
+ggplot(df_paises, aes(x = population)) +
+  geom_histogram(bins = 50, fill = "#9B59B6", alpha = 0.7, color = "white") +
+  scale_x_log10(labels = comma) +
+  labs(title = "Distribución de la Población (escala log10)",
+       subtitle = "Solo países (excluyendo agregados regionales)",
+       x = "Población (log10)", y = "Frecuencia") +
+  theme_minimal(base_size = 12) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5, color = "grey50"))
+```
+
+### Distribución de la Densidad Poblacional
+
+```{r hist-densidad, fig.cap="Distribución de la densidad poblacional en escala logarítmica"}
+ggplot(df_paises %>% filter(!is.na(pop_density)), aes(x = pop_density)) +
+  geom_histogram(bins = 50, fill = "#E67E22", alpha = 0.7, color = "white") +
+  scale_x_log10(labels = comma) +
+  labs(title = "Distribución de la Densidad Poblacional (escala log10)",
+       x = "Densidad Poblacional (hab/km²) - log10", y = "Frecuencia") +
+  theme_minimal(base_size = 12) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5))
+```
+
+> La distribución de la densidad poblacional es fuertemente asimétrica (sesgada a la derecha), confirmando que la mayoría de países tienen densidades poblacionales relativamente pequeñas, mientras unos pocos países concentran gran parte de la densidad poblacional mundial.
+
+### Población por Nivel de Ingreso
+
+```{r boxplot-pop-income, fig.cap="Distribución de población por nivel de ingreso"}
+ggplot(df_paises %>% filter(!is.na(population) & !is.na(incomeLevel)),
+       aes(x = incomeLevel, y = population, fill = incomeLevel)) +
+  geom_boxplot(alpha = 0.7, outlier.alpha = 0.4) +
+  scale_y_log10(labels = comma) +
+  labs(title = "Distribución de Población por Nivel de Ingreso",
+       x = "Nivel de Ingreso", y = "Población (log10)") +
+  theme_minimal(base_size = 11) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.text.x = element_text(angle = 30, hjust = 1),
+        legend.position = "none") +
+  scale_fill_brewer(palette = "Set2")
+```
+
+> El boxplot por nivel de ingreso sugiere que los países de ingreso medio-bajo tienden a tener poblaciones mayores, consistente con el hecho de que India y varias naciones del Sudeste Asiático y África pertenecen a esta categoría.

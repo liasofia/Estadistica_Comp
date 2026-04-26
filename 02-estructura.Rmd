@@ -1,0 +1,66 @@
+# Estructura y Calidad del Dataset {#estructura}
+
+## Dimensiones y Estructura General
+
+Comenzamos explorando las dimensiones del dataset, los tipos de variables y una vista previa de los datos.
+
+- **Filas (observaciones):** `r nrow(df)`
+- **Columnas (variables):** `r ncol(df)`
+
+```{r estructura}
+str(df)
+```
+
+```{r head-tail}
+kable(head(df), caption = "Primeras 6 filas del dataset")
+kable(tail(df), caption = "Últimas 6 filas del dataset")
+```
+
+> El dataset tiene una estructura de panel de datos (datos longitudinales), donde cada fila representa un país en un año particular. Esto permite analizar tanto comparaciones transversales (entre países en un mismo año) como evoluciones temporales.
+
+## Resumen Estadístico
+
+```{r resumen}
+summary(df)
+```
+
+
+```{r skim}
+skim(df)
+```
+
+> El resumen estadístico revela una gran variabilidad en la población entre países — desde microestados con miles de habitantes hasta gigantes demográficos como China e India. Esta alta dispersión justifica el uso de escalas logarítmicas en las visualizaciones posteriores.
+
+## Análisis de Valores Faltantes (NA)
+
+```{r valores-faltantes}
+na_por_columna <- colSums(is.na(df))
+na_porcentaje <- round(colSums(is.na(df)) / nrow(df) * 100, 2)
+
+na_resumen <- data.frame(
+  Variable = names(na_por_columna),
+  NAs = na_por_columna,
+  Porcentaje = na_porcentaje
+)
+na_resumen <- na_resumen[order(-na_resumen$Porcentaje), ]
+
+kable(na_resumen, row.names = FALSE,
+      caption = "Valores faltantes por variable")
+```
+
+- **Total de valores faltantes:** `r sum(is.na(df))`
+- **Total de celdas en el dataset:** `r format(prod(dim(df)), big.mark = ",")`
+- **Porcentaje global de NAs:** `r round(sum(is.na(df)) / prod(dim(df)) * 100, 2)`%
+
+```{r grafico-na, fig.cap="Porcentaje de valores faltantes por variable"}
+ggplot(na_resumen, aes(x = reorder(Variable, Porcentaje), y = Porcentaje)) +
+  geom_bar(stat = "identity", fill = "#E74C3C", alpha = 0.8) +
+  geom_text(aes(label = paste0(Porcentaje, "%")), hjust = -0.1, size = 3) +
+  coord_flip() +
+  labs(title = "Porcentaje de Valores Faltantes por Variable",
+       x = "Variable", y = "Porcentaje de NAs (%)") +
+  theme_minimal(base_size = 12) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5))
+```
+
+> Las variables de migración (`net_migration` y `migration_perc`) concentran la mayoría de los valores faltantes, lo cual es esperado dado que estas estadísticas solo se recopilan cada cinco años. Las variables demográficas básicas (`population`, `pop_density`) tienen una cobertura prácticamente completa, lo que permite realizar análisis robustos sobre tendencias poblacionales.

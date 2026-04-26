@@ -1,0 +1,23 @@
+# Diccionario de Variables {#diccionario}
+
+A continuación se presenta el diccionario de datos que describe cada una de las variables contenidas en el dataset. Comprender el significado de cada variable es esencial para interpretar correctamente los resultados del análisis.
+
+| Variable | Tipo | Descripción |
+|:---------|:-----|:------------|
+| `country` | Categórica (texto) | Nombre del país o territorio. Incluye tanto países individuales como agregados regionales (e.g., "World", "East Asia & Pacific"). |
+| `year` | Numérica (entero) | Año de la observación. El dataset cubre desde 1960 hasta 2018. |
+| `population` | Numérica (entero) | Población total del país o territorio en el año dado. |
+| `pop_density` | Numérica (decimal) | Densidad poblacional expresada en habitantes por kilómetro cuadrado (hab/km²). |
+| `net_migration` | Numérica (entero) | Migración neta: diferencia entre inmigrantes y emigrantes. Valores positivos indican inmigración neta; negativos, emigración neta. Dato disponible cada 5 años. |
+| `migration_perc` | Numérica (decimal) | Porcentaje que representa la migración neta respecto a la población total del país. |
+| `iso3c` | Categórica (texto) | Código ISO 3166-1 alfa-3 que identifica de forma única a cada país (e.g., "MEX", "USA", "CHN"). |
+| `iso2c` | Categórica (texto) | Código ISO 3166-1 alfa-2 de dos letras (e.g., "MX", "US", "CN"). |
+| `region` | Categórica (texto) | Región geográfica según la clasificación del Banco Mundial (e.g., "Latin America & Caribbean"). Los agregados llevan el valor "Aggregates". |
+| `adminregion` | Categórica (texto) | Subregión administrativa según el Banco Mundial. Suele estar vacía para países de ingreso alto. |
+| `incomeLevel` | Categórica (texto) | Clasificación por nivel de ingreso: "Low income", "Lower middle income", "Upper middle income" y "High income". |
+| `lendingType` | Categórica (texto) | Tipo de préstamo al que accede el país en el Banco Mundial (e.g., "IBRD", "IDA", "Blend"). |
+| `capitalCity` | Categórica (texto) | Nombre de la ciudad capital del país. |
+| `longitude` | Numérica (decimal) | Longitud geográfica del centroide de la capital del país. |
+| `latitude` | Numérica (decimal) | Latitud geográfica del centroide de la capital del país. |
+
+> **Nota importante:** Las variables `net_migration` y `migration_perc` presentan un alto porcentaje de valores faltantes (NA), ya que estos datos solo se reportan cada 5 años aproximadamente. Esto se analizará con detalle en la sección de valores faltantes.

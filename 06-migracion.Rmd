@@ -1,0 +1,72 @@
+# Análisis de Migración Neta {#migracion}
+
+```{r migracion-datos}
+df_migracion <- df_paises %>% filter(!is.na(net_migration))
+```
+
+El dataset contiene **`r nrow(df_migracion)`** observaciones con datos de migración neta.
+
+## Estadísticas de Migración
+
+```{r migracion-stats}
+summary(df_migracion$net_migration)
+```
+
+## Principales Receptores y Emisores
+
+```{r top-migracion}
+ultimo_anio_mig <- max(df_migracion$year, na.rm = TRUE)
+
+top_inmigracion <- df_migracion %>%
+  filter(year == ultimo_anio_mig) %>%
+  arrange(desc(net_migration)) %>%
+  head(10)
+
+top_emigracion <- df_migracion %>%
+  filter(year == ultimo_anio_mig) %>%
+  arrange(net_migration) %>%
+  head(10)
+
+kable(top_inmigracion %>% select(country, net_migration, migration_perc),
+      caption = paste("Top 10 países con mayor inmigración neta (año", ultimo_anio_mig, ")"))
+
+kable(top_emigracion %>% select(country, net_migration, migration_perc),
+      caption = paste("Top 10 países con mayor emigración neta (año", ultimo_anio_mig, ")"))
+```
+
+> Los principales receptores netos, como Estados Unidos, Alemania y los Emiratos Árabes Unidos, corresponden a economías de alto ingreso que funcionan como polos de atracción laboral y refugio. En contraste, los mayores emisores netos India, Bangladesh y Siria, son conocidos por sus problemas de pobreza o geopoliticos y reflejan dinámicas de expulsión vinculadas a factores económicos (mercados laborales saturados, bajos salarios relativos) y geopolíticos (conflictos armados, inestabilidad institucional). Es relevante señalar que la variable `migration_perc` relativiza estos flujos respecto al tamaño poblacional, lo que permite contextualizar el impacto real de la migración en la estructura demográfica de cada país; por ejemplo, un flujo migratorio que resulta marginal para India puede ser transformador para un estado pequeño del Golfo Pérsico.
+
+```{r plot-migracion, fig.cap="Mayores receptores y emisores de migración neta"}
+top_mig_combined <- bind_rows(
+  top_inmigracion %>% mutate(tipo = "Inmigración"),
+  top_emigracion %>% mutate(tipo = "Emigración")
+)
+
+ggplot(top_mig_combined,
+       aes(x = reorder(country, net_migration), y = net_migration, fill = tipo)) +
+  geom_bar(stat = "identity", alpha = 0.8) +
+  coord_flip() +
+  scale_y_continuous(labels = function(x) paste0(round(x / 1e6, 1), "M")) +
+  scale_fill_manual(values = c("Inmigración" = "#27AE60", "Emigración" = "#E74C3C")) +
+  labs(title = "Migración Neta: Mayores Receptores y Emisores",
+       subtitle = paste("Año:", ultimo_anio_mig),
+       x = "", y = "Migración Neta", fill = "") +
+  theme_minimal(base_size = 11) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5, color = "grey50"),
+        legend.position = "bottom")
+```
+
+> El gráfico de barras horizontales evidencia la asimetría en la magnitud absoluta de los flujos migratorios. Estados Unidos destaca como el principal receptor neto a nivel global, con un saldo migratorio positivo que supera en varios millones al de cualquier otro país, lo cual se explica por su papel histórico como destino de migración económica y de refugio. 
+> Del lado de la emigración, India y Bangladesh presentan los saldos negativos más pronunciados, asociados a la emigración laboral hacia las economías del Golfo Pérsico y el Sudeste Asiático. 
+## Distribución del Porcentaje de Migración
+
+```{r plot-mig-perc, fig.cap="Distribución del porcentaje de migración neta respecto a la población"}
+ggplot(df_migracion %>% filter(!is.na(migration_perc)),
+       aes(x = migration_perc * 100)) +
+  geom_histogram(bins = 40, fill = "#8E44AD", alpha = 0.7, color = "white") +
+  labs(title = "Distribución del Porcentaje de Migración Neta",
+       x = "Migración Neta como % de la Población", y = "Frecuencia") +
+  theme_minimal(base_size = 12) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5))
+```
