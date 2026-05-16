@@ -1,0 +1,182 @@
+## Análisis bivariado {#bivariado}
+
+En esta sección se exploran las relaciones entre pares de variables del dataset, complementando el análisis univariado previo. El objetivo es identificar asociaciones, tendencias y patrones conjuntos que permitan entender cómo interactúan las dimensiones demográficas, geográficas y económicas entre sí.
+
+## Población vs. densidad poblacional
+
+```{r biv-pop-densidad, fig.cap="Relación entre población y densidad poblacional (escala log-log)"}
+df_biv <- df_paises %>%
+  filter(year == max(year, na.rm = TRUE) &
+         !is.na(population) & !is.na(pop_density))
+
+ggplot(df_biv, aes(x = population, y = pop_density, color = region)) +
+  geom_point(alpha = 0.6, size = 2.5) +
+  scale_x_log10(labels = comma) +
+  scale_y_log10(labels = comma) +
+  geom_smooth(method = "lm", se = FALSE, color = "grey30",
+              linetype = "dashed", linewidth = 0.8) +
+  labs(title = "Población vs. Densidad Poblacional",
+       subtitle = paste("Año:", max(df_biv$year)),
+       x = "Población (log10)",
+       y = "Densidad Poblacional (hab/km², log10)",
+       color = "Región") +
+  theme_minimal(base_size = 11) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5, color = "grey50"),
+        legend.position = "bottom",
+        legend.text = element_text(size = 7)) +
+  guides(color = guide_legend(nrow = 3))
+```
+
+```{r biv-pop-dens-cor}
+cor_pop_dens <- cor(log10(df_biv$population), log10(df_biv$pop_density),
+                    use = "complete.obs")
+```
+
+El coeficiente de correlación de Pearson en escala logarítmica resulta en $r =$ `r round(cor_pop_dens, 3)`, lo que clasifica esta relación como débil. Este resultado indica que la densidad poblacional depende en mayor medida de la extensión territorial de un país que de cuántos habitantes tiene. Para ilustrarlo con ejemplos concretos, India combina una población muy elevada con una alta densidad, pero Australia y Canadá, pese a contar con poblaciones considerables, presentan densidades muy bajas debido a la vasta extensión de sus territorios. En el extremo opuesto, ciudades-estado como Singapur o Mónaco muestran las densidades más altas del mundo con poblaciones relativamente pequeñas.
+
+## Migración neta vs. nivel de ingreso
+
+```{r biv-mig-ingreso, fig.cap="Migración neta por nivel de ingreso"}
+df_mig_income <- df_paises %>%
+  filter(!is.na(net_migration) & !is.na(incomeLevel) & incomeLevel != "") %>%
+  filter(year == max(year, na.rm = TRUE))
+
+ggplot(df_mig_income,
+       aes(x = reorder(incomeLevel, net_migration, FUN = median),
+           y = net_migration)) +
+  geom_boxplot(fill = COLOR_PRINCIPAL, alpha = 0.7, outlier.alpha = 0.4) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red", linewidth = 0.6) +
+  coord_flip() +
+  scale_y_continuous(labels = function(x) paste0(round(x / 1e6, 1), "M")) +
+  labs(title = "Migración Neta por Nivel de Ingreso",
+       subtitle = "La línea roja marca migración neta = 0",
+       x = "", y = "Migración Neta") +
+  theme_minimal(base_size = 11) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5, color = "grey50"),
+        legend.position = "none")
+```
+
+El diagrama de cajas revela un vínculo claro entre el nivel de ingresos y la dirección de los flujos migratorios. Los países de ingresos altos presentan medianas de migración neta positivas, lo que significa que reciben más personas de las que emigran: funcionan como receptores netos de población. En cambio, los países de ingresos bajos y medios-bajos muestran medianas negativas o cercanas a cero, lo que los posiciona como emisores netos de migrantes. Este patrón es coherente con la teoría económica de la migración, que sostiene que las diferencias salariales y de oportunidades impulsan a la población a desplazarse desde economías menos desarrolladas hacia las de mayor prosperidad. La línea roja en cero facilita la identificación visual de qué grupos se encuentran por encima (inmigran más) o por debajo (emigran más) de ese umbral.
+
+## Densidad poblacional vs. migración neta (%)
+
+```{r biv-dens-mig, fig.cap="Relación entre densidad poblacional y porcentaje de migración neta"}
+df_dens_mig <- df_paises %>%
+  filter(!is.na(pop_density) & !is.na(migration_perc)) %>%
+  filter(year == max(year, na.rm = TRUE))
+
+ggplot(df_dens_mig, aes(x = pop_density, y = migration_perc * 100,
+                         color = incomeLevel)) +
+  geom_point(alpha = 0.6, size = 2.5) +
+  scale_x_log10(labels = comma) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red", linewidth = 0.5) +
+  labs(title = "Densidad Poblacional vs. Migración Neta (%)",
+       x = "Densidad Poblacional (hab/km², log10)",
+       y = "Migración Neta (% de población)",
+       color = "Nivel de Ingreso") +
+  theme_minimal(base_size = 11) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        legend.position = "bottom") +
+  scale_color_brewer(palette = "Dark2")
+```
+
+El gráfico de dispersión entre la densidad poblacional y el porcentaje de migración neta no muestra una asociación lineal directa entre ambas variables. Sin embargo, se puede observar que los países que combinan alta densidad con ingresos elevados, tienden a mostrar tasas de migración neta marcadamente positivas. En cambio, países con alta densidad pero de bajos ingresos, funcionan como emisores netos.
+
+
+## Crecimiento poblacional vs. región e ingreso
+
+```{r biv-crec-region-ingreso, fig.cap="Tasa de crecimiento por región y nivel de ingreso", fig.height=7}
+crecimiento_biv <- df_paises %>%
+  filter(!is.na(population) & !is.na(region) & !is.na(incomeLevel) &
+         region != "Aggregates" & incomeLevel != "") %>%
+  group_by(country, region, incomeLevel) %>%
+  arrange(year) %>%
+  mutate(tasa_crecimiento = (population / lag(population) - 1) * 100) %>%
+  ungroup() %>%
+  filter(!is.na(tasa_crecimiento))
+
+crecimiento_resumen <- crecimiento_biv %>%
+  group_by(region, incomeLevel) %>%
+  summarise(tasa_media = mean(tasa_crecimiento, na.rm = TRUE),
+            n = n(),
+            .groups = "drop")
+
+ggplot(crecimiento_resumen %>% filter(n >= 10),
+       aes(x = region, y = incomeLevel, fill = tasa_media)) +
+  geom_tile(color = "white", linewidth = 0.5) +
+  geom_text(aes(label = round(tasa_media, 2)), size = 3.2) +
+  scale_fill_gradient2(low = "#2980B9", mid = "#F7DC6F", high = "#E74C3C",
+                       midpoint = 2, name = "Tasa media (%)") +
+  labs(title = "Tasa de Crecimiento Promedio por Región y Nivel de Ingreso",
+       x = "", y = "") +
+  theme_minimal(base_size = 11) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.text.x = element_text(angle = 35, hjust = 1, size = 8),
+        legend.position = "right")
+```
+
+El mapa de calor revela una interacción entre la ubicación geográfica y el nivel de ingresos al analizar las tasas de crecimiento demográfico. Las mayores tasas se concentran en los tonos rojizos y naranjas, donde destaca de manera excepcional el caso de Medio Oriente y Norte de África en el segmento de ingresos altos ($4.47\%$), seguido por África Subsahariana. En contraste, las tonalidades grisáceas exponen los ritmos de crecimiento más lentos, un patrón evidente en Europa y Asia Central tanto en sus niveles de ingresos altos ($0.65\%$) como medios-altos ($0.73\%$). Este hallazgo subraya que evaluar la región o el ingreso de forma aislada sesga el análisis. 
+
+## Tabla de contingencia: región vs. nivel de ingreso
+
+```{r biv-contingencia}
+df_ultimo <- df_paises %>%
+  filter(year == max(year, na.rm = TRUE) &
+         !is.na(region) & !is.na(incomeLevel) &
+         region != "Aggregates" & incomeLevel != "")
+
+tabla_cont <- table(df_ultimo$region, df_ultimo$incomeLevel)
+kable(tabla_cont,
+      caption = "Tabla de contingencia: Región × Nivel de Ingreso (año más reciente)")
+```
+
+```{r biv-mosaico, fig.cap="Gráfico de barras proporcionales: Región vs. Nivel de Ingreso"}
+tabla_plot <- df_ultimo %>%
+  count(region, incomeLevel) %>%
+  group_by(region) %>%
+  mutate(pct = n / sum(n))
+
+ggplot(tabla_plot, aes(x = reorder(region, -n, sum), y = pct, fill = incomeLevel)) +
+  geom_bar(stat = "identity", position = "fill", color = "white") +
+  geom_text(aes(label = scales::percent(pct, accuracy = 1)),
+            position = position_fill(vjust = 0.5), size = 3) +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_brewer(palette = "Set2") +
+  labs(title = "Distribución de Países por Región y Nivel de Ingreso",
+       x = "Región", y = "Proporción", fill = "Nivel de Ingreso") +
+  theme_minimal(base_size = 11) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        axis.text.x = element_text(angle = 35, hjust = 1),
+        legend.position = "right")
+```
+
+La tabla de contingencia y el gráfico de barras proporcionales revelan cómo se distribuyen los países según su región y su nivel de ingreso. Se observa que África Subsahariana concentra la mayor proporción de economías de bajos ingresos, mientras que Europa y Asia Central alberga la mayor parte de las naciones de ingresos altos. América Latina y el Caribe se ubica mayoritariamente en el estrato de ingresos medios-altos, y Asia del Sur se divide entre las categorías de ingresos bajos y medios-bajos. Estos patrones reflejan las desigualdades estructurales del orden económico internacional y ayudan a entender por qué los flujos migratorios siguen direcciones predecibles, desde las regiones con mayor concentración de países de bajos ingresos hacia aquellas dominadas por economías de altos ingresos.
+
+## Evolución temporal de la densidad por región
+
+```{r biv-dens-temporal, fig.cap="Evolución de la densidad poblacional media por región"}
+dens_temporal <- df_paises %>%
+  filter(!is.na(pop_density) & !is.na(region) & region != "Aggregates") %>%
+  group_by(region, year) %>%
+  summarise(densidad_media = mean(pop_density, na.rm = TRUE), .groups = "drop")
+
+ggplot(dens_temporal, aes(x = year, y = densidad_media, color = region)) +
+  geom_line(linewidth = 1) +
+  geom_text(data = dens_temporal %>% filter(year == max(year)),
+            aes(label = round(densidad_media, 1)),
+            hjust = -0.2, size = 3, show.legend = FALSE) +
+  scale_x_continuous(expand = expansion(mult = c(0.05, 0.15))) +
+  labs(title = "Evolución de la Densidad Poblacional Media por Región",
+       x = "Año", y = "Densidad Media (hab/km²)",
+       color = "Región") +
+  theme_minimal(base_size = 12) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        legend.position = "bottom",
+        legend.text = element_text(size = 8)) +
+  guides(color = guide_legend(nrow = 3)) +
+  scale_color_brewer(palette = "Dark2")
+```
+
+La evolución temporal de la densidad media por región muestra que Asia del Sur y Asia Oriental y el Pacífico registran los índices de concentración demográfica más altos y con las pendientes de crecimiento más pronunciadas a lo largo de las casi seis décadas analizadas. Esto refleja un aumento sostenido de la presión demográfica sobre sus territorios. En el otro extremo, regiones como América del Norte y Medio Oriente y Norte de África mantienen niveles de densidad comparativamente bajos y con poca variación a lo largo del tiempo. Esta divergencia en las trayectorias tiene implicaciones directas para la planificación territorial, la gestión de recursos naturales y los desafíos de sostenibilidad ambiental que enfrenta cada región.

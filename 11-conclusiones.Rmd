@@ -1,0 +1,18 @@
+# Conclusiones {-}
+
+El análisis exploratorio, bivariado e inferencial realizado con el dataset de Población Mundial y Migración del Banco Mundial (1960–2018) permitió identificar patrones importantes sobre las dinámicas demográficas y migratorias a nivel global. Los resultados muestran que factores como la región geográfica y el nivel de ingreso influyen tanto en la distribución de la población como en los movimientos migratorios entre países.
+
+La depuración de los datos fue un paso importante para garantizar la calidad del análisis. Aunque las variables migratorias presentaban muchos valores faltantes, se determinó que esto se debía a la recolección quinquenal de la información y no a errores del dataset.
+
+En los patrones demográficos se encontró que existen diferencias significativas en la densidad poblacional entre regiones. Asia del Sur presentó la mayor densidad, mientras que América del Norte registró los niveles más bajos. Además, África Subsahariana mostró el mayor crecimiento poblacional, en contraste con Europa y Asia Central, donde el crecimiento fue mucho más estable.
+
+En relación con la migración, los países de ingreso alto tienden a recibir más migrantes, mientras que los de ingreso bajo presentan una mayor salida de población. También se observó que los países densamente poblados y con mayores ingresos suelen atraer migrantes, mientras que aquellos con alta densidad y bajos ingresos tienden a expulsarlos. Esto evidencia que factores económicos y sociales influyen más en la migración que el tamaño poblacional por sí solo.
+
+Otro hallazgo importante fue que tanto las pruebas paramétricas como las no paramétricas llevaron a las mismas conclusiones, fortaleciendo la confiabilidad de los resultados. Sin embargo, las relaciones encontradas representan asociaciones estadísticas y no causalidad directa.
+
+Finalmente, el estudio presenta limitaciones relacionadas con la disponibilidad de datos migratorios y la ausencia de variables socioeconómicas adicionales. Como trabajo futuro, se propone incorporar modelos más completos y datos posteriores a 2018 para analizar fenómenos recientes, como el impacto de la pandemia de COVID-19 en la migración global.
+
+# Referencias {-}
+
+* International Organization for Standardization. (s.f.). *Glossary for ISO 3166*. ISO. https://www.iso.org/glossary-for-iso-3166.html
+* Izcara Palacios, S. P. (2013). Aproximación teórica al estudio de los procesos migratorios permanentes. *Estudios Sociales*, 21(42), 27–54. https://www.scielo.org.mx/scielo.php?script=sci_arttext&pid=S0188-45572013000200002

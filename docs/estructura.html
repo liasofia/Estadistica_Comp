@@ -4,29 +4,34 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo 2 Estructura y Calidad del Dataset | Análisis Exploratorio de Datos: Población Mundial y Migración</title>
+  <title>Capítulo 2 Carga y Estructura de los Datos | Análisis Exploratorio de Datos: Población Mundial y Migración</title>
   <meta name="description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
-Población Mundial y Migración del Banco Mundial.</p>" />
+Población Mundial y Migración del Banco Mundial. Trabajo desarrollado
+en el marco de la asignatura de Estadística Computacional de la
+Maestría en Estadística.</p>" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo 2 Estructura y Calidad del Dataset | Análisis Exploratorio de Datos: Población Mundial y Migración" />
+  <meta property="og:title" content="Capítulo 2 Carga y Estructura de los Datos | Análisis Exploratorio de Datos: Población Mundial y Migración" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
-Población Mundial y Migración del Banco Mundial.</p>" />
+Población Mundial y Migración del Banco Mundial. Trabajo desarrollado
+en el marco de la asignatura de Estadística Computacional de la
+Maestría en Estadística.</p>" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 2 Estructura y Calidad del Dataset | Análisis Exploratorio de Datos: Población Mundial y Migración" />
+  <meta name="twitter:title" content="Capítulo 2 Carga y Estructura de los Datos | Análisis Exploratorio de Datos: Población Mundial y Migración" />
   
   <meta name="twitter:description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
-Población Mundial y Migración del Banco Mundial.</p>" />
+Población Mundial y Migración del Banco Mundial. Trabajo desarrollado
+en el marco de la asignatura de Estadística Computacional de la
+Maestría en Estadística.</p>" />
   
 
 <meta name="author" content="Lia Castillo" />
 
 
-<meta name="date" content="2026-04-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -34,7 +39,7 @@ Población Mundial y Migración del Banco Mundial.</p>" />
   
   
 <link rel="prev" href="diccionario.html"/>
-<link rel="next" href="limpieza.html"/>
+<link rel="next" href="eda.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -55,6 +60,8 @@ Población Mundial y Migración del Banco Mundial.</p>" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -144,70 +151,60 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introducción</a>
 <ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#objetivos-del-eda"><i class="fa fa-check"></i>Objetivos del EDA</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#objetivos"><i class="fa fa-check"></i>Objetivos</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#metodología"><i class="fa fa-check"></i>Metodología</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#fuente-de-datos"><i class="fa fa-check"></i>Fuente de Datos</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="diccionario.html"><a href="diccionario.html"><i class="fa fa-check"></i><b>1</b> Diccionario de Variables</a></li>
-<li class="chapter" data-level="2" data-path="estructura.html"><a href="estructura.html"><i class="fa fa-check"></i><b>2</b> Estructura y Calidad del Dataset</a>
+<li class="chapter" data-level="1" data-path="diccionario.html"><a href="diccionario.html"><i class="fa fa-check"></i><b>1</b> Diccionario de variables</a></li>
+<li class="chapter" data-level="2" data-path="estructura.html"><a href="estructura.html"><i class="fa fa-check"></i><b>2</b> Carga y Estructura de los Datos</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="estructura.html"><a href="estructura.html#dimensiones-y-estructura-general"><i class="fa fa-check"></i><b>2.1</b> Dimensiones y Estructura General</a></li>
-<li class="chapter" data-level="2.2" data-path="estructura.html"><a href="estructura.html#resumen-estadístico"><i class="fa fa-check"></i><b>2.2</b> Resumen Estadístico</a></li>
-<li class="chapter" data-level="2.3" data-path="estructura.html"><a href="estructura.html#análisis-de-valores-faltantes-na"><i class="fa fa-check"></i><b>2.3</b> Análisis de Valores Faltantes (NA)</a></li>
+<li class="chapter" data-level="2.1" data-path="estructura.html"><a href="estructura.html#dimensiones-y-estructura-general"><i class="fa fa-check"></i><b>2.1</b> Dimensiones y estructura general</a></li>
+<li class="chapter" data-level="2.2" data-path="estructura.html"><a href="estructura.html#conversión-de-variables-categóricas"><i class="fa fa-check"></i><b>2.2</b> Conversión de variables categóricas</a></li>
+<li class="chapter" data-level="2.3" data-path="estructura.html"><a href="estructura.html#análisis-de-valores-faltantes-na"><i class="fa fa-check"></i><b>2.3</b> Análisis de valores faltantes (NA)</a></li>
+<li class="chapter" data-level="2.4" data-path="estructura.html"><a href="estructura.html#limpieza"><i class="fa fa-check"></i><b>2.4</b> Limpieza y preparación de datos</a></li>
+<li class="chapter" data-level="2.5" data-path="estructura.html"><a href="estructura.html#verificación-de-duplicados"><i class="fa fa-check"></i><b>2.5</b> Verificación de duplicados</a></li>
+<li class="chapter" data-level="2.6" data-path="estructura.html"><a href="estructura.html#corrección-de-tipos-de-datos"><i class="fa fa-check"></i><b>2.6</b> Corrección de tipos de datos</a></li>
+<li class="chapter" data-level="2.7" data-path="estructura.html"><a href="estructura.html#limpieza-de-variables-categóricas"><i class="fa fa-check"></i><b>2.7</b> Limpieza de variables categóricas</a></li>
+<li class="chapter" data-level="2.8" data-path="estructura.html"><a href="estructura.html#separación-de-agregados-y-países"><i class="fa fa-check"></i><b>2.8</b> Separación de agregados y países</a></li>
+<li class="chapter" data-level="2.9" data-path="estructura.html"><a href="estructura.html#tratamiento-de-valores-faltantes-nas"><i class="fa fa-check"></i><b>2.9</b> Tratamiento de valores faltantes (NAs)</a></li>
+<li class="chapter" data-level="2.10" data-path="estructura.html"><a href="estructura.html#detección-de-valores-atípicos-outliers"><i class="fa fa-check"></i><b>2.10</b> Detección de valores atípicos (outliers)</a></li>
+<li class="chapter" data-level="2.11" data-path="estructura.html"><a href="estructura.html#validación-de-rangos-y-consistencia"><i class="fa fa-check"></i><b>2.11</b> Validación de rangos y consistencia</a></li>
+<li class="chapter" data-level="2.12" data-path="estructura.html"><a href="estructura.html#resumen-de-la-limpieza"><i class="fa fa-check"></i><b>2.12</b> Resumen de la limpieza</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="limpieza.html"><a href="limpieza.html"><i class="fa fa-check"></i><b>3</b> Limpieza y Preparación de Datos</a>
+<li class="chapter" data-level="3" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>3</b> Análisis Exploratorio de Datos</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="limpieza.html"><a href="limpieza.html#verificación-de-duplicados"><i class="fa fa-check"></i><b>3.1</b> Verificación de Duplicados</a></li>
-<li class="chapter" data-level="3.2" data-path="limpieza.html"><a href="limpieza.html#corrección-de-tipos-de-datos"><i class="fa fa-check"></i><b>3.2</b> Corrección de Tipos de Datos</a></li>
-<li class="chapter" data-level="3.3" data-path="limpieza.html"><a href="limpieza.html#limpieza-de-variables-categóricas"><i class="fa fa-check"></i><b>3.3</b> Limpieza de Variables Categóricas</a></li>
-<li class="chapter" data-level="3.4" data-path="limpieza.html"><a href="limpieza.html#separación-de-agregados-y-países"><i class="fa fa-check"></i><b>3.4</b> Separación de Agregados y Países</a></li>
-<li class="chapter" data-level="3.5" data-path="limpieza.html"><a href="limpieza.html#tratamiento-de-valores-faltantes-nas"><i class="fa fa-check"></i><b>3.5</b> Tratamiento de Valores Faltantes (NAs)</a>
+<li class="chapter" data-level="3.1" data-path="eda.html"><a href="eda.html#distribucion"><i class="fa fa-check"></i><b>3.1</b> Distribución de Variables</a>
 <ul>
-<li class="chapter" data-level="3.5.1" data-path="limpieza.html"><a href="limpieza.html#estrategia-de-tratamiento"><i class="fa fa-check"></i><b>3.5.1</b> Estrategia de Tratamiento</a></li>
+<li class="chapter" data-level="3.1.1" data-path="eda.html"><a href="eda.html#composición-del-dataset"><i class="fa fa-check"></i><b>3.1.1</b> Composición del dataset</a></li>
+<li class="chapter" data-level="3.1.2" data-path="eda.html"><a href="eda.html#países-que-conforman-cada-región"><i class="fa fa-check"></i><b>3.1.2</b> Países que conforman cada región</a></li>
+<li class="chapter" data-level="3.1.3" data-path="eda.html"><a href="eda.html#rankings-por-variables-clave"><i class="fa fa-check"></i><b>3.1.3</b> Rankings por variables clave</a></li>
 </ul></li>
-<li class="chapter" data-level="3.6" data-path="limpieza.html"><a href="limpieza.html#detección-de-valores-atípicos-outliers"><i class="fa fa-check"></i><b>3.6</b> Detección de Valores Atípicos (Outliers)</a></li>
-<li class="chapter" data-level="3.7" data-path="limpieza.html"><a href="limpieza.html#validación-de-rangos-y-consistencia"><i class="fa fa-check"></i><b>3.7</b> Validación de Rangos y Consistencia</a></li>
-<li class="chapter" data-level="3.8" data-path="limpieza.html"><a href="limpieza.html#resumen-de-la-limpieza"><i class="fa fa-check"></i><b>3.8</b> Resumen de la Limpieza</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="distribucion.html"><a href="distribucion.html"><i class="fa fa-check"></i><b>4</b> Distribución de Variables</a>
+<li class="chapter" data-level="3.2" data-path="eda.html"><a href="eda.html#variables-numéricas"><i class="fa fa-check"></i><b>3.2</b> Variables numéricas</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="distribucion.html"><a href="distribucion.html#variables-categóricas"><i class="fa fa-check"></i><b>4.1</b> Variables Categóricas</a></li>
-<li class="chapter" data-level="4.2" data-path="distribucion.html"><a href="distribucion.html#variables-numéricas"><i class="fa fa-check"></i><b>4.2</b> Variables Numéricas</a>
+<li class="chapter" data-level="3.2.1" data-path="eda.html"><a href="eda.html#estadísticas-descriptivas"><i class="fa fa-check"></i><b>3.2.1</b> Estadísticas descriptivas</a></li>
+<li class="chapter" data-level="3.2.2" data-path="eda.html"><a href="eda.html#distribución-de-la-población"><i class="fa fa-check"></i><b>3.2.2</b> Distribución de la población</a></li>
+<li class="chapter" data-level="3.2.3" data-path="eda.html"><a href="eda.html#distribución-de-la-densidad-poblacional"><i class="fa fa-check"></i><b>3.2.3</b> Distribución de la densidad poblacional</a></li>
+<li class="chapter" data-level="3.2.4" data-path="eda.html"><a href="eda.html#población-por-nivel-de-ingreso"><i class="fa fa-check"></i><b>3.2.4</b> Población por nivel de ingreso</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="eda.html"><a href="eda.html#bivariado"><i class="fa fa-check"></i><b>3.3</b> Análisis bivariado</a></li>
+<li class="chapter" data-level="3.4" data-path="eda.html"><a href="eda.html#población-vs.-densidad-poblacional"><i class="fa fa-check"></i><b>3.4</b> Población vs. densidad poblacional</a></li>
+<li class="chapter" data-level="3.5" data-path="eda.html"><a href="eda.html#migración-neta-vs.-nivel-de-ingreso"><i class="fa fa-check"></i><b>3.5</b> Migración neta vs. nivel de ingreso</a></li>
+<li class="chapter" data-level="3.6" data-path="eda.html"><a href="eda.html#densidad-poblacional-vs.-migración-neta"><i class="fa fa-check"></i><b>3.6</b> Densidad poblacional vs. migración neta (%)</a></li>
+<li class="chapter" data-level="3.7" data-path="eda.html"><a href="eda.html#crecimiento-poblacional-vs.-región-e-ingreso"><i class="fa fa-check"></i><b>3.7</b> Crecimiento poblacional vs. región e ingreso</a></li>
+<li class="chapter" data-level="3.8" data-path="eda.html"><a href="eda.html#tabla-de-contingencia-región-vs.-nivel-de-ingreso"><i class="fa fa-check"></i><b>3.8</b> Tabla de contingencia: región vs. nivel de ingreso</a></li>
+<li class="chapter" data-level="3.9" data-path="eda.html"><a href="eda.html#evolución-temporal-de-la-densidad-por-región"><i class="fa fa-check"></i><b>3.9</b> Evolución temporal de la densidad por región</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="inferencial.html"><a href="inferencial.html"><i class="fa fa-check"></i><b>4</b> Análisis inferencial</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="distribucion.html"><a href="distribucion.html#distribución-de-la-población"><i class="fa fa-check"></i><b>4.2.1</b> Distribución de la Población</a></li>
-<li class="chapter" data-level="4.2.2" data-path="distribucion.html"><a href="distribucion.html#distribución-de-la-densidad-poblacional"><i class="fa fa-check"></i><b>4.2.2</b> Distribución de la Densidad Poblacional</a></li>
-<li class="chapter" data-level="4.2.3" data-path="distribucion.html"><a href="distribucion.html#población-por-nivel-de-ingreso"><i class="fa fa-check"></i><b>4.2.3</b> Población por Nivel de Ingreso</a></li>
+<li class="chapter" data-level="4.1" data-path="inferencial.html"><a href="inferencial.html#prueba-de-normalidad"><i class="fa fa-check"></i><b>4.1</b> Prueba de normalidad</a></li>
+<li class="chapter" data-level="4.2" data-path="inferencial.html"><a href="inferencial.html#prueba-t-migración-neta-en-países-de-ingreso-alto-vs.-bajo"><i class="fa fa-check"></i><b>4.2</b> Prueba t: migración neta en países de ingreso alto vs. bajo</a></li>
+<li class="chapter" data-level="4.3" data-path="inferencial.html"><a href="inferencial.html#anova-densidad-poblacional-por-región"><i class="fa fa-check"></i><b>4.3</b> ANOVA: densidad poblacional por región</a></li>
+<li class="chapter" data-level="4.4" data-path="inferencial.html"><a href="inferencial.html#prueba-chi-cuadrado-independencia-región-ingreso"><i class="fa fa-check"></i><b>4.4</b> Prueba Chi-cuadrado: independencia región-ingreso</a></li>
+<li class="chapter" data-level="4.5" data-path="inferencial.html"><a href="inferencial.html#intervalo-de-confianza-para-la-tasa-de-crecimiento"><i class="fa fa-check"></i><b>4.5</b> Intervalo de confianza para la tasa de crecimiento</a></li>
+<li class="chapter" data-level="4.6" data-path="inferencial.html"><a href="inferencial.html#correlación"><i class="fa fa-check"></i><b>4.6</b> Correlación</a></li>
+<li class="chapter" data-level="4.7" data-path="inferencial.html"><a href="inferencial.html#resumen-del-análisis-inferencial"><i class="fa fa-check"></i><b>4.7</b> Resumen del análisis inferencial</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="temporal.html"><a href="temporal.html"><i class="fa fa-check"></i><b>5</b> Evolución Temporal</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="temporal.html"><a href="temporal.html#población-mundial-total"><i class="fa fa-check"></i><b>5.1</b> Población Mundial Total</a></li>
-<li class="chapter" data-level="5.2" data-path="temporal.html"><a href="temporal.html#top-10-países-más-poblados"><i class="fa fa-check"></i><b>5.2</b> Top 10 Países Más Poblados</a></li>
-<li class="chapter" data-level="5.3" data-path="temporal.html"><a href="temporal.html#evolución-de-los-top-5-países"><i class="fa fa-check"></i><b>5.3</b> Evolución de los Top 5 Países</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="migracion.html"><a href="migracion.html"><i class="fa fa-check"></i><b>6</b> Análisis de Migración Neta</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="migracion.html"><a href="migracion.html#estadísticas-de-migración"><i class="fa fa-check"></i><b>6.1</b> Estadísticas de Migración</a></li>
-<li class="chapter" data-level="6.2" data-path="migracion.html"><a href="migracion.html#principales-receptores-y-emisores"><i class="fa fa-check"></i><b>6.2</b> Principales Receptores y Emisores</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="correlacion.html"><a href="correlacion.html"><i class="fa fa-check"></i><b>7</b> Correlación y Densidad Poblacional</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="correlacion.html"><a href="correlacion.html#análisis-de-correlación"><i class="fa fa-check"></i><b>7.1</b> Análisis de Correlación</a></li>
-<li class="chapter" data-level="7.2" data-path="correlacion.html"><a href="correlacion.html#densidad-poblacional"><i class="fa fa-check"></i><b>7.2</b> Densidad Poblacional</a>
-<ul>
-<li class="chapter" data-level="7.2.1" data-path="correlacion.html"><a href="correlacion.html#top-15-territorios-más-densos"><i class="fa fa-check"></i><b>7.2.1</b> Top 15 Territorios Más Densos</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="ingreso-region.html"><a href="ingreso-region.html"><i class="fa fa-check"></i><b>8</b> Análisis por Nivel de Ingreso y Región</a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="ingreso-region.html"><a href="ingreso-region.html#análisis-por-nivel-de-ingreso"><i class="fa fa-check"></i><b>8.1</b> Análisis por Nivel de Ingreso</a></li>
-<li class="chapter" data-level="8.2" data-path="ingreso-region.html"><a href="ingreso-region.html#análisis-por-región"><i class="fa fa-check"></i><b>8.2</b> Análisis por Región</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>9</b> Tasa de Crecimiento y Conclusiones</a>
-<ul>
-<li class="chapter" data-level="9.1" data-path="conclusiones.html"><a href="conclusiones.html#tasa-de-crecimiento-poblacional"><i class="fa fa-check"></i><b>9.1</b> Tasa de Crecimiento Poblacional</a></li>
-<li class="chapter" data-level="9.2" data-path="conclusiones.html"><a href="conclusiones.html#conclusiones-1"><i class="fa fa-check"></i><b>9.2</b> Conclusiones</a></li>
-</ul></li>
+<li class="chapter" data-level="" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i>Conclusiones</a></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Publicado con bookdown</a></li>
 
@@ -229,14 +226,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="estructura" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">Capítulo 2</span> Estructura y Calidad del Dataset<a href="estructura.html#estructura" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">Capítulo 2</span> Carga y Estructura de los Datos<a href="estructura.html#estructura" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="dimensiones-y-estructura-general" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> Dimensiones y Estructura General<a href="estructura.html#dimensiones-y-estructura-general" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Comenzamos explorando las dimensiones del dataset, los tipos de variables y una vista previa de los datos.</p>
-<ul>
-<li><strong>Filas (observaciones):</strong> 15576</li>
-<li><strong>Columnas (variables):</strong> 15</li>
-</ul>
+<h2><span class="header-section-number">2.1</span> Dimensiones y estructura general<a href="estructura.html#dimensiones-y-estructura-general" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El dataset cuenta con 15576 filas (observaciones) y 15 columnas (variables).</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="estructura.html#cb3-1" tabindex="-1"></a><span class="fu">str</span>(df)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    15576 obs. of  15 variables:
 ##  $ country       : chr  &quot;Arab World&quot; &quot;Arab World&quot; &quot;Arab World&quot; &quot;Arab World&quot; ...
@@ -256,7 +249,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ##  $ latitude      : num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="estructura.html#cb5-1" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(df), <span class="at">caption =</span> <span class="st">&quot;Primeras 6 filas del dataset&quot;</span>)</span></code></pre></div>
 <table style="width:100%;">
-<caption><span id="tab:head-tail">Table 2.1: </span>Primeras 6 filas del dataset</caption>
+<caption><span id="tab:head">Table 2.1: </span>Primeras 6 filas del dataset</caption>
 <colgroup>
 <col width="6%" />
 <col width="3%" />
@@ -400,7 +393,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </table>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="estructura.html#cb6-1" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">tail</span>(df), <span class="at">caption =</span> <span class="st">&quot;Últimas 6 filas del dataset&quot;</span>)</span></code></pre></div>
 <table style="width:100%;">
-<caption><span id="tab:head-tail">Table 2.1: </span>Últimas 6 filas del dataset</caption>
+<caption><span id="tab:tail">Table 2.2: </span>Últimas 6 filas del dataset</caption>
 <colgroup>
 <col width="2%" />
 <col width="4%" />
@@ -550,338 +543,112 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p>El dataset tiene una estructura de panel de datos (datos longitudinales), donde cada fila representa un país en un año particular. Esto permite analizar tanto comparaciones transversales (entre países en un mismo año) como evoluciones temporales.</p>
-</blockquote>
+<p>El conjunto de datos presenta una estructura de panel o datos longitudinales, en la cual cada observación corresponde a un país durante un año específico. Esta organización resulta fundamental, ya que facilita la ejecución tanto de comparaciones transversales, evaluando distintos países en un mismo periodo, como de análisis de tendencias temporales.</p>
 </div>
-<div id="resumen-estadístico" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Resumen Estadístico<a href="estructura.html#resumen-estadístico" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="estructura.html#cb7-1" tabindex="-1"></a><span class="fu">summary</span>(df)</span></code></pre></div>
-<pre><code>##    country               year        population         pop_density       
-##  Length:15576       Min.   :1960   Min.   :3.893e+03   Min.   :    0.099  
-##  Class :character   1st Qu.:1974   1st Qu.:9.268e+05   1st Qu.:   19.684  
-##  Mode  :character   Median :1989   Median :6.419e+06   Median :   51.760  
-##                     Mean   :1989   Mean   :2.079e+08   Mean   :  278.374  
-##                     3rd Qu.:2004   3rd Qu.:4.245e+07   3rd Qu.:  126.598  
-##                     Max.   :2018   Max.   :7.594e+09   Max.   :21389.100  
-##                                    NA&#39;s   :167         NA&#39;s   :746        
-##  net_migration       migration_perc      iso3c              iso2c          
-##  Min.   :-23348620   Min.   :-0.264   Length:15576       Length:15576      
-##  1st Qu.:  -161704   1st Qu.:-0.014   Class :character   Class :character  
-##  Median :   -10817   Median :-0.002   Mode  :character   Mode  :character  
-##  Mean   :  -272931   Mean   :-0.002                                        
-##  3rd Qu.:    26819   3rd Qu.: 0.006                                        
-##  Max.   : 23392352   Max.   : 0.787                                        
-##  NA&#39;s   :12708       NA&#39;s   :12711                                         
-##     region          adminregion        incomeLevel        lendingType       
-##  Length:15576       Length:15576       Length:15576       Length:15576      
-##  Class :character   Class :character   Class :character   Class :character  
-##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-##                                                                             
-##                                                                             
-##                                                                             
-##                                                                             
-##  capitalCity          longitude          latitude      
-##  Length:15576       Min.   :-175.22   Min.   :-41.286  
-##  Class :character   1st Qu.: -15.18   1st Qu.:  4.174  
-##  Mode  :character   Median :  19.26   Median : 17.300  
-##                     Mean   :  19.14   Mean   : 18.889  
-##                     3rd Qu.:  50.54   3rd Qu.: 40.050  
-##                     Max.   : 179.09   Max.   : 64.184  
-##                     NA&#39;s   :3127      NA&#39;s   :3127</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="estructura.html#cb9-1" tabindex="-1"></a><span class="fu">skim</span>(df)</span></code></pre></div>
+<div id="conversión-de-variables-categóricas" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Conversión de variables categóricas<a href="estructura.html#conversión-de-variables-categóricas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Las variables <code>iso3c</code>, <code>iso2c</code>, <code>region</code>, <code>adminregion</code>, <code>incomeLevel</code> y <code>lendingType</code> son de tipo carácter en el dataset original, pero representan categorías con un número finito de niveles. Para un tratamiento estadístico adecuado se convierten a factores.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="estructura.html#cb7-1" tabindex="-1"></a>df<span class="sc">$</span>iso3c <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(df<span class="sc">$</span>iso3c)</span>
+<span id="cb7-2"><a href="estructura.html#cb7-2" tabindex="-1"></a>df<span class="sc">$</span>iso2c <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(df<span class="sc">$</span>iso2c)</span>
+<span id="cb7-3"><a href="estructura.html#cb7-3" tabindex="-1"></a>df<span class="sc">$</span>region <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(df<span class="sc">$</span>region)</span>
+<span id="cb7-4"><a href="estructura.html#cb7-4" tabindex="-1"></a>df<span class="sc">$</span>adminregion <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(df<span class="sc">$</span>adminregion)</span>
+<span id="cb7-5"><a href="estructura.html#cb7-5" tabindex="-1"></a>df<span class="sc">$</span>incomeLevel <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(df<span class="sc">$</span>incomeLevel)</span>
+<span id="cb7-6"><a href="estructura.html#cb7-6" tabindex="-1"></a>df<span class="sc">$</span>lendingType <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(df<span class="sc">$</span>lendingType)</span></code></pre></div>
+<p>La conversión de estas variables a factores asegura que el entorno de análisis las procese adecuadamente como variables categóricas. Esto resulta indispensable para garantizar la precisión en la generación de tablas de frecuencia, representaciones gráficas y en la aplicación de pruebas estadísticas formales, tales como la ejecución de pruebas inferenciales.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="estructura.html#cb8-1" tabindex="-1"></a>tipos_actualizados <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-2"><a href="estructura.html#cb8-2" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">names</span>(df),</span>
+<span id="cb8-3"><a href="estructura.html#cb8-3" tabindex="-1"></a>  <span class="at">Tipo =</span> <span class="fu">sapply</span>(df, class)</span>
+<span id="cb8-4"><a href="estructura.html#cb8-4" tabindex="-1"></a>)</span>
+<span id="cb8-5"><a href="estructura.html#cb8-5" tabindex="-1"></a><span class="fu">kable</span>(tipos_actualizados, <span class="at">row.names =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb8-6"><a href="estructura.html#cb8-6" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Tipos de datos después de la conversión a factores&quot;</span>)</span></code></pre></div>
 <table>
-<caption><span id="tab:skim">Table 2.2: </span>Data summary</caption>
-<tbody>
-<tr class="odd">
-<td align="left">Name</td>
-<td align="left">df</td>
-</tr>
-<tr class="even">
-<td align="left">Number of rows</td>
-<td align="left">15576</td>
-</tr>
-<tr class="odd">
-<td align="left">Number of columns</td>
-<td align="left">15</td>
-</tr>
-<tr class="even">
-<td align="left">_______________________</td>
-<td align="left"></td>
-</tr>
-<tr class="odd">
-<td align="left">Column type frequency:</td>
-<td align="left"></td>
-</tr>
-<tr class="even">
-<td align="left">character</td>
-<td align="left">8</td>
-</tr>
-<tr class="odd">
-<td align="left">numeric</td>
-<td align="left">7</td>
-</tr>
-<tr class="even">
-<td align="left">________________________</td>
-<td align="left"></td>
-</tr>
-<tr class="odd">
-<td align="left">Group variables</td>
-<td align="left">None</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Variable type: character</strong></p>
-<table>
-<colgroup>
-<col width="19%" />
-<col width="13%" />
-<col width="19%" />
-<col width="5%" />
-<col width="5%" />
-<col width="8%" />
-<col width="12%" />
-<col width="15%" />
-</colgroup>
+<caption><span id="tab:verificar-factores">Table 2.3: </span>Tipos de datos después de la conversión a factores</caption>
 <thead>
 <tr class="header">
-<th align="left">skim_variable</th>
-<th align="right">n_missing</th>
-<th align="right">complete_rate</th>
-<th align="right">min</th>
-<th align="right">max</th>
-<th align="right">empty</th>
-<th align="right">n_unique</th>
-<th align="right">whitespace</th>
+<th align="left">Variable</th>
+<th align="left">Tipo</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">country</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">52</td>
-<td align="right">0</td>
-<td align="right">264</td>
-<td align="right">0</td>
+<td align="left">character</td>
 </tr>
 <tr class="even">
-<td align="left">iso3c</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">118</td>
-<td align="right">263</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">iso2c</td>
-<td align="right">59</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">2</td>
-<td align="right">118</td>
-<td align="right">262</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">region</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">26</td>
-<td align="right">118</td>
-<td align="right">9</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">adminregion</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">50</td>
-<td align="right">7434</td>
-<td align="right">7</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">incomeLevel</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">19</td>
-<td align="right">118</td>
-<td align="right">6</td>
-<td align="right">0</td>
-</tr>
-<tr class="odd">
-<td align="left">lendingType</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">14</td>
-<td align="right">118</td>
-<td align="right">6</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">capitalCity</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">19</td>
-<td align="right">3127</td>
-<td align="right">212</td>
-<td align="right">0</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Variable type: numeric</strong></p>
-<table style="width:100%;">
-<colgroup>
-<col width="11%" />
-<col width="7%" />
-<col width="10%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="8%" />
-<col width="8%" />
-<col width="9%" />
-<col width="9%" />
-<col width="4%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">skim_variable</th>
-<th align="right">n_missing</th>
-<th align="right">complete_rate</th>
-<th align="right">mean</th>
-<th align="right">sd</th>
-<th align="right">p0</th>
-<th align="right">p25</th>
-<th align="right">p50</th>
-<th align="right">p75</th>
-<th align="right">p100</th>
-<th align="left">hist</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
 <td align="left">year</td>
-<td align="right">0</td>
-<td align="right">1.00</td>
-<td align="right">1989.00</td>
-<td align="right">17.03</td>
-<td align="right">1960.00</td>
-<td align="right">1974.00</td>
-<td align="right">1989.00</td>
-<td align="right">2004.00</td>
-<td align="right">2.018000e+03</td>
-<td align="left">▇▇▇▇▇</td>
+<td align="left">integer</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">population</td>
-<td align="right">167</td>
-<td align="right">0.99</td>
-<td align="right">207886506.57</td>
-<td align="right">686779636.78</td>
-<td align="right">3893.00</td>
-<td align="right">926841.00</td>
-<td align="right">6418773.00</td>
-<td align="right">42449038.00</td>
-<td align="right">7.594270e+09</td>
-<td align="left">▇▁▁▁▁</td>
-</tr>
-<tr class="odd">
-<td align="left">pop_density</td>
-<td align="right">746</td>
-<td align="right">0.95</td>
-<td align="right">278.37</td>
-<td align="right">1438.51</td>
-<td align="right">0.10</td>
-<td align="right">19.68</td>
-<td align="right">51.76</td>
-<td align="right">126.60</td>
-<td align="right">2.138910e+04</td>
-<td align="left">▇▁▁▁▁</td>
+<td align="left">numeric</td>
 </tr>
 <tr class="even">
-<td align="left">net_migration</td>
-<td align="right">12708</td>
-<td align="right">0.18</td>
-<td align="right">-272931.14</td>
-<td align="right">2462397.01</td>
-<td align="right">-23348620.00</td>
-<td align="right">-161703.75</td>
-<td align="right">-10817.00</td>
-<td align="right">26819.25</td>
-<td align="right">2.339235e+07</td>
-<td align="left">▁▁▇▁▁</td>
+<td align="left">pop_density</td>
+<td align="left">numeric</td>
 </tr>
 <tr class="odd">
+<td align="left">net_migration</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="even">
 <td align="left">migration_perc</td>
-<td align="right">12711</td>
-<td align="right">0.18</td>
-<td align="right">0.00</td>
-<td align="right">0.05</td>
-<td align="right">-0.26</td>
-<td align="right">-0.01</td>
-<td align="right">0.00</td>
-<td align="right">0.01</td>
-<td align="right">7.900000e-01</td>
-<td align="left">▁▇▁▁▁</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="odd">
+<td align="left">iso3c</td>
+<td align="left">factor</td>
+</tr>
+<tr class="even">
+<td align="left">iso2c</td>
+<td align="left">factor</td>
+</tr>
+<tr class="odd">
+<td align="left">region</td>
+<td align="left">factor</td>
+</tr>
+<tr class="even">
+<td align="left">adminregion</td>
+<td align="left">factor</td>
+</tr>
+<tr class="odd">
+<td align="left">incomeLevel</td>
+<td align="left">factor</td>
+</tr>
+<tr class="even">
+<td align="left">lendingType</td>
+<td align="left">factor</td>
+</tr>
+<tr class="odd">
+<td align="left">capitalCity</td>
+<td align="left">character</td>
 </tr>
 <tr class="even">
 <td align="left">longitude</td>
-<td align="right">3127</td>
-<td align="right">0.80</td>
-<td align="right">19.14</td>
-<td align="right">70.23</td>
-<td align="right">-175.22</td>
-<td align="right">-15.18</td>
-<td align="right">19.26</td>
-<td align="right">50.54</td>
-<td align="right">1.790900e+02</td>
-<td align="left">▁▃▇▃▂</td>
+<td align="left">numeric</td>
 </tr>
 <tr class="odd">
 <td align="left">latitude</td>
-<td align="right">3127</td>
-<td align="right">0.80</td>
-<td align="right">18.89</td>
-<td align="right">24.15</td>
-<td align="right">-41.29</td>
-<td align="right">4.17</td>
-<td align="right">17.30</td>
-<td align="right">40.05</td>
-<td align="right">6.418000e+01</td>
-<td align="left">▂▃▇▆▅</td>
+<td align="left">numeric</td>
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p>El resumen estadístico revela una gran variabilidad en la población entre países — desde microestados con miles de habitantes hasta gigantes demográficos como China e India. Esta alta dispersión justifica el uso de escalas logarítmicas en las visualizaciones posteriores.</p>
-</blockquote>
 </div>
 <div id="análisis-de-valores-faltantes-na" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> Análisis de Valores Faltantes (NA)<a href="estructura.html#análisis-de-valores-faltantes-na" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="estructura.html#cb10-1" tabindex="-1"></a>na_por_columna <span class="ot">&lt;-</span> <span class="fu">colSums</span>(<span class="fu">is.na</span>(df))</span>
-<span id="cb10-2"><a href="estructura.html#cb10-2" tabindex="-1"></a>na_porcentaje <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">colSums</span>(<span class="fu">is.na</span>(df)) <span class="sc">/</span> <span class="fu">nrow</span>(df) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>)</span>
-<span id="cb10-3"><a href="estructura.html#cb10-3" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="estructura.html#cb10-4" tabindex="-1"></a>na_resumen <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb10-5"><a href="estructura.html#cb10-5" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">names</span>(na_por_columna),</span>
-<span id="cb10-6"><a href="estructura.html#cb10-6" tabindex="-1"></a>  <span class="at">NAs =</span> na_por_columna,</span>
-<span id="cb10-7"><a href="estructura.html#cb10-7" tabindex="-1"></a>  <span class="at">Porcentaje =</span> na_porcentaje</span>
-<span id="cb10-8"><a href="estructura.html#cb10-8" tabindex="-1"></a>)</span>
-<span id="cb10-9"><a href="estructura.html#cb10-9" tabindex="-1"></a>na_resumen <span class="ot">&lt;-</span> na_resumen[<span class="fu">order</span>(<span class="sc">-</span>na_resumen<span class="sc">$</span>Porcentaje), ]</span>
-<span id="cb10-10"><a href="estructura.html#cb10-10" tabindex="-1"></a></span>
-<span id="cb10-11"><a href="estructura.html#cb10-11" tabindex="-1"></a><span class="fu">kable</span>(na_resumen, <span class="at">row.names =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb10-12"><a href="estructura.html#cb10-12" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Valores faltantes por variable&quot;</span>)</span></code></pre></div>
+<h2><span class="header-section-number">2.3</span> Análisis de valores faltantes (NA)<a href="estructura.html#análisis-de-valores-faltantes-na" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="estructura.html#cb9-1" tabindex="-1"></a>na_por_columna <span class="ot">&lt;-</span> <span class="fu">colSums</span>(<span class="fu">is.na</span>(df))</span>
+<span id="cb9-2"><a href="estructura.html#cb9-2" tabindex="-1"></a>na_porcentaje <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">colSums</span>(<span class="fu">is.na</span>(df)) <span class="sc">/</span> <span class="fu">nrow</span>(df) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>)</span>
+<span id="cb9-3"><a href="estructura.html#cb9-3" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="estructura.html#cb9-4" tabindex="-1"></a>na_resumen <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb9-5"><a href="estructura.html#cb9-5" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">names</span>(na_por_columna),</span>
+<span id="cb9-6"><a href="estructura.html#cb9-6" tabindex="-1"></a>  <span class="at">NAs =</span> na_por_columna,</span>
+<span id="cb9-7"><a href="estructura.html#cb9-7" tabindex="-1"></a>  <span class="at">Porcentaje =</span> na_porcentaje</span>
+<span id="cb9-8"><a href="estructura.html#cb9-8" tabindex="-1"></a>)</span>
+<span id="cb9-9"><a href="estructura.html#cb9-9" tabindex="-1"></a>na_resumen <span class="ot">&lt;-</span> na_resumen[<span class="fu">order</span>(<span class="sc">-</span>na_resumen<span class="sc">$</span>Porcentaje), ]</span>
+<span id="cb9-10"><a href="estructura.html#cb9-10" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="estructura.html#cb9-11" tabindex="-1"></a><span class="fu">kable</span>(na_resumen, <span class="at">row.names =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb9-12"><a href="estructura.html#cb9-12" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Valores faltantes por variable&quot;</span>)</span></code></pre></div>
 <table>
-<caption><span id="tab:valores-faltantes">Table 2.3: </span>Valores faltantes por variable</caption>
+<caption><span id="tab:valores-faltantes">Table 2.4: </span>Valores faltantes por variable</caption>
 <thead>
 <tr class="header">
 <th align="left">Variable</th>
@@ -967,28 +734,860 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<ul>
-<li><strong>Total de valores faltantes:</strong> 32645</li>
-<li><strong>Total de celdas en el dataset:</strong> 233,640</li>
-<li><strong>Porcentaje global de NAs:</strong> 13.97%</li>
-</ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="estructura.html#cb11-1" tabindex="-1"></a><span class="fu">ggplot</span>(na_resumen, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Variable, Porcentaje), <span class="at">y =</span> Porcentaje)) <span class="sc">+</span></span>
-<span id="cb11-2"><a href="estructura.html#cb11-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;#E74C3C&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb11-3"><a href="estructura.html#cb11-3" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(Porcentaje, <span class="st">&quot;%&quot;</span>)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb11-4"><a href="estructura.html#cb11-4" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb11-5"><a href="estructura.html#cb11-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Porcentaje de Valores Faltantes por Variable&quot;</span>,</span>
-<span id="cb11-6"><a href="estructura.html#cb11-6" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Variable&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Porcentaje de NAs (%)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb11-7"><a href="estructura.html#cb11-7" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb11-8"><a href="estructura.html#cb11-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code></pre></div>
+<p>Del total de 233,640 celdas en el dataset, se identificaron 32645 valores faltantes, lo que representa un 13.97% del total. La mayor concentración de valores ausentes se encuentra en las variables de migración, debido a que estos datos se recopilan con periodicidad quinquenal. Esto se puede representar gráficamente de la siguiente manera:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="estructura.html#cb10-1" tabindex="-1"></a><span class="fu">ggplot</span>(na_resumen, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Variable, Porcentaje), <span class="at">y =</span> Porcentaje)) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="estructura.html#cb10-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> COLOR_PRINCIPAL, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="estructura.html#cb10-3" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(Porcentaje, <span class="st">&quot;%&quot;</span>)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="estructura.html#cb10-4" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb10-5"><a href="estructura.html#cb10-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Porcentaje de valores faltantes por variable&quot;</span>,</span>
+<span id="cb10-6"><a href="estructura.html#cb10-6" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Variable&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Porcentaje de NAs (%)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="estructura.html#cb10-7" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb10-8"><a href="estructura.html#cb10-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:grafico-na"></span>
 <img src="eda_poblacion_mundial_files/figure-html/grafico-na-1.png" alt="Porcentaje de valores faltantes por variable" width="90%" />
 <p class="caption">
 Figure 2.1: Porcentaje de valores faltantes por variable
 </p>
 </div>
+<p>Como se puede observar en la gráfica, las variables con mayor porcentaje de valores faltantes son <code>migration_perc</code> y <code>net_migration</code>, ambas con porcentajes cercanos al 80%. Como se menciono anteriormente, esto se debe a que el Banco Mundial recopila los datos de migración de forma quinquenal (cada 5 años), por lo que en los años intermedios estos campos quedan vacíos. En contraste, las variables centrales como <code>population</code>, <code>year</code>, <code>country</code> y las coordenadas geográficas presentan porcentajes de NAs prácticamente nulos o de cero, lo que confirma la solidez del dataset para las dimensiones fundamentales del análisis. La variable <code>adminregion</code> también muestra un porcentaje considerable de valores faltantes, dado que esta clasificación no aplica para todos los países.</p>
+
+</div>
+<div id="limpieza" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Limpieza y preparación de datos<a href="estructura.html#limpieza" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Antes de proceder con el análisis exploratorio, es fundamental realizar una limpieza de los datos para garantizar la calidad y confiabilidad de los resultados. En esta sección se documentan todas las transformaciones aplicadas al dataset original.</p>
+</div>
+<div id="verificación-de-duplicados" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Verificación de duplicados<a href="estructura.html#verificación-de-duplicados" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="estructura.html#cb11-1" tabindex="-1"></a>n_duplicados <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">duplicated</span>(df))</span></code></pre></div>
+<p>Se encontraron <strong>0</strong> filas duplicadas en el dataset.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="estructura.html#cb12-1" tabindex="-1"></a><span class="cf">if</span> (n_duplicados <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb12-2"><a href="estructura.html#cb12-2" tabindex="-1"></a>  df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
+<span id="cb12-3"><a href="estructura.html#cb12-3" tabindex="-1"></a>}</span></code></pre></div>
+<p>No se encontraron duplicados. No se requiere acción.</p>
+</div>
+<div id="corrección-de-tipos-de-datos" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Corrección de tipos de datos<a href="estructura.html#corrección-de-tipos-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Verificamos que cada variable tenga el tipo de dato correcto y realizamos las conversiones necesarias.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="estructura.html#cb13-1" tabindex="-1"></a>tipos_antes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb13-2"><a href="estructura.html#cb13-2" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">names</span>(df),</span>
+<span id="cb13-3"><a href="estructura.html#cb13-3" tabindex="-1"></a>  <span class="at">Tipo =</span> <span class="fu">sapply</span>(df, class)</span>
+<span id="cb13-4"><a href="estructura.html#cb13-4" tabindex="-1"></a>)</span>
+<span id="cb13-5"><a href="estructura.html#cb13-5" tabindex="-1"></a><span class="fu">kable</span>(tipos_antes, <span class="at">row.names =</span> <span class="cn">FALSE</span>, <span class="at">caption =</span> <span class="st">&quot;Tipos de datos antes de la conversión&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:tipos-datos">Table 2.5: </span>Tipos de datos antes de la conversión</caption>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">country</td>
+<td align="left">character</td>
+</tr>
+<tr class="even">
+<td align="left">year</td>
+<td align="left">integer</td>
+</tr>
+<tr class="odd">
+<td align="left">population</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="even">
+<td align="left">pop_density</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="odd">
+<td align="left">net_migration</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="even">
+<td align="left">migration_perc</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="odd">
+<td align="left">iso3c</td>
+<td align="left">factor</td>
+</tr>
+<tr class="even">
+<td align="left">iso2c</td>
+<td align="left">factor</td>
+</tr>
+<tr class="odd">
+<td align="left">region</td>
+<td align="left">factor</td>
+</tr>
+<tr class="even">
+<td align="left">adminregion</td>
+<td align="left">factor</td>
+</tr>
+<tr class="odd">
+<td align="left">incomeLevel</td>
+<td align="left">factor</td>
+</tr>
+<tr class="even">
+<td align="left">lendingType</td>
+<td align="left">factor</td>
+</tr>
+<tr class="odd">
+<td align="left">capitalCity</td>
+<td align="left">character</td>
+</tr>
+<tr class="even">
+<td align="left">longitude</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="odd">
+<td align="left">latitude</td>
+<td align="left">numeric</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="estructura.html#cb14-1" tabindex="-1"></a><span class="co"># Asegurar que &#39;year&#39; sea entero</span></span>
+<span id="cb14-2"><a href="estructura.html#cb14-2" tabindex="-1"></a>df<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(df<span class="sc">$</span>year)</span>
+<span id="cb14-3"><a href="estructura.html#cb14-3" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="estructura.html#cb14-4" tabindex="-1"></a><span class="co"># Asegurar que las variables numéricas sean numéricas</span></span>
+<span id="cb14-5"><a href="estructura.html#cb14-5" tabindex="-1"></a>df<span class="sc">$</span>population <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>population)</span>
+<span id="cb14-6"><a href="estructura.html#cb14-6" tabindex="-1"></a>df<span class="sc">$</span>pop_density <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>pop_density)</span>
+<span id="cb14-7"><a href="estructura.html#cb14-7" tabindex="-1"></a>df<span class="sc">$</span>net_migration <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>net_migration)</span>
+<span id="cb14-8"><a href="estructura.html#cb14-8" tabindex="-1"></a>df<span class="sc">$</span>migration_perc <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>migration_perc)</span>
+<span id="cb14-9"><a href="estructura.html#cb14-9" tabindex="-1"></a>df<span class="sc">$</span>longitude <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>longitude)</span>
+<span id="cb14-10"><a href="estructura.html#cb14-10" tabindex="-1"></a>df<span class="sc">$</span>latitude <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(df<span class="sc">$</span>latitude)</span>
+<span id="cb14-11"><a href="estructura.html#cb14-11" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="estructura.html#cb14-12" tabindex="-1"></a>tipos_despues <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb14-13"><a href="estructura.html#cb14-13" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">names</span>(df),</span>
+<span id="cb14-14"><a href="estructura.html#cb14-14" tabindex="-1"></a>  <span class="at">Tipo =</span> <span class="fu">sapply</span>(df, <span class="cf">function</span>(x) <span class="fu">paste</span>(<span class="fu">class</span>(x), <span class="at">collapse =</span> <span class="st">&quot;, &quot;</span>))</span>
+<span id="cb14-15"><a href="estructura.html#cb14-15" tabindex="-1"></a>)</span>
+<span id="cb14-16"><a href="estructura.html#cb14-16" tabindex="-1"></a><span class="fu">kable</span>(tipos_despues, <span class="at">row.names =</span> <span class="cn">FALSE</span>, <span class="at">caption =</span> <span class="st">&quot;Tipos de datos después de la conversión&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:conversion-tipos">Table 2.6: </span>Tipos de datos después de la conversión</caption>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">country</td>
+<td align="left">character</td>
+</tr>
+<tr class="even">
+<td align="left">year</td>
+<td align="left">integer</td>
+</tr>
+<tr class="odd">
+<td align="left">population</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="even">
+<td align="left">pop_density</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="odd">
+<td align="left">net_migration</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="even">
+<td align="left">migration_perc</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="odd">
+<td align="left">iso3c</td>
+<td align="left">factor</td>
+</tr>
+<tr class="even">
+<td align="left">iso2c</td>
+<td align="left">factor</td>
+</tr>
+<tr class="odd">
+<td align="left">region</td>
+<td align="left">factor</td>
+</tr>
+<tr class="even">
+<td align="left">adminregion</td>
+<td align="left">factor</td>
+</tr>
+<tr class="odd">
+<td align="left">incomeLevel</td>
+<td align="left">factor</td>
+</tr>
+<tr class="even">
+<td align="left">lendingType</td>
+<td align="left">factor</td>
+</tr>
+<tr class="odd">
+<td align="left">capitalCity</td>
+<td align="left">character</td>
+</tr>
+<tr class="even">
+<td align="left">longitude</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="odd">
+<td align="left">latitude</td>
+<td align="left">numeric</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="limpieza-de-variables-categóricas" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Limpieza de variables categóricas<a href="estructura.html#limpieza-de-variables-categóricas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Las variables categóricas pueden contener valores vacíos, espacios extra o inconsistencias que es necesario estandarizar.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="estructura.html#cb15-1" tabindex="-1"></a><span class="co"># En lugar de usar trimws, utilizaremos dplyr para limpieza básica</span></span>
+<span id="cb15-2"><a href="estructura.html#cb15-2" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="estructura.html#cb15-3" tabindex="-1"></a><span class="co"># Conteo de valores vacíos</span></span>
+<span id="cb15-4"><a href="estructura.html#cb15-4" tabindex="-1"></a>vacios <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb15-5"><a href="estructura.html#cb15-5" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;iso3c&quot;</span>, <span class="st">&quot;region&quot;</span>, <span class="st">&quot;incomeLevel&quot;</span>, <span class="st">&quot;adminregion&quot;</span>),</span>
+<span id="cb15-6"><a href="estructura.html#cb15-6" tabindex="-1"></a>  <span class="at">Vacios_o_NA =</span> <span class="fu">c</span>(</span>
+<span id="cb15-7"><a href="estructura.html#cb15-7" tabindex="-1"></a>    <span class="fu">sum</span>(df<span class="sc">$</span>country <span class="sc">==</span> <span class="st">&quot;&quot;</span> <span class="sc">|</span> <span class="fu">is.na</span>(df<span class="sc">$</span>country)),</span>
+<span id="cb15-8"><a href="estructura.html#cb15-8" tabindex="-1"></a>    <span class="fu">sum</span>(df<span class="sc">$</span>iso3c <span class="sc">==</span> <span class="st">&quot;&quot;</span> <span class="sc">|</span> <span class="fu">is.na</span>(df<span class="sc">$</span>iso3c)),</span>
+<span id="cb15-9"><a href="estructura.html#cb15-9" tabindex="-1"></a>    <span class="fu">sum</span>(df<span class="sc">$</span>region <span class="sc">==</span> <span class="st">&quot;&quot;</span> <span class="sc">|</span> <span class="fu">is.na</span>(df<span class="sc">$</span>region)),</span>
+<span id="cb15-10"><a href="estructura.html#cb15-10" tabindex="-1"></a>    <span class="fu">sum</span>(df<span class="sc">$</span>incomeLevel <span class="sc">==</span> <span class="st">&quot;&quot;</span> <span class="sc">|</span> <span class="fu">is.na</span>(df<span class="sc">$</span>incomeLevel)),</span>
+<span id="cb15-11"><a href="estructura.html#cb15-11" tabindex="-1"></a>    <span class="fu">sum</span>(df<span class="sc">$</span>adminregion <span class="sc">==</span> <span class="st">&quot;&quot;</span> <span class="sc">|</span> <span class="fu">is.na</span>(df<span class="sc">$</span>adminregion))</span>
+<span id="cb15-12"><a href="estructura.html#cb15-12" tabindex="-1"></a>  )</span>
+<span id="cb15-13"><a href="estructura.html#cb15-13" tabindex="-1"></a>)</span>
+<span id="cb15-14"><a href="estructura.html#cb15-14" tabindex="-1"></a><span class="fu">kable</span>(vacios, <span class="at">row.names =</span> <span class="cn">FALSE</span>, <span class="at">caption =</span> <span class="st">&quot;Valores vacíos o NA por variable categórica&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:limpieza-categoricas">Table 2.7: </span>Valores vacíos o NA por variable categórica</caption>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">Vacios_o_NA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">country</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">iso3c</td>
+<td align="right">118</td>
+</tr>
+<tr class="odd">
+<td align="left">region</td>
+<td align="right">118</td>
+</tr>
+<tr class="even">
+<td align="left">incomeLevel</td>
+<td align="right">118</td>
+</tr>
+<tr class="odd">
+<td align="left">adminregion</td>
+<td align="right">7434</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="estructura.html#cb16-1" tabindex="-1"></a><span class="co"># Reemplazar cadenas vacías por NA para tratamiento uniforme</span></span>
+<span id="cb16-2"><a href="estructura.html#cb16-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="estructura.html#cb16-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(region, incomeLevel, adminregion, lendingType), </span>
+<span id="cb16-4"><a href="estructura.html#cb16-4" tabindex="-1"></a>                <span class="sc">~</span><span class="fu">na_if</span>(<span class="fu">as.character</span>(.), <span class="st">&quot;&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb16-5"><a href="estructura.html#cb16-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(region, incomeLevel, adminregion, lendingType), as.factor))</span>
+<span id="cb16-6"><a href="estructura.html#cb16-6" tabindex="-1"></a>df<span class="sc">$</span>capitalCity[df<span class="sc">$</span>capitalCity <span class="sc">==</span> <span class="st">&quot;&quot;</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code></pre></div>
+<p>Valores únicos de <code>region</code>:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="estructura.html#cb17-1" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">unique</span>(df<span class="sc">$</span>region))</span></code></pre></div>
+<pre><code>## [1] Aggregates                 East Asia &amp; Pacific       
+## [3] Europe &amp; Central Asia      Latin America &amp; Caribbean 
+## [5] Middle East &amp; North Africa North America             
+## [7] South Asia                 Sub-Saharan Africa        
+## 8 Levels: Aggregates East Asia &amp; Pacific ... Sub-Saharan Africa</code></pre>
+<p>Valores únicos de <code>incomeLevel</code>:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="estructura.html#cb19-1" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">unique</span>(df<span class="sc">$</span>incomeLevel))</span></code></pre></div>
+<pre><code>## [1] Aggregates          High income         Low income         
+## [4] Lower middle income Upper middle income
+## 5 Levels: Aggregates High income Low income ... Upper middle income</code></pre>
+</div>
+<div id="separación-de-agregados-y-países" class="section level2 hasAnchor" number="2.8">
+<h2><span class="header-section-number">2.8</span> Separación de agregados y países<a href="estructura.html#separación-de-agregados-y-países" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El dataset incluye tanto países individuales como filas de <strong>agregados regionales</strong> (e.g., “World”, “East Asia &amp; Pacific”) que el Banco Mundial calcula sumando los países individuales. Es fundamental separarlos para evitar doble conteo.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="estructura.html#cb21-1" tabindex="-1"></a><span class="co"># Crear dataset solo de países (sin agregados)</span></span>
+<span id="cb21-2"><a href="estructura.html#cb21-2" tabindex="-1"></a>df_paises <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(region <span class="sc">!=</span> <span class="st">&quot;Aggregates&quot;</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(region))</span>
+<span id="cb21-3"><a href="estructura.html#cb21-3" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="estructura.html#cb21-4" tabindex="-1"></a><span class="co"># Crear dataset de agregados para referencia</span></span>
+<span id="cb21-5"><a href="estructura.html#cb21-5" tabindex="-1"></a>df_agregados <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(region <span class="sc">==</span> <span class="st">&quot;Aggregates&quot;</span> <span class="sc">|</span> <span class="fu">is.na</span>(region))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Conjunto</th>
+<th align="right">Filas</th>
+<th align="right">Entidades únicas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Dataset completo</td>
+<td align="right">15576</td>
+<td align="right">264</td>
+</tr>
+<tr class="even">
+<td align="left">Solo países</td>
+<td align="right">12803</td>
+<td align="right">217</td>
+</tr>
+<tr class="odd">
+<td align="left">Agregados</td>
+<td align="right">2773</td>
+<td align="right">47</td>
+</tr>
+</tbody>
+</table>
+<p>Entidades clasificadas como agregados:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="estructura.html#cb22-1" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">unique</span>(df_agregados<span class="sc">$</span>country))</span></code></pre></div>
+<pre><code>##  [1] &quot;Arab World&quot;                                          
+##  [2] &quot;Caribbean small states&quot;                              
+##  [3] &quot;Central Europe and the Baltics&quot;                      
+##  [4] &quot;Early-demographic dividend&quot;                          
+##  [5] &quot;East Asia &amp; Pacific&quot;                                 
+##  [6] &quot;East Asia &amp; Pacific (excluding high income)&quot;         
+##  [7] &quot;East Asia &amp; Pacific (IDA &amp; IBRD countries)&quot;          
+##  [8] &quot;Euro area&quot;                                           
+##  [9] &quot;Europe &amp; Central Asia&quot;                               
+## [10] &quot;Europe &amp; Central Asia (excluding high income)&quot;       
+## [11] &quot;Europe &amp; Central Asia (IDA &amp; IBRD countries)&quot;        
+## [12] &quot;European Union&quot;                                      
+## [13] &quot;Fragile and conflict affected situations&quot;            
+## [14] &quot;Heavily indebted poor countries (HIPC)&quot;              
+## [15] &quot;High income&quot;                                         
+## [16] &quot;IBRD only&quot;                                           
+## [17] &quot;IDA &amp; IBRD total&quot;                                    
+## [18] &quot;IDA blend&quot;                                           
+## [19] &quot;IDA only&quot;                                            
+## [20] &quot;IDA total&quot;                                           
+## [21] &quot;Late-demographic dividend&quot;                           
+## [22] &quot;Latin America &amp; Caribbean&quot;                           
+## [23] &quot;Latin America &amp; Caribbean (excluding high income)&quot;   
+## [24] &quot;Latin America &amp; the Caribbean (IDA &amp; IBRD countries)&quot;
+## [25] &quot;Least developed countries: UN classification&quot;        
+## [26] &quot;Low &amp; middle income&quot;                                 
+## [27] &quot;Low income&quot;                                          
+## [28] &quot;Lower middle income&quot;                                 
+## [29] &quot;Middle East &amp; North Africa&quot;                          
+## [30] &quot;Middle East &amp; North Africa (excluding high income)&quot;  
+## [31] &quot;Middle East &amp; North Africa (IDA &amp; IBRD countries)&quot;   
+## [32] &quot;Middle income&quot;                                       
+## [33] &quot;North America&quot;                                       
+## [34] &quot;Not classified&quot;                                      
+## [35] &quot;OECD members&quot;                                        
+## [36] &quot;Other small states&quot;                                  
+## [37] &quot;Pacific island small states&quot;                         
+## [38] &quot;Post-demographic dividend&quot;                           
+## [39] &quot;Pre-demographic dividend&quot;                            
+## [40] &quot;Small states&quot;                                        
+## [41] &quot;South Asia&quot;                                          
+## [42] &quot;South Asia (IDA &amp; IBRD)&quot;                             
+## [43] &quot;Sub-Saharan Africa&quot;                                  
+## [44] &quot;Sub-Saharan Africa (excluding high income)&quot;          
+## [45] &quot;Sub-Saharan Africa (IDA &amp; IBRD countries)&quot;           
+## [46] &quot;Upper middle income&quot;                                 
+## [47] &quot;World&quot;</code></pre>
 <blockquote>
-<p>Las variables de migración (<code>net_migration</code> y <code>migration_perc</code>) concentran la mayoría de los valores faltantes, lo cual es esperado dado que estas estadísticas solo se recopilan cada cinco años. Las variables demográficas básicas (<code>population</code>, <code>pop_density</code>) tienen una cobertura prácticamente completa, lo que permite realizar análisis robustos sobre tendencias poblacionales.</p>
+<p>Si no se filtran los agregados, se inflarían artificialmente los totales de población y se distorsionarían todas las estadísticas descriptivas. A partir de este punto, el análisis a nivel de país utiliza exclusivamente <code>df_paises</code>.</p>
 </blockquote>
+</div>
+<div id="tratamiento-de-valores-faltantes-nas" class="section level2 hasAnchor" number="2.9">
+<h2><span class="header-section-number">2.9</span> Tratamiento de valores faltantes (NAs)<a href="estructura.html#tratamiento-de-valores-faltantes-nas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="estructura.html#cb24-1" tabindex="-1"></a>na_resumen_limpio <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb24-2"><a href="estructura.html#cb24-2" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">names</span>(df_paises),</span>
+<span id="cb24-3"><a href="estructura.html#cb24-3" tabindex="-1"></a>  <span class="at">NAs =</span> <span class="fu">colSums</span>(<span class="fu">is.na</span>(df_paises)),</span>
+<span id="cb24-4"><a href="estructura.html#cb24-4" tabindex="-1"></a>  <span class="at">Porcentaje =</span> <span class="fu">round</span>(<span class="fu">colSums</span>(<span class="fu">is.na</span>(df_paises)) <span class="sc">/</span> <span class="fu">nrow</span>(df_paises) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>)</span>
+<span id="cb24-5"><a href="estructura.html#cb24-5" tabindex="-1"></a>)</span>
+<span id="cb24-6"><a href="estructura.html#cb24-6" tabindex="-1"></a>na_resumen_limpio <span class="ot">&lt;-</span> na_resumen_limpio[<span class="fu">order</span>(<span class="sc">-</span>na_resumen_limpio<span class="sc">$</span>Porcentaje), ]</span>
+<span id="cb24-7"><a href="estructura.html#cb24-7" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="estructura.html#cb24-8" tabindex="-1"></a><span class="fu">kable</span>(na_resumen_limpio, <span class="at">row.names =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb24-9"><a href="estructura.html#cb24-9" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Valores faltantes en el dataset de países (después de limpieza inicial)&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:estrategia-na">Table 2.8: </span>Valores faltantes en el dataset de países (después de limpieza inicial)</caption>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">NAs</th>
+<th align="right">Porcentaje</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">migration_perc</td>
+<td align="right">10490</td>
+<td align="right">81.93</td>
+</tr>
+<tr class="even">
+<td align="left">net_migration</td>
+<td align="right">10487</td>
+<td align="right">81.91</td>
+</tr>
+<tr class="odd">
+<td align="left">adminregion</td>
+<td align="right">4661</td>
+<td align="right">36.41</td>
+</tr>
+<tr class="even">
+<td align="left">pop_density</td>
+<td align="right">641</td>
+<td align="right">5.01</td>
+</tr>
+<tr class="odd">
+<td align="left">capitalCity</td>
+<td align="right">354</td>
+<td align="right">2.76</td>
+</tr>
+<tr class="even">
+<td align="left">longitude</td>
+<td align="right">354</td>
+<td align="right">2.76</td>
+</tr>
+<tr class="odd">
+<td align="left">latitude</td>
+<td align="right">354</td>
+<td align="right">2.76</td>
+</tr>
+<tr class="even">
+<td align="left">population</td>
+<td align="right">108</td>
+<td align="right">0.84</td>
+</tr>
+<tr class="odd">
+<td align="left">iso2c</td>
+<td align="right">59</td>
+<td align="right">0.46</td>
+</tr>
+<tr class="even">
+<td align="left">country</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">year</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">iso3c</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">region</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">incomeLevel</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">lendingType</td>
+<td align="right">0</td>
+<td align="right">0.00</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col width="27%" />
+<col width="32%" />
+<col width="40%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Estrategia</th>
+<th align="left">Justificación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>population</code></td>
+<td align="left">Eliminar filas si es NA</td>
+<td align="left">Es la variable central del análisis; sin ella la observación carece de utilidad.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>pop_density</code></td>
+<td align="left">Conservar NAs</td>
+<td align="left">Se filtrará en cada análisis específico. No es prudente imputar densidad sin conocer la superficie exacta.</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>net_migration</code></td>
+<td align="left">Conservar NAs</td>
+<td align="left">Los NAs son estructurales (datos quinquenales). Imputar sería introducir sesgo.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>migration_perc</code></td>
+<td align="left">Conservar NAs</td>
+<td align="left">Derivada de <code>net_migration</code>, mismo razonamiento.</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>longitude</code> / <code>latitude</code></td>
+<td align="left">Conservar NAs</td>
+<td align="left">Solo faltan en agregados (ya filtrados).</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="estructura.html#cb25-1" tabindex="-1"></a>filas_antes <span class="ot">&lt;-</span> <span class="fu">nrow</span>(df_paises)</span>
+<span id="cb25-2"><a href="estructura.html#cb25-2" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="estructura.html#cb25-3" tabindex="-1"></a><span class="co"># Eliminar filas sin población (variable esencial)</span></span>
+<span id="cb25-4"><a href="estructura.html#cb25-4" tabindex="-1"></a>df_paises <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(population))</span>
+<span id="cb25-5"><a href="estructura.html#cb25-5" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="estructura.html#cb25-6" tabindex="-1"></a>filas_despues <span class="ot">&lt;-</span> <span class="fu">nrow</span>(df_paises)</span>
+<span id="cb25-7"><a href="estructura.html#cb25-7" tabindex="-1"></a>filas_eliminadas <span class="ot">&lt;-</span> filas_antes <span class="sc">-</span> filas_despues</span></code></pre></div>
+<p>Se eliminaron <strong>108</strong> filas por falta de datos de población. Quedan <strong>12695</strong> filas.</p>
+</div>
+<div id="detección-de-valores-atípicos-outliers" class="section level2 hasAnchor" number="2.10">
+<h2><span class="header-section-number">2.10</span> Detección de valores atípicos (outliers)<a href="estructura.html#detección-de-valores-atípicos-outliers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Identificamos valores atípicos en las variables numéricas principales utilizando el criterio del rango intercuartílico (IQR).</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="estructura.html#cb26-1" tabindex="-1"></a>detectar_outliers <span class="ot">&lt;-</span> <span class="cf">function</span>(x, nombre_var) {</span>
+<span id="cb26-2"><a href="estructura.html#cb26-2" tabindex="-1"></a>  x_limpio <span class="ot">&lt;-</span> x[<span class="sc">!</span><span class="fu">is.na</span>(x)]</span>
+<span id="cb26-3"><a href="estructura.html#cb26-3" tabindex="-1"></a>  Q1 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(x_limpio, <span class="fl">0.25</span>)</span>
+<span id="cb26-4"><a href="estructura.html#cb26-4" tabindex="-1"></a>  Q3 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(x_limpio, <span class="fl">0.75</span>)</span>
+<span id="cb26-5"><a href="estructura.html#cb26-5" tabindex="-1"></a>  IQR_val <span class="ot">&lt;-</span> Q3 <span class="sc">-</span> Q1</span>
+<span id="cb26-6"><a href="estructura.html#cb26-6" tabindex="-1"></a>  limite_inf <span class="ot">&lt;-</span> Q1 <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> IQR_val</span>
+<span id="cb26-7"><a href="estructura.html#cb26-7" tabindex="-1"></a>  limite_sup <span class="ot">&lt;-</span> Q3 <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> IQR_val</span>
+<span id="cb26-8"><a href="estructura.html#cb26-8" tabindex="-1"></a>  n_outliers <span class="ot">&lt;-</span> <span class="fu">sum</span>(x_limpio <span class="sc">&lt;</span> limite_inf <span class="sc">|</span> x_limpio <span class="sc">&gt;</span> limite_sup)</span>
+<span id="cb26-9"><a href="estructura.html#cb26-9" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb26-10"><a href="estructura.html#cb26-10" tabindex="-1"></a>    <span class="at">Variable =</span> nombre_var,</span>
+<span id="cb26-11"><a href="estructura.html#cb26-11" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">round</span>(Q1, <span class="dv">2</span>),</span>
+<span id="cb26-12"><a href="estructura.html#cb26-12" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">round</span>(Q3, <span class="dv">2</span>),</span>
+<span id="cb26-13"><a href="estructura.html#cb26-13" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">round</span>(IQR_val, <span class="dv">2</span>),</span>
+<span id="cb26-14"><a href="estructura.html#cb26-14" tabindex="-1"></a>    <span class="at">Lim_Inferior =</span> <span class="fu">round</span>(limite_inf, <span class="dv">2</span>),</span>
+<span id="cb26-15"><a href="estructura.html#cb26-15" tabindex="-1"></a>    <span class="at">Lim_Superior =</span> <span class="fu">round</span>(limite_sup, <span class="dv">2</span>),</span>
+<span id="cb26-16"><a href="estructura.html#cb26-16" tabindex="-1"></a>    <span class="at">N_Outliers =</span> n_outliers,</span>
+<span id="cb26-17"><a href="estructura.html#cb26-17" tabindex="-1"></a>    <span class="at">Pct_Outliers =</span> <span class="fu">round</span>(n_outliers <span class="sc">/</span> <span class="fu">length</span>(x_limpio) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>)</span>
+<span id="cb26-18"><a href="estructura.html#cb26-18" tabindex="-1"></a>  )</span>
+<span id="cb26-19"><a href="estructura.html#cb26-19" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="estructura.html#cb27-1" tabindex="-1"></a>outliers_resumen <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb27-2"><a href="estructura.html#cb27-2" tabindex="-1"></a>  <span class="fu">detectar_outliers</span>(df_paises<span class="sc">$</span>population, <span class="st">&quot;population&quot;</span>),</span>
+<span id="cb27-3"><a href="estructura.html#cb27-3" tabindex="-1"></a>  <span class="fu">detectar_outliers</span>(df_paises<span class="sc">$</span>pop_density, <span class="st">&quot;pop_density&quot;</span>),</span>
+<span id="cb27-4"><a href="estructura.html#cb27-4" tabindex="-1"></a>  <span class="fu">detectar_outliers</span>(df_paises<span class="sc">$</span>net_migration, <span class="st">&quot;net_migration&quot;</span>),</span>
+<span id="cb27-5"><a href="estructura.html#cb27-5" tabindex="-1"></a>  <span class="fu">detectar_outliers</span>(df_paises<span class="sc">$</span>migration_perc, <span class="st">&quot;migration_perc&quot;</span>)</span>
+<span id="cb27-6"><a href="estructura.html#cb27-6" tabindex="-1"></a>)</span>
+<span id="cb27-7"><a href="estructura.html#cb27-7" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="estructura.html#cb27-8" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb27-9"><a href="estructura.html#cb27-9" tabindex="-1"></a>  outliers_resumen, </span>
+<span id="cb27-10"><a href="estructura.html#cb27-10" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Detección de valores atípicos por variable numérica&quot;</span>,</span>
+<span id="cb27-11"><a href="estructura.html#cb27-11" tabindex="-1"></a>  <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Variable&quot;</span>, <span class="st">&quot;Q1&quot;</span>, <span class="st">&quot;Q3&quot;</span>, <span class="st">&quot;IQR&quot;</span>, <span class="st">&quot;Mínimo&quot;</span>, <span class="st">&quot;Máximo&quot;</span>, <span class="st">&quot;Nº Outliers&quot;</span>, <span class="st">&quot;% Outliers&quot;</span>),</span>
+<span id="cb27-12"><a href="estructura.html#cb27-12" tabindex="-1"></a>  <span class="at">align =</span> <span class="fu">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;r&quot;</span>, <span class="st">&quot;r&quot;</span>, <span class="st">&quot;r&quot;</span>, <span class="st">&quot;r&quot;</span>, <span class="st">&quot;r&quot;</span>, <span class="st">&quot;r&quot;</span>, <span class="st">&quot;r&quot;</span>) </span>
+<span id="cb27-13"><a href="estructura.html#cb27-13" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-14"><a href="estructura.html#cb27-14" tabindex="-1"></a>  <span class="fu">kable_styling</span>(</span>
+<span id="cb27-15"><a href="estructura.html#cb27-15" tabindex="-1"></a>    <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>, <span class="st">&quot;responsive&quot;</span>),</span>
+<span id="cb27-16"><a href="estructura.html#cb27-16" tabindex="-1"></a>    <span class="at">full_width =</span> <span class="cn">TRUE</span>,      </span>
+<span id="cb27-17"><a href="estructura.html#cb27-17" tabindex="-1"></a>    <span class="at">font_size =</span> <span class="dv">11</span>          </span>
+<span id="cb27-18"><a href="estructura.html#cb27-18" tabindex="-1"></a>  )</span></code></pre></div>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:outliers-tabla">Table 2.9: </span><span id="tab:outliers-tabla">Table 2.10: </span>Detección de valores atípicos por variable numérica
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+Q1
+</th>
+<th style="text-align:right;">
+Q3
+</th>
+<th style="text-align:right;">
+IQR
+</th>
+<th style="text-align:right;">
+Mínimo
+</th>
+<th style="text-align:right;">
+Máximo
+</th>
+<th style="text-align:right;">
+Nº Outliers
+</th>
+<th style="text-align:right;">
+% Outliers
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+25%…1
+</td>
+<td style="text-align:left;">
+population
+</td>
+<td style="text-align:right;">
+462834.50
+</td>
+<td style="text-align:right;">
+13119786.50
+</td>
+<td style="text-align:right;">
+12656952.00
+</td>
+<td style="text-align:right;">
+-18522593.50
+</td>
+<td style="text-align:right;">
+32105214.50
+</td>
+<td style="text-align:right;">
+1733
+</td>
+<td style="text-align:right;">
+13.65
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+25%…2
+</td>
+<td style="text-align:left;">
+pop_density
+</td>
+<td style="text-align:right;">
+20.25
+</td>
+<td style="text-align:right;">
+153.07
+</td>
+<td style="text-align:right;">
+132.81
+</td>
+<td style="text-align:right;">
+-178.97
+</td>
+<td style="text-align:right;">
+352.29
+</td>
+<td style="text-align:right;">
+1182
+</td>
+<td style="text-align:right;">
+9.72
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+25%…3
+</td>
+<td style="text-align:left;">
+net_migration
+</td>
+<td style="text-align:right;">
+-80263.00
+</td>
+<td style="text-align:right;">
+27450.00
+</td>
+<td style="text-align:right;">
+107713.00
+</td>
+<td style="text-align:right;">
+-241832.50
+</td>
+<td style="text-align:right;">
+189019.50
+</td>
+<td style="text-align:right;">
+502
+</td>
+<td style="text-align:right;">
+21.70
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+25%…4
+</td>
+<td style="text-align:left;">
+migration_perc
+</td>
+<td style="text-align:right;">
+-0.02
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+-0.05
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+309
+</td>
+<td style="text-align:right;">
+13.36
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="estructura.html#cb28-1" tabindex="-1"></a>df_outliers_long <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="estructura.html#cb28-2" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb28-3"><a href="estructura.html#cb28-3" tabindex="-1"></a>    <span class="st">`</span><span class="at">Población Total</span><span class="st">`</span> <span class="ot">=</span> population, </span>
+<span id="cb28-4"><a href="estructura.html#cb28-4" tabindex="-1"></a>    <span class="st">`</span><span class="at">Densidad Poblacional</span><span class="st">`</span> <span class="ot">=</span> pop_density, </span>
+<span id="cb28-5"><a href="estructura.html#cb28-5" tabindex="-1"></a>    <span class="st">`</span><span class="at">Migración Neta</span><span class="st">`</span> <span class="ot">=</span> net_migration, </span>
+<span id="cb28-6"><a href="estructura.html#cb28-6" tabindex="-1"></a>    <span class="st">`</span><span class="at">Porcentaje de Migración</span><span class="st">`</span> <span class="ot">=</span> migration_perc</span>
+<span id="cb28-7"><a href="estructura.html#cb28-7" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb28-8"><a href="estructura.html#cb28-8" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">&quot;Variable&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Valor&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-9"><a href="estructura.html#cb28-9" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Valor))</span>
+<span id="cb28-10"><a href="estructura.html#cb28-10" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="estructura.html#cb28-11" tabindex="-1"></a><span class="fu">ggplot</span>(df_outliers_long, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> Valor)) <span class="sc">+</span></span>
+<span id="cb28-12"><a href="estructura.html#cb28-12" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> COLOR_PRINCIPAL, <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.alpha =</span> <span class="fl">0.3</span>, <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb28-13"><a href="estructura.html#cb28-13" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb28-14"><a href="estructura.html#cb28-14" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Variable, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb28-15"><a href="estructura.html#cb28-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de variables numéricas con valores atípicos&quot;</span>,</span>
+<span id="cb28-16"><a href="estructura.html#cb28-16" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Valor&quot;</span>) <span class="sc">+</span></span>
+<span id="cb28-17"><a href="estructura.html#cb28-17" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb28-18"><a href="estructura.html#cb28-18" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb28-19"><a href="estructura.html#cb28-19" tabindex="-1"></a>        <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:boxplots-outliers"></span>
+<img src="eda_poblacion_mundial_files/figure-html/boxplots-outliers-1.png" alt="Boxplots para visualización de valores atípicos" width="90%" />
+<p class="caption">
+Figure 2.2: Boxplots para visualización de valores atípicos
+</p>
+</div>
+<p>Las variables demográficas presentan un alto porcentaje de outliers según el criterio IQR, pero esto no necesariamente implica que sean errores. En la variable población, valores como los de China e India son extremos pero correctos porque corresponden a datos reales. De manera similar, ciudades-estado como Macao o Mónaco son outliers válidos en densidad, dado que son territorios con una población muy concentrada en un área pequeña. Por esta razón, se tomó la decisión de conservar todos los outliers del dataset, ya que eliminarlos significaría descartar información legítima sobre la variabilidad real del fenómeno demográfico mundial.</p>
+</div>
+<div id="validación-de-rangos-y-consistencia" class="section level2 hasAnchor" number="2.11">
+<h2><span class="header-section-number">2.11</span> Validación de rangos y consistencia<a href="estructura.html#validación-de-rangos-y-consistencia" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="estructura.html#cb29-1" tabindex="-1"></a>validacion <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb29-2"><a href="estructura.html#cb29-2" tabindex="-1"></a>  <span class="at">Verificacion =</span> <span class="fu">c</span>(</span>
+<span id="cb29-3"><a href="estructura.html#cb29-3" tabindex="-1"></a>    <span class="st">&quot;Años fuera de rango 1960-2025&quot;</span>,</span>
+<span id="cb29-4"><a href="estructura.html#cb29-4" tabindex="-1"></a>    <span class="st">&quot;Poblaciones negativas&quot;</span>,</span>
+<span id="cb29-5"><a href="estructura.html#cb29-5" tabindex="-1"></a>    <span class="st">&quot;Poblaciones iguales a 0&quot;</span>,</span>
+<span id="cb29-6"><a href="estructura.html#cb29-6" tabindex="-1"></a>    <span class="st">&quot;Densidades negativas&quot;</span>,</span>
+<span id="cb29-7"><a href="estructura.html#cb29-7" tabindex="-1"></a>    <span class="st">&quot;Latitudes fuera de [-90, 90]&quot;</span>,</span>
+<span id="cb29-8"><a href="estructura.html#cb29-8" tabindex="-1"></a>    <span class="st">&quot;Longitudes fuera de [-180, 180]&quot;</span></span>
+<span id="cb29-9"><a href="estructura.html#cb29-9" tabindex="-1"></a>  ),</span>
+<span id="cb29-10"><a href="estructura.html#cb29-10" tabindex="-1"></a>  <span class="at">Resultado =</span> <span class="fu">c</span>(</span>
+<span id="cb29-11"><a href="estructura.html#cb29-11" tabindex="-1"></a>    <span class="fu">sum</span>(df_paises<span class="sc">$</span>year <span class="sc">&lt;</span> <span class="dv">1960</span> <span class="sc">|</span> df_paises<span class="sc">$</span>year <span class="sc">&gt;</span> <span class="dv">2025</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb29-12"><a href="estructura.html#cb29-12" tabindex="-1"></a>    <span class="fu">sum</span>(df_paises<span class="sc">$</span>population <span class="sc">&lt;</span> <span class="dv">0</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb29-13"><a href="estructura.html#cb29-13" tabindex="-1"></a>    <span class="fu">sum</span>(df_paises<span class="sc">$</span>population <span class="sc">==</span> <span class="dv">0</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb29-14"><a href="estructura.html#cb29-14" tabindex="-1"></a>    <span class="fu">sum</span>(df_paises<span class="sc">$</span>pop_density <span class="sc">&lt;</span> <span class="dv">0</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb29-15"><a href="estructura.html#cb29-15" tabindex="-1"></a>    <span class="fu">sum</span>(<span class="fu">abs</span>(df_paises<span class="sc">$</span>latitude) <span class="sc">&gt;</span> <span class="dv">90</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb29-16"><a href="estructura.html#cb29-16" tabindex="-1"></a>    <span class="fu">sum</span>(<span class="fu">abs</span>(df_paises<span class="sc">$</span>longitude) <span class="sc">&gt;</span> <span class="dv">180</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb29-17"><a href="estructura.html#cb29-17" tabindex="-1"></a>  )</span>
+<span id="cb29-18"><a href="estructura.html#cb29-18" tabindex="-1"></a>)</span>
+<span id="cb29-19"><a href="estructura.html#cb29-19" tabindex="-1"></a></span>
+<span id="cb29-20"><a href="estructura.html#cb29-20" tabindex="-1"></a><span class="fu">kable</span>(validacion, <span class="at">caption =</span> <span class="st">&quot;Validación de rangos en variables numéricas&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:validacion-rangos">Table 2.11: </span>Validación de rangos en variables numéricas</caption>
+<thead>
+<tr class="header">
+<th align="left">Verificacion</th>
+<th align="right">Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Años fuera de rango 1960-2025</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Poblaciones negativas</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Poblaciones iguales a 0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Densidades negativas</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Latitudes fuera de [-90, 90]</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Longitudes fuera de [-180, 180]</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p>En la tabla anterior se muestra el resultado de la validación de rangos en las variables numéricas. Se observa que todos los valores se encuentran dentro de los rangos permitidos según la naturaleza de cada variable.</p>
+</div>
+<div id="resumen-de-la-limpieza" class="section level2 hasAnchor" number="2.12">
+<h2><span class="header-section-number">2.12</span> Resumen de la limpieza<a href="estructura.html#resumen-de-la-limpieza" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="estructura.html#cb30-1" tabindex="-1"></a>resumen_limpieza <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb30-2"><a href="estructura.html#cb30-2" tabindex="-1"></a>  <span class="at">Concepto =</span> <span class="fu">c</span>(</span>
+<span id="cb30-3"><a href="estructura.html#cb30-3" tabindex="-1"></a>    <span class="st">&quot;Dataset original&quot;</span>,</span>
+<span id="cb30-4"><a href="estructura.html#cb30-4" tabindex="-1"></a>    <span class="st">&quot;Duplicados eliminados&quot;</span>,</span>
+<span id="cb30-5"><a href="estructura.html#cb30-5" tabindex="-1"></a>    <span class="st">&quot;Agregados separados&quot;</span>,</span>
+<span id="cb30-6"><a href="estructura.html#cb30-6" tabindex="-1"></a>    <span class="st">&quot;Filas sin población eliminadas&quot;</span>,</span>
+<span id="cb30-7"><a href="estructura.html#cb30-7" tabindex="-1"></a>    <span class="st">&quot;Outliers&quot;</span>,</span>
+<span id="cb30-8"><a href="estructura.html#cb30-8" tabindex="-1"></a>    <span class="st">&quot;Cadenas vacías&quot;</span>,</span>
+<span id="cb30-9"><a href="estructura.html#cb30-9" tabindex="-1"></a>    <span class="st">&quot;Dataset final (países)&quot;</span>,</span>
+<span id="cb30-10"><a href="estructura.html#cb30-10" tabindex="-1"></a>    <span class="st">&quot;Países únicos&quot;</span>,</span>
+<span id="cb30-11"><a href="estructura.html#cb30-11" tabindex="-1"></a>    <span class="st">&quot;Rango temporal&quot;</span></span>
+<span id="cb30-12"><a href="estructura.html#cb30-12" tabindex="-1"></a>  ),</span>
+<span id="cb30-13"><a href="estructura.html#cb30-13" tabindex="-1"></a>  <span class="at">Valor =</span> <span class="fu">c</span>(</span>
+<span id="cb30-14"><a href="estructura.html#cb30-14" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="fu">nrow</span>(df), <span class="st">&quot;filas x&quot;</span>, <span class="fu">ncol</span>(df), <span class="st">&quot;columnas&quot;</span>),</span>
+<span id="cb30-15"><a href="estructura.html#cb30-15" tabindex="-1"></a>    <span class="fu">as.character</span>(n_duplicados),</span>
+<span id="cb30-16"><a href="estructura.html#cb30-16" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="fu">nrow</span>(df_agregados), <span class="st">&quot;filas&quot;</span>),</span>
+<span id="cb30-17"><a href="estructura.html#cb30-17" tabindex="-1"></a>    <span class="fu">as.character</span>(filas_eliminadas),</span>
+<span id="cb30-18"><a href="estructura.html#cb30-18" tabindex="-1"></a>    <span class="st">&quot;Conservados (valores legítimos)&quot;</span>,</span>
+<span id="cb30-19"><a href="estructura.html#cb30-19" tabindex="-1"></a>    <span class="st">&quot;Convertidas a NA&quot;</span>,</span>
+<span id="cb30-20"><a href="estructura.html#cb30-20" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="fu">nrow</span>(df_paises), <span class="st">&quot;filas x&quot;</span>, <span class="fu">ncol</span>(df_paises), <span class="st">&quot;columnas&quot;</span>),</span>
+<span id="cb30-21"><a href="estructura.html#cb30-21" tabindex="-1"></a>    <span class="fu">as.character</span>(<span class="fu">n_distinct</span>(df_paises<span class="sc">$</span>country)),</span>
+<span id="cb30-22"><a href="estructura.html#cb30-22" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="fu">min</span>(df_paises<span class="sc">$</span>year), <span class="st">&quot;-&quot;</span>, <span class="fu">max</span>(df_paises<span class="sc">$</span>year))</span>
+<span id="cb30-23"><a href="estructura.html#cb30-23" tabindex="-1"></a>  )</span>
+<span id="cb30-24"><a href="estructura.html#cb30-24" tabindex="-1"></a>)</span>
+<span id="cb30-25"><a href="estructura.html#cb30-25" tabindex="-1"></a><span class="fu">kable</span>(resumen_limpieza, <span class="at">caption =</span> <span class="st">&quot;Resumen del proceso de limpieza de datos&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:resumen-limpieza">Table 2.12: </span>Resumen del proceso de limpieza de datos</caption>
+<thead>
+<tr class="header">
+<th align="left">Concepto</th>
+<th align="left">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Dataset original</td>
+<td align="left">15576 filas x 15 columnas</td>
+</tr>
+<tr class="even">
+<td align="left">Duplicados eliminados</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Agregados separados</td>
+<td align="left">2773 filas</td>
+</tr>
+<tr class="even">
+<td align="left">Filas sin población eliminadas</td>
+<td align="left">108</td>
+</tr>
+<tr class="odd">
+<td align="left">Outliers</td>
+<td align="left">Conservados (valores legítimos)</td>
+</tr>
+<tr class="even">
+<td align="left">Cadenas vacías</td>
+<td align="left">Convertidas a NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Dataset final (países)</td>
+<td align="left">12695 filas x 15 columnas</td>
+</tr>
+<tr class="even">
+<td align="left">Países únicos</td>
+<td align="left">217</td>
+</tr>
+<tr class="odd">
+<td align="left">Rango temporal</td>
+<td align="left">1960 - 2018</td>
+</tr>
+</tbody>
+</table>
+<p>Los principales cambios son la separación de agregados (para evitar doble conteo), la estandarización de valores vacíos, y la eliminación de observaciones sin la variable central (<code>population</code>).</p>
 
 </div>
 </div>
@@ -998,7 +1597,7 @@ Figure 2.1: Porcentaje de valores faltantes por variable
         </div>
       </div>
 <a href="diccionario.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="limpieza.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="eda.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

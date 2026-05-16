@@ -6,27 +6,33 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 5 Evolución Temporal | Análisis Exploratorio de Datos: Población Mundial y Migración</title>
   <meta name="description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
-Población Mundial y Migración del Banco Mundial.</p>" />
+Población Mundial y Migración del Banco Mundial. Trabajo desarrollado
+en el marco de la asignatura de Estadística Computacional de la
+Maestría en Estadística.</p>" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo 5 Evolución Temporal | Análisis Exploratorio de Datos: Población Mundial y Migración" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
-Población Mundial y Migración del Banco Mundial.</p>" />
+Población Mundial y Migración del Banco Mundial. Trabajo desarrollado
+en el marco de la asignatura de Estadística Computacional de la
+Maestría en Estadística.</p>" />
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Capítulo 5 Evolución Temporal | Análisis Exploratorio de Datos: Población Mundial y Migración" />
   
   <meta name="twitter:description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
-Población Mundial y Migración del Banco Mundial.</p>" />
+Población Mundial y Migración del Banco Mundial. Trabajo desarrollado
+en el marco de la asignatura de Estadística Computacional de la
+Maestría en Estadística.</p>" />
   
 
 <meta name="author" content="Lia Castillo" />
 
 
-<meta name="date" content="2026-04-25" />
+<meta name="date" content="2026-05-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -144,69 +150,87 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introducción</a>
 <ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#objetivos-del-eda"><i class="fa fa-check"></i>Objetivos del EDA</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#objetivos"><i class="fa fa-check"></i>Objetivos</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#metodología"><i class="fa fa-check"></i>Metodología</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#fuente-de-datos"><i class="fa fa-check"></i>Fuente de Datos</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="diccionario.html"><a href="diccionario.html"><i class="fa fa-check"></i><b>1</b> Diccionario de Variables</a></li>
-<li class="chapter" data-level="2" data-path="estructura.html"><a href="estructura.html"><i class="fa fa-check"></i><b>2</b> Estructura y Calidad del Dataset</a>
+<li class="chapter" data-level="1" data-path="diccionario.html"><a href="diccionario.html"><i class="fa fa-check"></i><b>1</b> Diccionario de variables</a></li>
+<li class="chapter" data-level="2" data-path="estructura.html"><a href="estructura.html"><i class="fa fa-check"></i><b>2</b> Estructura y calidad del dataset</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="estructura.html"><a href="estructura.html#dimensiones-y-estructura-general"><i class="fa fa-check"></i><b>2.1</b> Dimensiones y Estructura General</a></li>
-<li class="chapter" data-level="2.2" data-path="estructura.html"><a href="estructura.html#resumen-estadístico"><i class="fa fa-check"></i><b>2.2</b> Resumen Estadístico</a></li>
-<li class="chapter" data-level="2.3" data-path="estructura.html"><a href="estructura.html#análisis-de-valores-faltantes-na"><i class="fa fa-check"></i><b>2.3</b> Análisis de Valores Faltantes (NA)</a></li>
+<li class="chapter" data-level="2.1" data-path="estructura.html"><a href="estructura.html#dimensiones-y-estructura-general"><i class="fa fa-check"></i><b>2.1</b> Dimensiones y estructura general</a></li>
+<li class="chapter" data-level="2.2" data-path="estructura.html"><a href="estructura.html#conversión-de-variables-categóricas"><i class="fa fa-check"></i><b>2.2</b> Conversión de variables categóricas</a></li>
+<li class="chapter" data-level="2.3" data-path="estructura.html"><a href="estructura.html#análisis-de-valores-faltantes-na"><i class="fa fa-check"></i><b>2.3</b> Análisis de valores faltantes (NA)</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="limpieza.html"><a href="limpieza.html"><i class="fa fa-check"></i><b>3</b> Limpieza y Preparación de Datos</a>
+<li class="chapter" data-level="3" data-path="limpieza.html"><a href="limpieza.html"><i class="fa fa-check"></i><b>3</b> Limpieza y preparación de datos</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="limpieza.html"><a href="limpieza.html#verificación-de-duplicados"><i class="fa fa-check"></i><b>3.1</b> Verificación de Duplicados</a></li>
-<li class="chapter" data-level="3.2" data-path="limpieza.html"><a href="limpieza.html#corrección-de-tipos-de-datos"><i class="fa fa-check"></i><b>3.2</b> Corrección de Tipos de Datos</a></li>
-<li class="chapter" data-level="3.3" data-path="limpieza.html"><a href="limpieza.html#limpieza-de-variables-categóricas"><i class="fa fa-check"></i><b>3.3</b> Limpieza de Variables Categóricas</a></li>
-<li class="chapter" data-level="3.4" data-path="limpieza.html"><a href="limpieza.html#separación-de-agregados-y-países"><i class="fa fa-check"></i><b>3.4</b> Separación de Agregados y Países</a></li>
-<li class="chapter" data-level="3.5" data-path="limpieza.html"><a href="limpieza.html#tratamiento-de-valores-faltantes-nas"><i class="fa fa-check"></i><b>3.5</b> Tratamiento de Valores Faltantes (NAs)</a>
+<li class="chapter" data-level="3.1" data-path="limpieza.html"><a href="limpieza.html#verificación-de-duplicados"><i class="fa fa-check"></i><b>3.1</b> Verificación de duplicados</a></li>
+<li class="chapter" data-level="3.2" data-path="limpieza.html"><a href="limpieza.html#corrección-de-tipos-de-datos"><i class="fa fa-check"></i><b>3.2</b> Corrección de tipos de datos</a></li>
+<li class="chapter" data-level="3.3" data-path="limpieza.html"><a href="limpieza.html#limpieza-de-variables-categóricas"><i class="fa fa-check"></i><b>3.3</b> Limpieza de variables categóricas</a></li>
+<li class="chapter" data-level="3.4" data-path="limpieza.html"><a href="limpieza.html#separación-de-agregados-y-países"><i class="fa fa-check"></i><b>3.4</b> Separación de agregados y países</a></li>
+<li class="chapter" data-level="3.5" data-path="limpieza.html"><a href="limpieza.html#tratamiento-de-valores-faltantes-nas"><i class="fa fa-check"></i><b>3.5</b> Tratamiento de valores faltantes (NAs)</a>
 <ul>
-<li class="chapter" data-level="3.5.1" data-path="limpieza.html"><a href="limpieza.html#estrategia-de-tratamiento"><i class="fa fa-check"></i><b>3.5.1</b> Estrategia de Tratamiento</a></li>
+<li class="chapter" data-level="3.5.1" data-path="limpieza.html"><a href="limpieza.html#estrategia-de-tratamiento"><i class="fa fa-check"></i><b>3.5.1</b> Estrategia de tratamiento</a></li>
 </ul></li>
-<li class="chapter" data-level="3.6" data-path="limpieza.html"><a href="limpieza.html#detección-de-valores-atípicos-outliers"><i class="fa fa-check"></i><b>3.6</b> Detección de Valores Atípicos (Outliers)</a></li>
-<li class="chapter" data-level="3.7" data-path="limpieza.html"><a href="limpieza.html#validación-de-rangos-y-consistencia"><i class="fa fa-check"></i><b>3.7</b> Validación de Rangos y Consistencia</a></li>
-<li class="chapter" data-level="3.8" data-path="limpieza.html"><a href="limpieza.html#resumen-de-la-limpieza"><i class="fa fa-check"></i><b>3.8</b> Resumen de la Limpieza</a></li>
+<li class="chapter" data-level="3.6" data-path="limpieza.html"><a href="limpieza.html#detección-de-valores-atípicos-outliers"><i class="fa fa-check"></i><b>3.6</b> Detección de valores atípicos (outliers)</a></li>
+<li class="chapter" data-level="3.7" data-path="limpieza.html"><a href="limpieza.html#validación-de-rangos-y-consistencia"><i class="fa fa-check"></i><b>3.7</b> Validación de rangos y consistencia</a></li>
+<li class="chapter" data-level="3.8" data-path="limpieza.html"><a href="limpieza.html#resumen-de-la-limpieza"><i class="fa fa-check"></i><b>3.8</b> Resumen de la limpieza</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="distribucion.html"><a href="distribucion.html"><i class="fa fa-check"></i><b>4</b> Distribución de Variables</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="distribucion.html"><a href="distribucion.html#variables-categóricas"><i class="fa fa-check"></i><b>4.1</b> Variables Categóricas</a></li>
-<li class="chapter" data-level="4.2" data-path="distribucion.html"><a href="distribucion.html#variables-numéricas"><i class="fa fa-check"></i><b>4.2</b> Variables Numéricas</a>
+<li class="chapter" data-level="4.1" data-path="distribucion.html"><a href="distribucion.html#composición-del-dataset"><i class="fa fa-check"></i><b>4.1</b> Composición del dataset</a></li>
+<li class="chapter" data-level="4.2" data-path="distribucion.html"><a href="distribucion.html#variables-numéricas"><i class="fa fa-check"></i><b>4.2</b> Variables numéricas</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="distribucion.html"><a href="distribucion.html#distribución-de-la-población"><i class="fa fa-check"></i><b>4.2.1</b> Distribución de la Población</a></li>
-<li class="chapter" data-level="4.2.2" data-path="distribucion.html"><a href="distribucion.html#distribución-de-la-densidad-poblacional"><i class="fa fa-check"></i><b>4.2.2</b> Distribución de la Densidad Poblacional</a></li>
-<li class="chapter" data-level="4.2.3" data-path="distribucion.html"><a href="distribucion.html#población-por-nivel-de-ingreso"><i class="fa fa-check"></i><b>4.2.3</b> Población por Nivel de Ingreso</a></li>
+<li class="chapter" data-level="4.2.1" data-path="distribucion.html"><a href="distribucion.html#distribución-de-la-población"><i class="fa fa-check"></i><b>4.2.1</b> Distribución de la población</a></li>
+<li class="chapter" data-level="4.2.2" data-path="distribucion.html"><a href="distribucion.html#distribución-de-la-densidad-poblacional"><i class="fa fa-check"></i><b>4.2.2</b> Distribución de la densidad poblacional</a></li>
+<li class="chapter" data-level="4.2.3" data-path="distribucion.html"><a href="distribucion.html#población-por-nivel-de-ingreso"><i class="fa fa-check"></i><b>4.2.3</b> Población por nivel de ingreso</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="temporal.html"><a href="temporal.html"><i class="fa fa-check"></i><b>5</b> Evolución Temporal</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="temporal.html"><a href="temporal.html#población-mundial-total"><i class="fa fa-check"></i><b>5.1</b> Población Mundial Total</a></li>
-<li class="chapter" data-level="5.2" data-path="temporal.html"><a href="temporal.html#top-10-países-más-poblados"><i class="fa fa-check"></i><b>5.2</b> Top 10 Países Más Poblados</a></li>
-<li class="chapter" data-level="5.3" data-path="temporal.html"><a href="temporal.html#evolución-de-los-top-5-países"><i class="fa fa-check"></i><b>5.3</b> Evolución de los Top 5 Países</a></li>
+<li class="chapter" data-level="5.1" data-path="temporal.html"><a href="temporal.html#población-mundial-total"><i class="fa fa-check"></i><b>5.1</b> Población mundial total</a></li>
+<li class="chapter" data-level="5.2" data-path="temporal.html"><a href="temporal.html#top-10-de-los-países-más-poblados"><i class="fa fa-check"></i><b>5.2</b> Top 10 de los países más poblados</a></li>
+<li class="chapter" data-level="5.3" data-path="temporal.html"><a href="temporal.html#evolución-de-los-top-5-países"><i class="fa fa-check"></i><b>5.3</b> Evolución de los top 5 países</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="migracion.html"><a href="migracion.html"><i class="fa fa-check"></i><b>6</b> Análisis de Migración Neta</a>
+<li class="chapter" data-level="6" data-path="migracion.html"><a href="migracion.html"><i class="fa fa-check"></i><b>6</b> Análisis de migración neta</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="migracion.html"><a href="migracion.html#estadísticas-de-migración"><i class="fa fa-check"></i><b>6.1</b> Estadísticas de Migración</a></li>
-<li class="chapter" data-level="6.2" data-path="migracion.html"><a href="migracion.html#principales-receptores-y-emisores"><i class="fa fa-check"></i><b>6.2</b> Principales Receptores y Emisores</a></li>
+<li class="chapter" data-level="6.1" data-path="migracion.html"><a href="migracion.html#estadísticas-de-migración"><i class="fa fa-check"></i><b>6.1</b> Estadísticas de migración</a></li>
+<li class="chapter" data-level="6.2" data-path="migracion.html"><a href="migracion.html#principales-receptores-y-emisores"><i class="fa fa-check"></i><b>6.2</b> Principales receptores y emisores</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="correlacion.html"><a href="correlacion.html"><i class="fa fa-check"></i><b>7</b> Correlación y Densidad Poblacional</a>
+<li class="chapter" data-level="7" data-path="correlacion.html"><a href="correlacion.html"><i class="fa fa-check"></i><b>7</b> Correlación y densidad poblacional</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="correlacion.html"><a href="correlacion.html#análisis-de-correlación"><i class="fa fa-check"></i><b>7.1</b> Análisis de Correlación</a></li>
-<li class="chapter" data-level="7.2" data-path="correlacion.html"><a href="correlacion.html#densidad-poblacional"><i class="fa fa-check"></i><b>7.2</b> Densidad Poblacional</a>
+<li class="chapter" data-level="7.1" data-path="correlacion.html"><a href="correlacion.html#análisis-de-correlación"><i class="fa fa-check"></i><b>7.1</b> Análisis de correlación</a></li>
+<li class="chapter" data-level="7.2" data-path="correlacion.html"><a href="correlacion.html#densidad-poblacional"><i class="fa fa-check"></i><b>7.2</b> Densidad poblacional</a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="correlacion.html"><a href="correlacion.html#top-15-territorios-más-densos"><i class="fa fa-check"></i><b>7.2.1</b> Top 15 Territorios Más Densos</a></li>
+<li class="chapter" data-level="7.2.1" data-path="correlacion.html"><a href="correlacion.html#top-15-territorios-más-densos"><i class="fa fa-check"></i><b>7.2.1</b> Top 15 territorios más densos</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="ingreso-region.html"><a href="ingreso-region.html"><i class="fa fa-check"></i><b>8</b> Análisis por Nivel de Ingreso y Región</a>
+<li class="chapter" data-level="8" data-path="ingreso-region.html"><a href="ingreso-region.html"><i class="fa fa-check"></i><b>8</b> Análisis por nivel de ingreso y región</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="ingreso-region.html"><a href="ingreso-region.html#análisis-por-nivel-de-ingreso"><i class="fa fa-check"></i><b>8.1</b> Análisis por Nivel de Ingreso</a></li>
-<li class="chapter" data-level="8.2" data-path="ingreso-region.html"><a href="ingreso-region.html#análisis-por-región"><i class="fa fa-check"></i><b>8.2</b> Análisis por Región</a></li>
+<li class="chapter" data-level="8.1" data-path="ingreso-region.html"><a href="ingreso-region.html#análisis-por-nivel-de-ingreso"><i class="fa fa-check"></i><b>8.1</b> Análisis por nivel de ingreso</a></li>
+<li class="chapter" data-level="8.2" data-path="ingreso-region.html"><a href="ingreso-region.html#análisis-por-región"><i class="fa fa-check"></i><b>8.2</b> Análisis por región</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>9</b> Tasa de Crecimiento y Conclusiones</a>
+<li class="chapter" data-level="9" data-path="bivariado.html"><a href="bivariado.html"><i class="fa fa-check"></i><b>9</b> Análisis bivariado</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="conclusiones.html"><a href="conclusiones.html#tasa-de-crecimiento-poblacional"><i class="fa fa-check"></i><b>9.1</b> Tasa de Crecimiento Poblacional</a></li>
-<li class="chapter" data-level="9.2" data-path="conclusiones.html"><a href="conclusiones.html#conclusiones-1"><i class="fa fa-check"></i><b>9.2</b> Conclusiones</a></li>
+<li class="chapter" data-level="9.1" data-path="bivariado.html"><a href="bivariado.html#población-vs.-densidad-poblacional"><i class="fa fa-check"></i><b>9.1</b> Población vs. densidad poblacional</a></li>
+<li class="chapter" data-level="9.2" data-path="bivariado.html"><a href="bivariado.html#migración-neta-vs.-nivel-de-ingreso"><i class="fa fa-check"></i><b>9.2</b> Migración neta vs. nivel de ingreso</a></li>
+<li class="chapter" data-level="9.3" data-path="bivariado.html"><a href="bivariado.html#densidad-poblacional-vs.-migración-neta"><i class="fa fa-check"></i><b>9.3</b> Densidad poblacional vs. migración neta (%)</a></li>
+<li class="chapter" data-level="9.4" data-path="bivariado.html"><a href="bivariado.html#crecimiento-poblacional-vs.-región-e-ingreso"><i class="fa fa-check"></i><b>9.4</b> Crecimiento poblacional vs. región e ingreso</a></li>
+<li class="chapter" data-level="9.5" data-path="bivariado.html"><a href="bivariado.html#tabla-de-contingencia-región-vs.-nivel-de-ingreso"><i class="fa fa-check"></i><b>9.5</b> Tabla de contingencia: región vs. nivel de ingreso</a></li>
+<li class="chapter" data-level="9.6" data-path="bivariado.html"><a href="bivariado.html#evolución-temporal-de-la-densidad-por-región"><i class="fa fa-check"></i><b>9.6</b> Evolución temporal de la densidad por región</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="inferencial.html"><a href="inferencial.html"><i class="fa fa-check"></i><b>10</b> Análisis inferencial</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="inferencial.html"><a href="inferencial.html#prueba-de-normalidad"><i class="fa fa-check"></i><b>10.1</b> Prueba de normalidad</a></li>
+<li class="chapter" data-level="10.2" data-path="inferencial.html"><a href="inferencial.html#prueba-t-migración-neta-en-países-de-ingreso-alto-vs.-bajo"><i class="fa fa-check"></i><b>10.2</b> Prueba t: migración neta en países de ingreso alto vs. bajo</a></li>
+<li class="chapter" data-level="10.3" data-path="inferencial.html"><a href="inferencial.html#anova-densidad-poblacional-por-región"><i class="fa fa-check"></i><b>10.3</b> ANOVA: densidad poblacional por región</a></li>
+<li class="chapter" data-level="10.4" data-path="inferencial.html"><a href="inferencial.html#prueba-chi-cuadrado-independencia-región-ingreso"><i class="fa fa-check"></i><b>10.4</b> Prueba Chi-cuadrado: independencia región-ingreso</a></li>
+<li class="chapter" data-level="10.5" data-path="inferencial.html"><a href="inferencial.html#intervalo-de-confianza-para-la-tasa-de-crecimiento"><i class="fa fa-check"></i><b>10.5</b> Intervalo de confianza para la tasa de crecimiento</a></li>
+<li class="chapter" data-level="10.6" data-path="inferencial.html"><a href="inferencial.html#correlación-de-pearson-prueba-de-significancia"><i class="fa fa-check"></i><b>10.6</b> Correlación de Pearson: prueba de significancia</a></li>
+<li class="chapter" data-level="10.7" data-path="inferencial.html"><a href="inferencial.html#resumen-del-análisis-inferencial"><i class="fa fa-check"></i><b>10.7</b> Resumen del análisis inferencial</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>11</b> Tasa de crecimiento y conclusiones</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="conclusiones.html"><a href="conclusiones.html#tasa-de-crecimiento-poblacional"><i class="fa fa-check"></i><b>11.1</b> Tasa de crecimiento poblacional</a></li>
+<li class="chapter" data-level="11.2" data-path="conclusiones.html"><a href="conclusiones.html#conclusiones-1"><i class="fa fa-check"></i><b>11.2</b> Conclusiones</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Publicado con bookdown</a></li>
@@ -231,21 +255,21 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="temporal" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">Capítulo 5</span> Evolución Temporal<a href="temporal.html#temporal" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="población-mundial-total" class="section level2 hasAnchor" number="5.1">
-<h2><span class="header-section-number">5.1</span> Población Mundial Total<a href="temporal.html#población-mundial-total" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="temporal.html#cb43-1" tabindex="-1"></a>pop_mundial <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb43-2"><a href="temporal.html#cb43-2" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">&quot;World&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb43-3"><a href="temporal.html#cb43-3" tabindex="-1"></a>  <span class="fu">arrange</span>(year) <span class="sc">%&gt;%</span></span>
-<span id="cb43-4"><a href="temporal.html#cb43-4" tabindex="-1"></a>  <span class="fu">select</span>(year, population)</span></code></pre></div>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="temporal.html#cb44-1" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(pop_mundial) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb44-2"><a href="temporal.html#cb44-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(pop_mundial, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> population)) <span class="sc">+</span></span>
-<span id="cb44-3"><a href="temporal.html#cb44-3" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;#2C3E50&quot;</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb44-4"><a href="temporal.html#cb44-4" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#E74C3C&quot;</span>, <span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb44-5"><a href="temporal.html#cb44-5" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="fu">round</span>(x <span class="sc">/</span> <span class="fl">1e9</span>, <span class="dv">2</span>), <span class="st">&quot;B&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb44-6"><a href="temporal.html#cb44-6" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Evolución de la Población Mundial (1960-2018)&quot;</span>,</span>
-<span id="cb44-7"><a href="temporal.html#cb44-7" tabindex="-1"></a>         <span class="at">x =</span> <span class="st">&quot;Año&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Población (miles de millones)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb44-8"><a href="temporal.html#cb44-8" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb44-9"><a href="temporal.html#cb44-9" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>))</span>
-<span id="cb44-10"><a href="temporal.html#cb44-10" tabindex="-1"></a>}</span></code></pre></div>
+<h2><span class="header-section-number">5.1</span> Población mundial total<a href="temporal.html#población-mundial-total" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="temporal.html#cb41-1" tabindex="-1"></a>pop_mundial <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="temporal.html#cb41-2" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">&quot;World&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="temporal.html#cb41-3" tabindex="-1"></a>  <span class="fu">arrange</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb41-4"><a href="temporal.html#cb41-4" tabindex="-1"></a>  <span class="fu">select</span>(year, population)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="temporal.html#cb42-1" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(pop_mundial) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb42-2"><a href="temporal.html#cb42-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(pop_mundial, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> population)) <span class="sc">+</span></span>
+<span id="cb42-3"><a href="temporal.html#cb42-3" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color =</span> COLOR_PRINCIPAL, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb42-4"><a href="temporal.html#cb42-4" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">color =</span> COLOR_PRINCIPAL, <span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb42-5"><a href="temporal.html#cb42-5" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="fu">round</span>(x <span class="sc">/</span> <span class="fl">1e9</span>, <span class="dv">2</span>), <span class="st">&quot;B&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb42-6"><a href="temporal.html#cb42-6" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Evolución de la población mundial (1960-2018)&quot;</span>,</span>
+<span id="cb42-7"><a href="temporal.html#cb42-7" tabindex="-1"></a>         <span class="at">x =</span> <span class="st">&quot;Año&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Población (miles de millones)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb42-8"><a href="temporal.html#cb42-8" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb42-9"><a href="temporal.html#cb42-9" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb42-10"><a href="temporal.html#cb42-10" tabindex="-1"></a>}</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:plot-world-pop"></span>
 <img src="eda_poblacion_mundial_files/figure-html/plot-world-pop-1.png" alt="Evolución de la población mundial de 1960 a 2018" width="90%" />
 <p class="caption">
@@ -253,21 +277,21 @@ Figure 5.1: Evolución de la población mundial de 1960 a 2018
 </p>
 </div>
 <blockquote>
-<p>La población mundial presenta una tendencia positiva entre1960 y 2018, pasando de aproximadamente 3 mil millones a más de 7.5 mil millones. La curva muestra un crecimiento prácticamente lineal en las últimas décadas, aunque la tasa de crecimiento porcentual ha ido disminuyendo progresivamente.</p>
+<p>La población mundial presenta una tendencia positiva entre 1960 y 2018, pasando de aproximadamente 3 mil millones a más de 7.5 mil millones. La curva muestra un crecimiento prácticamente lineal en las últimas décadas, aunque la tasa de crecimiento porcentual ha ido disminuyendo progresivamente.</p>
 </blockquote>
 </div>
-<div id="top-10-países-más-poblados" class="section level2 hasAnchor" number="5.2">
-<h2><span class="header-section-number">5.2</span> Top 10 Países Más Poblados<a href="temporal.html#top-10-países-más-poblados" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="temporal.html#cb45-1" tabindex="-1"></a>top10_reciente <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
-<span id="cb45-2"><a href="temporal.html#cb45-2" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="fu">max</span>(year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb45-3"><a href="temporal.html#cb45-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(population)) <span class="sc">%&gt;%</span></span>
-<span id="cb45-4"><a href="temporal.html#cb45-4" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span>
-<span id="cb45-5"><a href="temporal.html#cb45-5" tabindex="-1"></a></span>
-<span id="cb45-6"><a href="temporal.html#cb45-6" tabindex="-1"></a></span>
-<span id="cb45-7"><a href="temporal.html#cb45-7" tabindex="-1"></a><span class="fu">kable</span>(top10_reciente <span class="sc">%&gt;%</span> <span class="fu">select</span>(country, year, population, pop_density, incomeLevel),</span>
-<span id="cb45-8"><a href="temporal.html#cb45-8" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Top 10 países más poblados (año más reciente)&quot;</span>)</span></code></pre></div>
+<div id="top-10-de-los-países-más-poblados" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Top 10 de los países más poblados<a href="temporal.html#top-10-de-los-países-más-poblados" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="temporal.html#cb43-1" tabindex="-1"></a>top10_reciente <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb43-2"><a href="temporal.html#cb43-2" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="fu">max</span>(year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb43-3"><a href="temporal.html#cb43-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(population)) <span class="sc">%&gt;%</span></span>
+<span id="cb43-4"><a href="temporal.html#cb43-4" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span>
+<span id="cb43-5"><a href="temporal.html#cb43-5" tabindex="-1"></a></span>
+<span id="cb43-6"><a href="temporal.html#cb43-6" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="temporal.html#cb43-7" tabindex="-1"></a><span class="fu">kable</span>(top10_reciente <span class="sc">%&gt;%</span> <span class="fu">select</span>(country, year, population, pop_density, incomeLevel),</span>
+<span id="cb43-8"><a href="temporal.html#cb43-8" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Top 10 de los países más poblados (año más reciente)&quot;</span>)</span></code></pre></div>
 <table style="width:100%;">
-<caption><span id="tab:top10">Table 5.1: </span>Top 10 países más poblados (año más reciente)</caption>
+<caption><span id="tab:top10">Table 5.1: </span>Top 10 de los países más poblados (año más reciente)</caption>
 <colgroup>
 <col width="28%" />
 <col width="7%" />
@@ -358,21 +382,21 @@ Figure 5.1: Evolución de la población mundial de 1960 a 2018
 </tbody>
 </table>
 <blockquote>
-<p>Se identifica a China como el país con mayor población, seguido de India, ambos con más de 1350 millones de habitantes. Sin embargo, se puede apreciar que India presenta mayor densidad poblacional, lo cual puede significar una</p>
+<p>Se identifica a China como el país con mayor población, seguido de India, ambos con más de 1350 millones de habitantes. Sin embargo, se puede apreciar que India presenta mayor densidad poblacional, lo cual sugiere una mayor presión demográfica sobre su territorio.</p>
 </blockquote>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="temporal.html#cb46-1" tabindex="-1"></a><span class="fu">ggplot</span>(top10_reciente, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(country, population), <span class="at">y =</span> population)) <span class="sc">+</span></span>
-<span id="cb46-2"><a href="temporal.html#cb46-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;#1ABC9C&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.85</span>) <span class="sc">+</span></span>
-<span id="cb46-3"><a href="temporal.html#cb46-3" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(population <span class="sc">/</span> <span class="fl">1e6</span>, <span class="dv">0</span>), <span class="st">&quot;M&quot;</span>)),</span>
-<span id="cb46-4"><a href="temporal.html#cb46-4" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
-<span id="cb46-5"><a href="temporal.html#cb46-5" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb46-6"><a href="temporal.html#cb46-6" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="fu">round</span>(x <span class="sc">/</span> <span class="fl">1e9</span>, <span class="dv">2</span>), <span class="st">&quot;B&quot;</span>),</span>
-<span id="cb46-7"><a href="temporal.html#cb46-7" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.15</span>))) <span class="sc">+</span></span>
-<span id="cb46-8"><a href="temporal.html#cb46-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Top 10 Países Más Poblados&quot;</span>,</span>
-<span id="cb46-9"><a href="temporal.html#cb46-9" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">&quot;Año:&quot;</span>, <span class="fu">max</span>(df_paises<span class="sc">$</span>year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
-<span id="cb46-10"><a href="temporal.html#cb46-10" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Población&quot;</span>) <span class="sc">+</span></span>
-<span id="cb46-11"><a href="temporal.html#cb46-11" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb46-12"><a href="temporal.html#cb46-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb46-13"><a href="temporal.html#cb46-13" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;grey50&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="temporal.html#cb44-1" tabindex="-1"></a><span class="fu">ggplot</span>(top10_reciente, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(country, population), <span class="at">y =</span> population)) <span class="sc">+</span></span>
+<span id="cb44-2"><a href="temporal.html#cb44-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> COLOR_PRINCIPAL, <span class="at">alpha =</span> <span class="fl">0.85</span>) <span class="sc">+</span></span>
+<span id="cb44-3"><a href="temporal.html#cb44-3" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(population <span class="sc">/</span> <span class="fl">1e6</span>, <span class="dv">0</span>), <span class="st">&quot;M&quot;</span>)),</span>
+<span id="cb44-4"><a href="temporal.html#cb44-4" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb44-5"><a href="temporal.html#cb44-5" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb44-6"><a href="temporal.html#cb44-6" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="fu">round</span>(x <span class="sc">/</span> <span class="fl">1e9</span>, <span class="dv">2</span>), <span class="st">&quot;B&quot;</span>),</span>
+<span id="cb44-7"><a href="temporal.html#cb44-7" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.15</span>))) <span class="sc">+</span></span>
+<span id="cb44-8"><a href="temporal.html#cb44-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Top 10 de los países más poblados&quot;</span>,</span>
+<span id="cb44-9"><a href="temporal.html#cb44-9" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">&quot;Año:&quot;</span>, <span class="fu">max</span>(df_paises<span class="sc">$</span>year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb44-10"><a href="temporal.html#cb44-10" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Población&quot;</span>) <span class="sc">+</span></span>
+<span id="cb44-11"><a href="temporal.html#cb44-11" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb44-12"><a href="temporal.html#cb44-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb44-13"><a href="temporal.html#cb44-13" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;grey50&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:plot-top10"></span>
 <img src="eda_poblacion_mundial_files/figure-html/plot-top10-1.png" alt="Los 10 países con mayor población" width="90%" />
 <p class="caption">
@@ -381,21 +405,21 @@ Figure 5.2: Los 10 países con mayor población
 </div>
 </div>
 <div id="evolución-de-los-top-5-países" class="section level2 hasAnchor" number="5.3">
-<h2><span class="header-section-number">5.3</span> Evolución de los Top 5 Países<a href="temporal.html#evolución-de-los-top-5-países" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="temporal.html#cb47-1" tabindex="-1"></a>top5_nombres <span class="ot">&lt;-</span> top10_reciente<span class="sc">$</span>country[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
-<span id="cb47-2"><a href="temporal.html#cb47-2" tabindex="-1"></a>top5_evolucion <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
-<span id="cb47-3"><a href="temporal.html#cb47-3" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">%in%</span> top5_nombres) <span class="sc">%&gt;%</span></span>
-<span id="cb47-4"><a href="temporal.html#cb47-4" tabindex="-1"></a>  <span class="fu">arrange</span>(country, year)</span>
-<span id="cb47-5"><a href="temporal.html#cb47-5" tabindex="-1"></a></span>
-<span id="cb47-6"><a href="temporal.html#cb47-6" tabindex="-1"></a><span class="fu">ggplot</span>(top5_evolucion, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> population, <span class="at">color =</span> country)) <span class="sc">+</span></span>
-<span id="cb47-7"><a href="temporal.html#cb47-7" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
-<span id="cb47-8"><a href="temporal.html#cb47-8" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="fu">round</span>(x <span class="sc">/</span> <span class="fl">1e9</span>, <span class="dv">2</span>), <span class="st">&quot;B&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb47-9"><a href="temporal.html#cb47-9" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>) <span class="sc">+</span></span>
-<span id="cb47-10"><a href="temporal.html#cb47-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Evolución Poblacional de los 5 Países Más Poblados&quot;</span>,</span>
-<span id="cb47-11"><a href="temporal.html#cb47-11" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Año&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Población (miles de millones)&quot;</span>, <span class="at">color =</span> <span class="st">&quot;País&quot;</span>) <span class="sc">+</span></span>
-<span id="cb47-12"><a href="temporal.html#cb47-12" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb47-13"><a href="temporal.html#cb47-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb47-14"><a href="temporal.html#cb47-14" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<h2><span class="header-section-number">5.3</span> Evolución de los top 5 países<a href="temporal.html#evolución-de-los-top-5-países" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="temporal.html#cb45-1" tabindex="-1"></a>top5_nombres <span class="ot">&lt;-</span> top10_reciente<span class="sc">$</span>country[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb45-2"><a href="temporal.html#cb45-2" tabindex="-1"></a>top5_evolucion <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb45-3"><a href="temporal.html#cb45-3" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">%in%</span> top5_nombres) <span class="sc">%&gt;%</span></span>
+<span id="cb45-4"><a href="temporal.html#cb45-4" tabindex="-1"></a>  <span class="fu">arrange</span>(country, year)</span>
+<span id="cb45-5"><a href="temporal.html#cb45-5" tabindex="-1"></a></span>
+<span id="cb45-6"><a href="temporal.html#cb45-6" tabindex="-1"></a><span class="fu">ggplot</span>(top5_evolucion, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> population, <span class="at">color =</span> country)) <span class="sc">+</span></span>
+<span id="cb45-7"><a href="temporal.html#cb45-7" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb45-8"><a href="temporal.html#cb45-8" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="fu">round</span>(x <span class="sc">/</span> <span class="fl">1e9</span>, <span class="dv">2</span>), <span class="st">&quot;B&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb45-9"><a href="temporal.html#cb45-9" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb45-10"><a href="temporal.html#cb45-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Evolución poblacional de los 5 países más poblados&quot;</span>,</span>
+<span id="cb45-11"><a href="temporal.html#cb45-11" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Año&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Población (miles de millones)&quot;</span>, <span class="at">color =</span> <span class="st">&quot;País&quot;</span>) <span class="sc">+</span></span>
+<span id="cb45-12"><a href="temporal.html#cb45-12" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb45-13"><a href="temporal.html#cb45-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb45-14"><a href="temporal.html#cb45-14" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:plot-top5-evol"></span>
 <img src="eda_poblacion_mundial_files/figure-html/plot-top5-evol-1.png" alt="Evolución poblacional de los 5 países más poblados" width="90%" />
 <p class="caption">

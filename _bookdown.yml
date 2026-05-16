@@ -10,8 +10,6 @@ rmd_files:
   - 02-estructura.Rmd
   - 03-limpieza.Rmd
   - 04-distribucion.Rmd
-  - 05-temporal.Rmd
-  - 06-migracion.Rmd
-  - 07-correlacion-densidad.Rmd
-  - 08-ingreso-region.Rmd
-  - 09-conclusiones.Rmd
+  - 09-bivariado.Rmd
+  - 10-inferencial.Rmd
+  - 11-conclusiones.Rmd

@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 3 Análisis Exploratorio de Datos | Análisis Exploratorio de Datos: Población Mundial y Migración</title>
+  <meta name="description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
+Población Mundial y Migración del Banco Mundial. Trabajo desarrollado
+en el marco de la asignatura de Estadística Computacional de la
+Maestría en Estadística.</p>" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 3 Análisis Exploratorio de Datos | Análisis Exploratorio de Datos: Población Mundial y Migración" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
+Población Mundial y Migración del Banco Mundial. Trabajo desarrollado
+en el marco de la asignatura de Estadística Computacional de la
+Maestría en Estadística.</p>" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 3 Análisis Exploratorio de Datos | Análisis Exploratorio de Datos: Población Mundial y Migración" />
+  
+  <meta name="twitter:description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
+Población Mundial y Migración del Banco Mundial. Trabajo desarrollado
+en el marco de la asignatura de Estadística Computacional de la
+Maestría en Estadística.</p>" />
+  
+
+<meta name="author" content="Lia Castillo" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="estructura.html"/>
+<link rel="next" href="inferencial.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">EDA - Población Mundial</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introducción</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#objetivos"><i class="fa fa-check"></i>Objetivos</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#metodología"><i class="fa fa-check"></i>Metodología</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="diccionario.html"><a href="diccionario.html"><i class="fa fa-check"></i><b>1</b> Diccionario de variables</a></li>
+<li class="chapter" data-level="2" data-path="estructura.html"><a href="estructura.html"><i class="fa fa-check"></i><b>2</b> Carga y Estructura de los Datos</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="estructura.html"><a href="estructura.html#dimensiones-y-estructura-general"><i class="fa fa-check"></i><b>2.1</b> Dimensiones y estructura general</a></li>
+<li class="chapter" data-level="2.2" data-path="estructura.html"><a href="estructura.html#conversión-de-variables-categóricas"><i class="fa fa-check"></i><b>2.2</b> Conversión de variables categóricas</a></li>
+<li class="chapter" data-level="2.3" data-path="estructura.html"><a href="estructura.html#análisis-de-valores-faltantes-na"><i class="fa fa-check"></i><b>2.3</b> Análisis de valores faltantes (NA)</a></li>
+<li class="chapter" data-level="2.4" data-path="estructura.html"><a href="estructura.html#limpieza"><i class="fa fa-check"></i><b>2.4</b> Limpieza y preparación de datos</a></li>
+<li class="chapter" data-level="2.5" data-path="estructura.html"><a href="estructura.html#verificación-de-duplicados"><i class="fa fa-check"></i><b>2.5</b> Verificación de duplicados</a></li>
+<li class="chapter" data-level="2.6" data-path="estructura.html"><a href="estructura.html#corrección-de-tipos-de-datos"><i class="fa fa-check"></i><b>2.6</b> Corrección de tipos de datos</a></li>
+<li class="chapter" data-level="2.7" data-path="estructura.html"><a href="estructura.html#limpieza-de-variables-categóricas"><i class="fa fa-check"></i><b>2.7</b> Limpieza de variables categóricas</a></li>
+<li class="chapter" data-level="2.8" data-path="estructura.html"><a href="estructura.html#separación-de-agregados-y-países"><i class="fa fa-check"></i><b>2.8</b> Separación de agregados y países</a></li>
+<li class="chapter" data-level="2.9" data-path="estructura.html"><a href="estructura.html#tratamiento-de-valores-faltantes-nas"><i class="fa fa-check"></i><b>2.9</b> Tratamiento de valores faltantes (NAs)</a></li>
+<li class="chapter" data-level="2.10" data-path="estructura.html"><a href="estructura.html#detección-de-valores-atípicos-outliers"><i class="fa fa-check"></i><b>2.10</b> Detección de valores atípicos (outliers)</a></li>
+<li class="chapter" data-level="2.11" data-path="estructura.html"><a href="estructura.html#validación-de-rangos-y-consistencia"><i class="fa fa-check"></i><b>2.11</b> Validación de rangos y consistencia</a></li>
+<li class="chapter" data-level="2.12" data-path="estructura.html"><a href="estructura.html#resumen-de-la-limpieza"><i class="fa fa-check"></i><b>2.12</b> Resumen de la limpieza</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>3</b> Análisis Exploratorio de Datos</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="eda.html"><a href="eda.html#distribucion"><i class="fa fa-check"></i><b>3.1</b> Distribución de Variables</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="eda.html"><a href="eda.html#composición-del-dataset"><i class="fa fa-check"></i><b>3.1.1</b> Composición del dataset</a></li>
+<li class="chapter" data-level="3.1.2" data-path="eda.html"><a href="eda.html#países-que-conforman-cada-región"><i class="fa fa-check"></i><b>3.1.2</b> Países que conforman cada región</a></li>
+<li class="chapter" data-level="3.1.3" data-path="eda.html"><a href="eda.html#rankings-por-variables-clave"><i class="fa fa-check"></i><b>3.1.3</b> Rankings por variables clave</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="eda.html"><a href="eda.html#variables-numéricas"><i class="fa fa-check"></i><b>3.2</b> Variables numéricas</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="eda.html"><a href="eda.html#estadísticas-descriptivas"><i class="fa fa-check"></i><b>3.2.1</b> Estadísticas descriptivas</a></li>
+<li class="chapter" data-level="3.2.2" data-path="eda.html"><a href="eda.html#distribución-de-la-población"><i class="fa fa-check"></i><b>3.2.2</b> Distribución de la población</a></li>
+<li class="chapter" data-level="3.2.3" data-path="eda.html"><a href="eda.html#distribución-de-la-densidad-poblacional"><i class="fa fa-check"></i><b>3.2.3</b> Distribución de la densidad poblacional</a></li>
+<li class="chapter" data-level="3.2.4" data-path="eda.html"><a href="eda.html#población-por-nivel-de-ingreso"><i class="fa fa-check"></i><b>3.2.4</b> Población por nivel de ingreso</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="eda.html"><a href="eda.html#bivariado"><i class="fa fa-check"></i><b>3.3</b> Análisis bivariado</a></li>
+<li class="chapter" data-level="3.4" data-path="eda.html"><a href="eda.html#población-vs.-densidad-poblacional"><i class="fa fa-check"></i><b>3.4</b> Población vs. densidad poblacional</a></li>
+<li class="chapter" data-level="3.5" data-path="eda.html"><a href="eda.html#migración-neta-vs.-nivel-de-ingreso"><i class="fa fa-check"></i><b>3.5</b> Migración neta vs. nivel de ingreso</a></li>
+<li class="chapter" data-level="3.6" data-path="eda.html"><a href="eda.html#densidad-poblacional-vs.-migración-neta"><i class="fa fa-check"></i><b>3.6</b> Densidad poblacional vs. migración neta (%)</a></li>
+<li class="chapter" data-level="3.7" data-path="eda.html"><a href="eda.html#crecimiento-poblacional-vs.-región-e-ingreso"><i class="fa fa-check"></i><b>3.7</b> Crecimiento poblacional vs. región e ingreso</a></li>
+<li class="chapter" data-level="3.8" data-path="eda.html"><a href="eda.html#tabla-de-contingencia-región-vs.-nivel-de-ingreso"><i class="fa fa-check"></i><b>3.8</b> Tabla de contingencia: región vs. nivel de ingreso</a></li>
+<li class="chapter" data-level="3.9" data-path="eda.html"><a href="eda.html#evolución-temporal-de-la-densidad-por-región"><i class="fa fa-check"></i><b>3.9</b> Evolución temporal de la densidad por región</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="inferencial.html"><a href="inferencial.html"><i class="fa fa-check"></i><b>4</b> Análisis inferencial</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="inferencial.html"><a href="inferencial.html#prueba-de-normalidad"><i class="fa fa-check"></i><b>4.1</b> Prueba de normalidad</a></li>
+<li class="chapter" data-level="4.2" data-path="inferencial.html"><a href="inferencial.html#prueba-t-migración-neta-en-países-de-ingreso-alto-vs.-bajo"><i class="fa fa-check"></i><b>4.2</b> Prueba t: migración neta en países de ingreso alto vs. bajo</a></li>
+<li class="chapter" data-level="4.3" data-path="inferencial.html"><a href="inferencial.html#anova-densidad-poblacional-por-región"><i class="fa fa-check"></i><b>4.3</b> ANOVA: densidad poblacional por región</a></li>
+<li class="chapter" data-level="4.4" data-path="inferencial.html"><a href="inferencial.html#prueba-chi-cuadrado-independencia-región-ingreso"><i class="fa fa-check"></i><b>4.4</b> Prueba Chi-cuadrado: independencia región-ingreso</a></li>
+<li class="chapter" data-level="4.5" data-path="inferencial.html"><a href="inferencial.html#intervalo-de-confianza-para-la-tasa-de-crecimiento"><i class="fa fa-check"></i><b>4.5</b> Intervalo de confianza para la tasa de crecimiento</a></li>
+<li class="chapter" data-level="4.6" data-path="inferencial.html"><a href="inferencial.html#correlación"><i class="fa fa-check"></i><b>4.6</b> Correlación</a></li>
+<li class="chapter" data-level="4.7" data-path="inferencial.html"><a href="inferencial.html#resumen-del-análisis-inferencial"><i class="fa fa-check"></i><b>4.7</b> Resumen del análisis inferencial</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i>Conclusiones</a></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Publicado con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis Exploratorio de Datos: Población Mundial y Migración</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="eda" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Capítulo 3</span> Análisis Exploratorio de Datos<a href="eda.html#eda" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="distribucion" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Distribución de Variables<a href="eda.html#distribucion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="composición-del-dataset" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Composición del dataset<a href="eda.html#composición-del-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="eda.html#cb31-1" tabindex="-1"></a>resumen_cat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb31-2"><a href="eda.html#cb31-2" tabindex="-1"></a>  <span class="at">Metrica =</span> <span class="fu">c</span>(<span class="st">&quot;Países únicos&quot;</span>, <span class="st">&quot;Rango de años&quot;</span>, <span class="st">&quot;Regiones únicas&quot;</span>,</span>
+<span id="cb31-3"><a href="eda.html#cb31-3" tabindex="-1"></a>              <span class="st">&quot;Niveles de ingreso&quot;</span>),</span>
+<span id="cb31-4"><a href="eda.html#cb31-4" tabindex="-1"></a>  <span class="at">Valor =</span> <span class="fu">c</span>(</span>
+<span id="cb31-5"><a href="eda.html#cb31-5" tabindex="-1"></a>    <span class="fu">n_distinct</span>(df_paises<span class="sc">$</span>country),</span>
+<span id="cb31-6"><a href="eda.html#cb31-6" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="fu">min</span>(df_paises<span class="sc">$</span>year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="st">&quot;-&quot;</span>, <span class="fu">max</span>(df_paises<span class="sc">$</span>year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb31-7"><a href="eda.html#cb31-7" tabindex="-1"></a>    <span class="fu">n_distinct</span>(df_paises<span class="sc">$</span>region),</span>
+<span id="cb31-8"><a href="eda.html#cb31-8" tabindex="-1"></a>    <span class="fu">n_distinct</span>(df_paises<span class="sc">$</span>incomeLevel)</span>
+<span id="cb31-9"><a href="eda.html#cb31-9" tabindex="-1"></a>  )</span>
+<span id="cb31-10"><a href="eda.html#cb31-10" tabindex="-1"></a>)</span>
+<span id="cb31-11"><a href="eda.html#cb31-11" tabindex="-1"></a></span>
+<span id="cb31-12"><a href="eda.html#cb31-12" tabindex="-1"></a><span class="fu">kable</span>(resumen_cat, <span class="at">caption =</span> <span class="st">&quot;Composición general del dataset (países excluyendo agregados)&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:categoricas-resumen">Table 3.1: </span>Composición general del dataset (países excluyendo agregados)</caption>
+<thead>
+<tr class="header">
+<th align="left">Metrica</th>
+<th align="left">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Países únicos</td>
+<td align="left">217</td>
+</tr>
+<tr class="even">
+<td align="left">Rango de años</td>
+<td align="left">1960 - 2018</td>
+</tr>
+<tr class="odd">
+<td align="left">Regiones únicas</td>
+<td align="left">7</td>
+</tr>
+<tr class="even">
+<td align="left">Niveles de ingreso</td>
+<td align="left">4</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="eda.html#cb32-1" tabindex="-1"></a>region_counts <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="eda.html#cb32-2" tabindex="-1"></a>  <span class="fu">count</span>(region, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="eda.html#cb32-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Porcentaje =</span> <span class="fu">round</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>))</span>
+<span id="cb32-4"><a href="eda.html#cb32-4" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="eda.html#cb32-5" tabindex="-1"></a><span class="fu">kable</span>(region_counts, <span class="at">caption =</span> <span class="st">&quot;Observaciones por región (frecuencia y porcentaje)&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:region-counts">Table 3.2: </span>Observaciones por región (frecuencia y porcentaje)</caption>
+<thead>
+<tr class="header">
+<th align="left">region</th>
+<th align="right">n</th>
+<th align="right">Porcentaje</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Europe &amp; Central Asia</td>
+<td align="right">3392</td>
+<td align="right">26.72</td>
+</tr>
+<tr class="even">
+<td align="left">Sub-Saharan Africa</td>
+<td align="right">2825</td>
+<td align="right">22.25</td>
+</tr>
+<tr class="odd">
+<td align="left">Latin America &amp; Caribbean</td>
+<td align="right">2440</td>
+<td align="right">19.22</td>
+</tr>
+<tr class="even">
+<td align="left">East Asia &amp; Pacific</td>
+<td align="right">2183</td>
+<td align="right">17.20</td>
+</tr>
+<tr class="odd">
+<td align="left">Middle East &amp; North Africa</td>
+<td align="right">1206</td>
+<td align="right">9.50</td>
+</tr>
+<tr class="even">
+<td align="left">South Asia</td>
+<td align="right">472</td>
+<td align="right">3.72</td>
+</tr>
+<tr class="odd">
+<td align="left">North America</td>
+<td align="right">177</td>
+<td align="right">1.39</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="eda.html#cb33-1" tabindex="-1"></a><span class="fu">ggplot</span>(region_counts, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(region, n), <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="eda.html#cb33-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> COLOR_PRINCIPAL, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb33-3"><a href="eda.html#cb33-3" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(n, <span class="st">&quot; (&quot;</span>, Porcentaje, <span class="st">&quot;%)&quot;</span>)),</span>
+<span id="cb33-4"><a href="eda.html#cb33-4" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.05</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb33-5"><a href="eda.html#cb33-5" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb33-6"><a href="eda.html#cb33-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Número de observaciones por región&quot;</span>,</span>
+<span id="cb33-7"><a href="eda.html#cb33-7" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Región&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Número de observaciones&quot;</span>) <span class="sc">+</span></span>
+<span id="cb33-8"><a href="eda.html#cb33-8" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb33-9"><a href="eda.html#cb33-9" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb33-10"><a href="eda.html#cb33-10" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.15</span>)))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:plot-region"></span>
+<img src="eda_poblacion_mundial_files/figure-html/plot-region-1.png" alt="Distribución de observaciones por región" width="90%" />
+<p class="caption">
+Figure 3.1: Distribución de observaciones por región
+</p>
+</div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="eda.html#cb34-1" tabindex="-1"></a>income_counts <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="eda.html#cb34-2" tabindex="-1"></a>  <span class="fu">count</span>(incomeLevel, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="eda.html#cb34-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Porcentaje =</span> <span class="fu">round</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>))</span>
+<span id="cb34-4"><a href="eda.html#cb34-4" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="eda.html#cb34-5" tabindex="-1"></a><span class="fu">kable</span>(income_counts, <span class="at">caption =</span> <span class="st">&quot;Observaciones por nivel de ingreso (frecuencia y porcentaje)&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:income-counts">Table 3.3: </span>Observaciones por nivel de ingreso (frecuencia y porcentaje)</caption>
+<thead>
+<tr class="header">
+<th align="left">incomeLevel</th>
+<th align="right">n</th>
+<th align="right">Porcentaje</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">High income</td>
+<td align="right">4620</td>
+<td align="right">36.39</td>
+</tr>
+<tr class="even">
+<td align="left">Upper middle income</td>
+<td align="right">3510</td>
+<td align="right">27.65</td>
+</tr>
+<tr class="odd">
+<td align="left">Lower middle income</td>
+<td align="right">2743</td>
+<td align="right">21.61</td>
+</tr>
+<tr class="even">
+<td align="left">Low income</td>
+<td align="right">1822</td>
+<td align="right">14.35</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="eda.html#cb35-1" tabindex="-1"></a><span class="fu">ggplot</span>(income_counts, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(incomeLevel, n), <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb35-2"><a href="eda.html#cb35-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> COLOR_PRINCIPAL, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb35-3"><a href="eda.html#cb35-3" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(n, <span class="st">&quot; (&quot;</span>, Porcentaje, <span class="st">&quot;%)&quot;</span>)),</span>
+<span id="cb35-4"><a href="eda.html#cb35-4" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.05</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb35-5"><a href="eda.html#cb35-5" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb35-6"><a href="eda.html#cb35-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Número de observaciones por nivel de ingreso&quot;</span>,</span>
+<span id="cb35-7"><a href="eda.html#cb35-7" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Nivel de ingreso&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Número de observaciones&quot;</span>) <span class="sc">+</span></span>
+<span id="cb35-8"><a href="eda.html#cb35-8" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb35-9"><a href="eda.html#cb35-9" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb35-10"><a href="eda.html#cb35-10" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.15</span>)))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:plot-income"></span>
+<img src="eda_poblacion_mundial_files/figure-html/plot-income-1.png" alt="Distribución de observaciones por nivel de ingreso" width="90%" />
+<p class="caption">
+Figure 3.2: Distribución de observaciones por nivel de ingreso
+</p>
+</div>
+<p>Al observar la distribución de observaciones por región, se aprecia que África Subsahariana y Europa y Asia Central encabezan la lista con la mayor cantidad de registros, lo cual se explica por el elevado número de países que conforman estas regiones. En contraste, América del Norte cuenta con la menor representación, dado que incluye únicamente tres entidades. Es importante aclarar que para la totalidad de este análisis se excluyeron los agregados regionales (como “Mundo” o “Unión Europea”) con el propósito de evitar el doble conteo y asegurar que las distribuciones reflejen fielmente a las naciones individuales.</p>
+</div>
+<div id="países-que-conforman-cada-región" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Países que conforman cada región<a href="eda.html#países-que-conforman-cada-región" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="eda.html#cb36-1" tabindex="-1"></a>paises_region <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="eda.html#cb36-2" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="fu">max</span>(year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="eda.html#cb36-3" tabindex="-1"></a>  <span class="fu">group_by</span>(region) <span class="sc">%&gt;%</span></span>
+<span id="cb36-4"><a href="eda.html#cb36-4" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb36-5"><a href="eda.html#cb36-5" tabindex="-1"></a>    <span class="st">`</span><span class="at">N° Países</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">n</span>(),</span>
+<span id="cb36-6"><a href="eda.html#cb36-6" tabindex="-1"></a>    Países <span class="ot">=</span> <span class="fu">paste</span>(<span class="fu">sort</span>(country), <span class="at">collapse =</span> <span class="st">&quot;, &quot;</span>),</span>
+<span id="cb36-7"><a href="eda.html#cb36-7" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb36-8"><a href="eda.html#cb36-8" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb36-9"><a href="eda.html#cb36-9" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="st">`</span><span class="at">N° Países</span><span class="st">`</span>))</span>
+<span id="cb36-10"><a href="eda.html#cb36-10" tabindex="-1"></a></span>
+<span id="cb36-11"><a href="eda.html#cb36-11" tabindex="-1"></a><span class="fu">kable</span>(paises_region, <span class="at">caption =</span> <span class="st">&quot;Países que conforman cada región geográfica (año más reciente)&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:paises-por-region">Table 3.4: </span>Países que conforman cada región geográfica (año más reciente)</caption>
+<colgroup>
+<col width="4%" />
+<col width="1%" />
+<col width="94%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">region</th>
+<th align="right">N° Países</th>
+<th align="left">Países</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Europe &amp; Central Asia</td>
+<td align="right">58</td>
+<td align="left">Albania, Andorra, Armenia, Austria, Azerbaijan, Belarus, Belgium, Bosnia and Herzegovina, Bulgaria, Channel Islands, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Faroe Islands, Finland, France, Georgia, Germany, Gibraltar, Greece, Greenland, Hungary, Iceland, Ireland, Isle of Man, Italy, Kazakhstan, Kosovo, Kyrgyz Republic, Latvia, Liechtenstein, Lithuania, Luxembourg, Moldova, Monaco, Montenegro, Netherlands, North Macedonia, Norway, Poland, Portugal, Romania, Russian Federation, San Marino, Serbia, Slovak Republic, Slovenia, Spain, Sweden, Switzerland, Tajikistan, Turkey, Turkmenistan, Ukraine, United Kingdom, Uzbekistan</td>
+</tr>
+<tr class="even">
+<td align="left">Sub-Saharan Africa</td>
+<td align="right">47</td>
+<td align="left">Angola, Benin, Botswana, Burkina Faso, Burundi, Cabo Verde, Cameroon, Central African Republic, Chad, Comoros, Congo, Dem. Rep., Congo, Rep., Cote d’Ivoire, Equatorial Guinea, Eswatini, Ethiopia, Gabon, Gambia, The, Ghana, Guinea, Guinea-Bissau, Kenya, Lesotho, Liberia, Madagascar, Malawi, Mali, Mauritania, Mauritius, Mozambique, Namibia, Niger, Nigeria, Rwanda, Sao Tome and Principe, Senegal, Seychelles, Sierra Leone, Somalia, South Africa, South Sudan, Sudan, Tanzania, Togo, Uganda, Zambia, Zimbabwe</td>
+</tr>
+<tr class="odd">
+<td align="left">Latin America &amp; Caribbean</td>
+<td align="right">42</td>
+<td align="left">Antigua and Barbuda, Argentina, Aruba, Bahamas, The, Barbados, Belize, Bolivia, Brazil, British Virgin Islands, Cayman Islands, Chile, Colombia, Costa Rica, Cuba, Curacao, Dominica, Dominican Republic, Ecuador, El Salvador, Grenada, Guatemala, Guyana, Haiti, Honduras, Jamaica, Mexico, Nicaragua, Panama, Paraguay, Peru, Puerto Rico, Sint Maarten (Dutch part), St. Kitts and Nevis, St. Lucia, St. Martin (French part), St. Vincent and the Grenadines, Suriname, Trinidad and Tobago, Turks and Caicos Islands, Uruguay, Venezuela, RB, Virgin Islands (U.S.)</td>
+</tr>
+<tr class="even">
+<td align="left">East Asia &amp; Pacific</td>
+<td align="right">37</td>
+<td align="left">American Samoa, Australia, Brunei Darussalam, Cambodia, China, Fiji, French Polynesia, Guam, Hong Kong SAR, China, Indonesia, Japan, Kiribati, Korea, Dem. People’s Rep., Korea, Rep., Lao PDR, Macao SAR, China, Malaysia, Marshall Islands, Micronesia, Fed. Sts., Mongolia, Myanmar, Nauru, New Caledonia, New Zealand, Northern Mariana Islands, Palau, Papua New Guinea, Philippines, Samoa, Singapore, Solomon Islands, Thailand, Timor-Leste, Tonga, Tuvalu, Vanuatu, Vietnam</td>
+</tr>
+<tr class="odd">
+<td align="left">Middle East &amp; North Africa</td>
+<td align="right">21</td>
+<td align="left">Algeria, Bahrain, Djibouti, Egypt, Arab Rep., Iran, Islamic Rep., Iraq, Israel, Jordan, Kuwait, Lebanon, Libya, Malta, Morocco, Oman, Qatar, Saudi Arabia, Syrian Arab Republic, Tunisia, United Arab Emirates, West Bank and Gaza, Yemen, Rep.</td>
+</tr>
+<tr class="even">
+<td align="left">South Asia</td>
+<td align="right">8</td>
+<td align="left">Afghanistan, Bangladesh, Bhutan, India, Maldives, Nepal, Pakistan, Sri Lanka</td>
+</tr>
+<tr class="odd">
+<td align="left">North America</td>
+<td align="right">3</td>
+<td align="left">Bermuda, Canada, United States</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="rankings-por-variables-clave" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Rankings por variables clave<a href="eda.html#rankings-por-variables-clave" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Para entender mejor la distribución de las principales variables numéricas, a continuación se presentan los 5 países con los valores más altos y los 5 con los valores más bajos en población, densidad poblacional y migración neta, considerando únicamente el año más reciente disponible.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="eda.html#cb37-1" tabindex="-1"></a>df_ultimo_anio <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="eda.html#cb37-2" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="fu">max</span>(year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb37-3"><a href="eda.html#cb37-3" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="eda.html#cb37-4" tabindex="-1"></a>top5_pop <span class="ot">&lt;-</span> df_ultimo_anio <span class="sc">%&gt;%</span></span>
+<span id="cb37-5"><a href="eda.html#cb37-5" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(population)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-6"><a href="eda.html#cb37-6" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(population)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-7"><a href="eda.html#cb37-7" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-8"><a href="eda.html#cb37-8" tabindex="-1"></a>  <span class="fu">select</span>(País <span class="ot">=</span> country, Región <span class="ot">=</span> region, <span class="st">`</span><span class="at">Nivel de Ingreso</span><span class="st">`</span> <span class="ot">=</span> incomeLevel,</span>
+<span id="cb37-9"><a href="eda.html#cb37-9" tabindex="-1"></a>         Población <span class="ot">=</span> population) <span class="sc">%&gt;%</span></span>
+<span id="cb37-10"><a href="eda.html#cb37-10" tabindex="-1"></a>  <span class="fu">mutate</span>(Población <span class="ot">=</span> scales<span class="sc">::</span><span class="fu">comma</span>(Población))</span>
+<span id="cb37-11"><a href="eda.html#cb37-11" tabindex="-1"></a></span>
+<span id="cb37-12"><a href="eda.html#cb37-12" tabindex="-1"></a><span class="fu">kable</span>(top5_pop, <span class="at">caption =</span> <span class="st">&quot;Top 5 países con mayor población&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:top-poblacion">Table 3.5: </span>Top 5 países con mayor población</caption>
+<colgroup>
+<col width="20%" />
+<col width="29%" />
+<col width="29%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">País</th>
+<th align="left">Región</th>
+<th align="left">Nivel de Ingreso</th>
+<th align="left">Población</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">China</td>
+<td align="left">East Asia &amp; Pacific</td>
+<td align="left">Upper middle income</td>
+<td align="left">1,392,730,000</td>
+</tr>
+<tr class="even">
+<td align="left">India</td>
+<td align="left">South Asia</td>
+<td align="left">Lower middle income</td>
+<td align="left">1,352,617,328</td>
+</tr>
+<tr class="odd">
+<td align="left">United States</td>
+<td align="left">North America</td>
+<td align="left">High income</td>
+<td align="left">327,167,434</td>
+</tr>
+<tr class="even">
+<td align="left">Indonesia</td>
+<td align="left">East Asia &amp; Pacific</td>
+<td align="left">Lower middle income</td>
+<td align="left">267,663,435</td>
+</tr>
+<tr class="odd">
+<td align="left">Pakistan</td>
+<td align="left">South Asia</td>
+<td align="left">Lower middle income</td>
+<td align="left">212,215,030</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="eda.html#cb38-1" tabindex="-1"></a>bottom5_pop <span class="ot">&lt;-</span> df_ultimo_anio <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="eda.html#cb38-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(population)) <span class="sc">%&gt;%</span></span>
+<span id="cb38-3"><a href="eda.html#cb38-3" tabindex="-1"></a>  <span class="fu">arrange</span>(population) <span class="sc">%&gt;%</span></span>
+<span id="cb38-4"><a href="eda.html#cb38-4" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb38-5"><a href="eda.html#cb38-5" tabindex="-1"></a>  <span class="fu">select</span>(País <span class="ot">=</span> country, Región <span class="ot">=</span> region, <span class="st">`</span><span class="at">Nivel de Ingreso</span><span class="st">`</span> <span class="ot">=</span> incomeLevel,</span>
+<span id="cb38-6"><a href="eda.html#cb38-6" tabindex="-1"></a>         Población <span class="ot">=</span> population) <span class="sc">%&gt;%</span></span>
+<span id="cb38-7"><a href="eda.html#cb38-7" tabindex="-1"></a>  <span class="fu">mutate</span>(Población <span class="ot">=</span> scales<span class="sc">::</span><span class="fu">comma</span>(Población))</span>
+<span id="cb38-8"><a href="eda.html#cb38-8" tabindex="-1"></a></span>
+<span id="cb38-9"><a href="eda.html#cb38-9" tabindex="-1"></a><span class="fu">kable</span>(bottom5_pop, <span class="at">caption =</span> <span class="st">&quot;5 países con menor población&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:bottom-poblacion">Table 3.6: </span>5 países con menor población</caption>
+<colgroup>
+<col width="29%" />
+<col width="32%" />
+<col width="25%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">País</th>
+<th align="left">Región</th>
+<th align="left">Nivel de Ingreso</th>
+<th align="left">Población</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Tuvalu</td>
+<td align="left">East Asia &amp; Pacific</td>
+<td align="left">Upper middle income</td>
+<td align="left">11,508</td>
+</tr>
+<tr class="even">
+<td align="left">Nauru</td>
+<td align="left">East Asia &amp; Pacific</td>
+<td align="left">Upper middle income</td>
+<td align="left">12,704</td>
+</tr>
+<tr class="odd">
+<td align="left">Palau</td>
+<td align="left">East Asia &amp; Pacific</td>
+<td align="left">High income</td>
+<td align="left">17,907</td>
+</tr>
+<tr class="even">
+<td align="left">British Virgin Islands</td>
+<td align="left">Latin America &amp; Caribbean</td>
+<td align="left">High income</td>
+<td align="left">29,802</td>
+</tr>
+<tr class="odd">
+<td align="left">Gibraltar</td>
+<td align="left">Europe &amp; Central Asia</td>
+<td align="left">High income</td>
+<td align="left">33,718</td>
+</tr>
+</tbody>
+</table>
+<p>Los 5 países más poblados del mundo concentran una proporción significativa de la población global, con China e India liderando ampliamente. En el extremo opuesto, los países menos poblados corresponden a pequeños territorios insulares y ciudades-estado cuyas poblaciones no superan unas decenas de miles de habitantes.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="eda.html#cb39-1" tabindex="-1"></a>top5_dens <span class="ot">&lt;-</span> df_ultimo_anio <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="eda.html#cb39-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(pop_density)) <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="eda.html#cb39-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(pop_density)) <span class="sc">%&gt;%</span></span>
+<span id="cb39-4"><a href="eda.html#cb39-4" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-5"><a href="eda.html#cb39-5" tabindex="-1"></a>  <span class="fu">select</span>(País <span class="ot">=</span> country, Región <span class="ot">=</span> region, <span class="st">`</span><span class="at">Nivel de Ingreso</span><span class="st">`</span> <span class="ot">=</span> incomeLevel,</span>
+<span id="cb39-6"><a href="eda.html#cb39-6" tabindex="-1"></a>         <span class="st">`</span><span class="at">Densidad (hab/km²)</span><span class="st">`</span> <span class="ot">=</span> pop_density) <span class="sc">%&gt;%</span></span>
+<span id="cb39-7"><a href="eda.html#cb39-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Densidad (hab/km²)</span><span class="st">`</span> <span class="ot">=</span> scales<span class="sc">::</span><span class="fu">comma</span>(<span class="fu">round</span>(<span class="st">`</span><span class="at">Densidad (hab/km²)</span><span class="st">`</span>, <span class="dv">1</span>)))</span>
+<span id="cb39-8"><a href="eda.html#cb39-8" tabindex="-1"></a></span>
+<span id="cb39-9"><a href="eda.html#cb39-9" tabindex="-1"></a><span class="fu">kable</span>(top5_dens, <span class="at">caption =</span> <span class="st">&quot;Top 5 países con mayor densidad poblacional&quot;</span>)</span></code></pre></div>
+<table style="width:100%;">
+<caption><span id="tab:top-densidad">Table 3.7: </span>Top 5 países con mayor densidad poblacional</caption>
+<colgroup>
+<col width="25%" />
+<col width="32%" />
+<col width="20%" />
+<col width="22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">País</th>
+<th align="left">Región</th>
+<th align="left">Nivel de Ingreso</th>
+<th align="left">Densidad (hab/km²)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Macao SAR, China</td>
+<td align="left">East Asia &amp; Pacific</td>
+<td align="left">High income</td>
+<td align="left">20,778</td>
+</tr>
+<tr class="even">
+<td align="left">Singapore</td>
+<td align="left">East Asia &amp; Pacific</td>
+<td align="left">High income</td>
+<td align="left">7,953</td>
+</tr>
+<tr class="odd">
+<td align="left">Hong Kong SAR, China</td>
+<td align="left">East Asia &amp; Pacific</td>
+<td align="left">High income</td>
+<td align="left">7,096</td>
+</tr>
+<tr class="even">
+<td align="left">Gibraltar</td>
+<td align="left">Europe &amp; Central Asia</td>
+<td align="left">High income</td>
+<td align="left">3,372</td>
+</tr>
+<tr class="odd">
+<td align="left">Bahrain</td>
+<td align="left">Middle East &amp; North Africa</td>
+<td align="left">High income</td>
+<td align="left">2,017</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="eda.html#cb40-1" tabindex="-1"></a>bottom5_dens <span class="ot">&lt;-</span> df_ultimo_anio <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="eda.html#cb40-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(pop_density) <span class="sc">&amp;</span> pop_density <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-3"><a href="eda.html#cb40-3" tabindex="-1"></a>  <span class="fu">arrange</span>(pop_density) <span class="sc">%&gt;%</span></span>
+<span id="cb40-4"><a href="eda.html#cb40-4" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-5"><a href="eda.html#cb40-5" tabindex="-1"></a>  <span class="fu">select</span>(País <span class="ot">=</span> country, Región <span class="ot">=</span> region, <span class="st">`</span><span class="at">Nivel de Ingreso</span><span class="st">`</span> <span class="ot">=</span> incomeLevel,</span>
+<span id="cb40-6"><a href="eda.html#cb40-6" tabindex="-1"></a>         <span class="st">`</span><span class="at">Densidad (hab/km²)</span><span class="st">`</span> <span class="ot">=</span> pop_density) <span class="sc">%&gt;%</span></span>
+<span id="cb40-7"><a href="eda.html#cb40-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Densidad (hab/km²)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="st">`</span><span class="at">Densidad (hab/km²)</span><span class="st">`</span>, <span class="dv">2</span>))</span>
+<span id="cb40-8"><a href="eda.html#cb40-8" tabindex="-1"></a></span>
+<span id="cb40-9"><a href="eda.html#cb40-9" tabindex="-1"></a><span class="fu">kable</span>(bottom5_dens, <span class="at">caption =</span> <span class="st">&quot;5 países con menor densidad poblacional&quot;</span>)</span></code></pre></div>
+<table style="width:100%;">
+<caption><span id="tab:bottom-densidad">Table 3.8: </span>5 países con menor densidad poblacional</caption>
+<colgroup>
+<col width="14%" />
+<col width="30%" />
+<col width="28%" />
+<col width="26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">País</th>
+<th align="left">Región</th>
+<th align="left">Nivel de Ingreso</th>
+<th align="right">Densidad (hab/km²)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Greenland</td>
+<td align="left">Europe &amp; Central Asia</td>
+<td align="left">High income</td>
+<td align="right">0.14</td>
+</tr>
+<tr class="even">
+<td align="left">Mongolia</td>
+<td align="left">East Asia &amp; Pacific</td>
+<td align="left">Lower middle income</td>
+<td align="right">2.04</td>
+</tr>
+<tr class="odd">
+<td align="left">Namibia</td>
+<td align="left">Sub-Saharan Africa</td>
+<td align="left">Upper middle income</td>
+<td align="right">2.97</td>
+</tr>
+<tr class="even">
+<td align="left">Australia</td>
+<td align="left">East Asia &amp; Pacific</td>
+<td align="left">High income</td>
+<td align="right">3.25</td>
+</tr>
+<tr class="odd">
+<td align="left">Iceland</td>
+<td align="left">Europe &amp; Central Asia</td>
+<td align="left">High income</td>
+<td align="right">3.53</td>
+</tr>
+</tbody>
+</table>
+<p>Los territorios con mayor densidad poblacional son invariablemente ciudades-estado o territorios de extensión muy reducida, como Macao, Singapur y Hong Kong. En contraste, los países menos densos corresponden a vastas extensiones territoriales con poblaciones dispersas, como Mongolia o Groenlandia. Este contraste confirma que la densidad depende en mayor medida de la superficie territorial que del tamaño absoluto de la población.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="eda.html#cb41-1" tabindex="-1"></a>df_ultimo_migracion <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="eda.html#cb41-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(net_migration)) <span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="eda.html#cb41-3" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="fu">max</span>(year))</span>
+<span id="cb41-4"><a href="eda.html#cb41-4" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="eda.html#cb41-5" tabindex="-1"></a>top5_mig <span class="ot">&lt;-</span> df_ultimo_migracion <span class="sc">%&gt;%</span></span>
+<span id="cb41-6"><a href="eda.html#cb41-6" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(net_migration)) <span class="sc">%&gt;%</span></span>
+<span id="cb41-7"><a href="eda.html#cb41-7" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-8"><a href="eda.html#cb41-8" tabindex="-1"></a>  <span class="fu">select</span>(País <span class="ot">=</span> country, Región <span class="ot">=</span> region, <span class="st">`</span><span class="at">Nivel de Ingreso</span><span class="st">`</span> <span class="ot">=</span> incomeLevel,</span>
+<span id="cb41-9"><a href="eda.html#cb41-9" tabindex="-1"></a>         <span class="st">`</span><span class="at">Migración Neta</span><span class="st">`</span> <span class="ot">=</span> net_migration) <span class="sc">%&gt;%</span></span>
+<span id="cb41-10"><a href="eda.html#cb41-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Migración Neta</span><span class="st">`</span> <span class="ot">=</span> scales<span class="sc">::</span><span class="fu">comma</span>(<span class="st">`</span><span class="at">Migración Neta</span><span class="st">`</span>))</span>
+<span id="cb41-11"><a href="eda.html#cb41-11" tabindex="-1"></a></span>
+<span id="cb41-12"><a href="eda.html#cb41-12" tabindex="-1"></a><span class="fu">kable</span>(top5_mig, <span class="at">caption =</span> <span class="st">&quot;Top 5 países con mayor migración neta (receptores)&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:top-migracion">Table 3.9: </span>Top 5 países con mayor migración neta (receptores)</caption>
+<colgroup>
+<col width="20%" />
+<col width="30%" />
+<col width="27%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">País</th>
+<th align="left">Región</th>
+<th align="left">Nivel de Ingreso</th>
+<th align="left">Migración Neta</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">United States</td>
+<td align="left">North America</td>
+<td align="left">High income</td>
+<td align="left">4,774,029</td>
+</tr>
+<tr class="even">
+<td align="left">Germany</td>
+<td align="left">Europe &amp; Central Asia</td>
+<td align="left">High income</td>
+<td align="left">2,719,112</td>
+</tr>
+<tr class="odd">
+<td align="left">Turkey</td>
+<td align="left">Europe &amp; Central Asia</td>
+<td align="left">Upper middle income</td>
+<td align="left">1,419,610</td>
+</tr>
+<tr class="even">
+<td align="left">United Kingdom</td>
+<td align="left">Europe &amp; Central Asia</td>
+<td align="left">High income</td>
+<td align="left">1,303,250</td>
+</tr>
+<tr class="odd">
+<td align="left">Canada</td>
+<td align="left">North America</td>
+<td align="left">High income</td>
+<td align="left">1,210,159</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="eda.html#cb42-1" tabindex="-1"></a>bottom5_mig <span class="ot">&lt;-</span> df_ultimo_migracion <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="eda.html#cb42-2" tabindex="-1"></a>  <span class="fu">arrange</span>(net_migration) <span class="sc">%&gt;%</span></span>
+<span id="cb42-3"><a href="eda.html#cb42-3" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-4"><a href="eda.html#cb42-4" tabindex="-1"></a>  <span class="fu">select</span>(País <span class="ot">=</span> country, Región <span class="ot">=</span> region, <span class="st">`</span><span class="at">Nivel de Ingreso</span><span class="st">`</span> <span class="ot">=</span> incomeLevel,</span>
+<span id="cb42-5"><a href="eda.html#cb42-5" tabindex="-1"></a>         <span class="st">`</span><span class="at">Migración Neta</span><span class="st">`</span> <span class="ot">=</span> net_migration) <span class="sc">%&gt;%</span></span>
+<span id="cb42-6"><a href="eda.html#cb42-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Migración Neta</span><span class="st">`</span> <span class="ot">=</span> scales<span class="sc">::</span><span class="fu">comma</span>(<span class="st">`</span><span class="at">Migración Neta</span><span class="st">`</span>))</span>
+<span id="cb42-7"><a href="eda.html#cb42-7" tabindex="-1"></a></span>
+<span id="cb42-8"><a href="eda.html#cb42-8" tabindex="-1"></a><span class="fu">kable</span>(bottom5_mig, <span class="at">caption =</span> <span class="st">&quot;5 países con mayor emigración neta (emisores)&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:bottom-migracion">Table 3.10: </span>5 países con mayor emigración neta (emisores)</caption>
+<colgroup>
+<col width="25%" />
+<col width="32%" />
+<col width="24%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">País</th>
+<th align="left">Región</th>
+<th align="left">Nivel de Ingreso</th>
+<th align="left">Migración Neta</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Venezuela, RB</td>
+<td align="left">Latin America &amp; Caribbean</td>
+<td align="left">Upper middle income</td>
+<td align="left">-3,266,243</td>
+</tr>
+<tr class="even">
+<td align="left">India</td>
+<td align="left">South Asia</td>
+<td align="left">Lower middle income</td>
+<td align="left">-2,663,434</td>
+</tr>
+<tr class="odd">
+<td align="left">Syrian Arab Republic</td>
+<td align="left">Middle East &amp; North Africa</td>
+<td align="left">Low income</td>
+<td align="left">-2,136,954</td>
+</tr>
+<tr class="even">
+<td align="left">Bangladesh</td>
+<td align="left">South Asia</td>
+<td align="left">Lower middle income</td>
+<td align="left">-1,847,503</td>
+</tr>
+<tr class="odd">
+<td align="left">China</td>
+<td align="left">East Asia &amp; Pacific</td>
+<td align="left">Upper middle income</td>
+<td align="left">-1,741,996</td>
+</tr>
+</tbody>
+</table>
+<p>Los principales receptores de migrantes son economías de ingreso alto con mercados laborales atractivos, lo que refuerza el patrón identificado en el análisis bivariado posterior. Los mayores emisores de población corresponden a países afectados por conflictos, inestabilidad económica o altas tasas de emigración laboral.</p>
+</div>
+</div>
+<div id="variables-numéricas" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Variables numéricas<a href="eda.html#variables-numéricas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="estadísticas-descriptivas" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Estadísticas descriptivas<a href="eda.html#estadísticas-descriptivas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="eda.html#cb43-1" tabindex="-1"></a>estadisticas_df <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb43-2"><a href="eda.html#cb43-2" tabindex="-1"></a>  <span class="fu">select</span>(population, pop_density, net_migration) <span class="sc">%&gt;%</span></span>
+<span id="cb43-3"><a href="eda.html#cb43-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">&quot;Variable&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Valor&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb43-4"><a href="eda.html#cb43-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Valor)) <span class="sc">%&gt;%</span></span>
+<span id="cb43-5"><a href="eda.html#cb43-5" tabindex="-1"></a>  <span class="fu">group_by</span>(Variable) <span class="sc">%&gt;%</span></span>
+<span id="cb43-6"><a href="eda.html#cb43-6" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb43-7"><a href="eda.html#cb43-7" tabindex="-1"></a>    <span class="at">Media =</span> <span class="fu">mean</span>(Valor),</span>
+<span id="cb43-8"><a href="eda.html#cb43-8" tabindex="-1"></a>    <span class="st">`</span><span class="at">Desviación</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sd</span>(Valor),</span>
+<span id="cb43-9"><a href="eda.html#cb43-9" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(Valor, <span class="fl">0.25</span>),</span>
+<span id="cb43-10"><a href="eda.html#cb43-10" tabindex="-1"></a>    <span class="st">`</span><span class="at">Mediana (Q2)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">median</span>(Valor),</span>
+<span id="cb43-11"><a href="eda.html#cb43-11" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(Valor, <span class="fl">0.75</span>),</span>
+<span id="cb43-12"><a href="eda.html#cb43-12" tabindex="-1"></a>    <span class="st">`</span><span class="at">Q4 (Máximo)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">max</span>(Valor),</span>
+<span id="cb43-13"><a href="eda.html#cb43-13" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">IQR</span>(Valor)</span>
+<span id="cb43-14"><a href="eda.html#cb43-14" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb43-15"><a href="eda.html#cb43-15" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> scales<span class="sc">::</span><span class="fu">comma</span>(<span class="fu">round</span>(.x, <span class="dv">2</span>))))</span>
+<span id="cb43-16"><a href="eda.html#cb43-16" tabindex="-1"></a></span>
+<span id="cb43-17"><a href="eda.html#cb43-17" tabindex="-1"></a><span class="fu">kable</span>(estadisticas_df, <span class="at">caption =</span> <span class="st">&quot;Estadísticas descriptivas de las variables numéricas&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:estadisticas-descriptivas">Table 3.11: </span>Estadísticas descriptivas de las variables numéricas</caption>
+<colgroup>
+<col width="14%" />
+<col width="11%" />
+<col width="12%" />
+<col width="8%" />
+<col width="13%" />
+<col width="11%" />
+<col width="14%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Media</th>
+<th align="left">Desviación</th>
+<th align="left">Q1</th>
+<th align="left">Mediana (Q2)</th>
+<th align="left">Q3</th>
+<th align="left">Q4 (Máximo)</th>
+<th align="left">IQR</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">net_migration</td>
+<td align="left">477</td>
+<td align="left">549,478</td>
+<td align="left">-80,263</td>
+<td align="left">-6,000</td>
+<td align="left">27,450</td>
+<td align="left">8,859,954</td>
+<td align="left">107,713</td>
+</tr>
+<tr class="even">
+<td align="left">pop_density</td>
+<td align="left">329</td>
+<td align="left">1,584</td>
+<td align="left">20</td>
+<td align="left">66</td>
+<td align="left">153</td>
+<td align="left">21,389</td>
+<td align="left">133</td>
+</tr>
+<tr class="odd">
+<td align="left">population</td>
+<td align="left">24,151,843</td>
+<td align="left">101,419,134</td>
+<td align="left">462,834</td>
+<td align="left">4,099,702</td>
+<td align="left">13,119,786</td>
+<td align="left">1,392,730,000</td>
+<td align="left">12,656,952</td>
+</tr>
+</tbody>
+</table>
+<p>La tabla anterior consolida las medidas de tendencia central, dispersión y posición para las principales variables numéricas del estudio. Es notable cómo, para la población y la densidad poblacional, la media supera ampliamente a la mediana (Q2), lo que indica una fuerte asimetría positiva generada por valores extremos en el límite superior (Q4). El rango intercuartílico (IQR) nos permite observar la dispersión del 50% central de los datos, evidenciando la inmensa variabilidad demográfica entre los diferentes países.</p>
+</div>
+<div id="distribución-de-la-población" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Distribución de la población<a href="eda.html#distribución-de-la-población" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="eda.html#cb44-1" tabindex="-1"></a><span class="fu">ggplot</span>(df_paises, <span class="fu">aes</span>(<span class="at">x =</span> population)) <span class="sc">+</span></span>
+<span id="cb44-2"><a href="eda.html#cb44-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">50</span>, <span class="at">fill =</span> COLOR_PRINCIPAL, <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb44-3"><a href="eda.html#cb44-3" tabindex="-1"></a>  <span class="fu">stat_bin</span>(<span class="at">bins =</span> <span class="dv">50</span>, <span class="at">geom =</span> <span class="st">&quot;text&quot;</span>, <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">after_stat</span>(<span class="fu">ifelse</span>(count <span class="sc">&gt;</span> <span class="dv">0</span>, count, <span class="st">&quot;&quot;</span>))), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb44-4"><a href="eda.html#cb44-4" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.15</span>))) <span class="sc">+</span></span>
+<span id="cb44-5"><a href="eda.html#cb44-5" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb44-6"><a href="eda.html#cb44-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de la población (escala log10)&quot;</span>,</span>
+<span id="cb44-7"><a href="eda.html#cb44-7" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Solo países (excluyendo agregados regionales)&quot;</span>,</span>
+<span id="cb44-8"><a href="eda.html#cb44-8" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Población (log10)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">+</span></span>
+<span id="cb44-9"><a href="eda.html#cb44-9" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb44-10"><a href="eda.html#cb44-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb44-11"><a href="eda.html#cb44-11" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;grey50&quot;</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:hist-poblacion"></span>
+<img src="eda_poblacion_mundial_files/figure-html/hist-poblacion-1.png" alt="Distribución de la población en escala logarítmica" width="90%" />
+<p class="caption">
+Figure 3.3: Distribución de la población en escala logarítmica
+</p>
+</div>
+</div>
+<div id="distribución-de-la-densidad-poblacional" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Distribución de la densidad poblacional<a href="eda.html#distribución-de-la-densidad-poblacional" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="eda.html#cb45-1" tabindex="-1"></a><span class="fu">ggplot</span>(df_paises <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(pop_density)), <span class="fu">aes</span>(<span class="at">x =</span> pop_density)) <span class="sc">+</span></span>
+<span id="cb45-2"><a href="eda.html#cb45-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">50</span>, <span class="at">fill =</span> COLOR_PRINCIPAL, <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb45-3"><a href="eda.html#cb45-3" tabindex="-1"></a>  <span class="fu">stat_bin</span>(<span class="at">bins =</span> <span class="dv">50</span>, <span class="at">geom =</span> <span class="st">&quot;text&quot;</span>, <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">after_stat</span>(<span class="fu">ifelse</span>(count <span class="sc">&gt;</span> <span class="dv">0</span>, count, <span class="st">&quot;&quot;</span>))), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb45-4"><a href="eda.html#cb45-4" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.15</span>))) <span class="sc">+</span></span>
+<span id="cb45-5"><a href="eda.html#cb45-5" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb45-6"><a href="eda.html#cb45-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de la densidad poblacional (escala log10)&quot;</span>,</span>
+<span id="cb45-7"><a href="eda.html#cb45-7" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Densidad poblacional (hab/km²) - log10&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">+</span></span>
+<span id="cb45-8"><a href="eda.html#cb45-8" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb45-9"><a href="eda.html#cb45-9" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:hist-densidad"></span>
+<img src="eda_poblacion_mundial_files/figure-html/hist-densidad-1.png" alt="Distribución de la densidad poblacional en escala logarítmica" width="90%" />
+<p class="caption">
+Figure 3.4: Distribución de la densidad poblacional en escala logarítmica
+</p>
+</div>
+<p>La distribución de la densidad poblacional resulta fuertemente asimétrica, con un sesgo pronunciado hacia la derecha. Esto nos indica que la gran mayoría de países poseen densidades relativamente bajas, mientras que un pequeño grupo de territorios, como ciudades-estado y países insulares, concentran densidades extremadamente altas. Esta asimetría justifica el uso de la escala logarítmica (log10) para poder apreciar la forma real de la distribución sin que los valores extremos distorsionen la visualización.</p>
+</div>
+<div id="población-por-nivel-de-ingreso" class="section level3 hasAnchor" number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> Población por nivel de ingreso<a href="eda.html#población-por-nivel-de-ingreso" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="eda.html#cb46-1" tabindex="-1"></a><span class="fu">ggplot</span>(df_paises <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(population) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(incomeLevel)),</span>
+<span id="cb46-2"><a href="eda.html#cb46-2" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> incomeLevel, <span class="at">y =</span> population)) <span class="sc">+</span></span>
+<span id="cb46-3"><a href="eda.html#cb46-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> COLOR_PRINCIPAL, <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb46-4"><a href="eda.html#cb46-4" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb46-5"><a href="eda.html#cb46-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de población por nivel de ingreso&quot;</span>,</span>
+<span id="cb46-6"><a href="eda.html#cb46-6" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Nivel de ingreso&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Población (log10)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb46-7"><a href="eda.html#cb46-7" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb46-8"><a href="eda.html#cb46-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb46-9"><a href="eda.html#cb46-9" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">30</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:boxplot-pop-income"></span>
+<img src="eda_poblacion_mundial_files/figure-html/boxplot-pop-income-1.png" alt="Distribución de población por nivel de ingreso" width="90%" />
+<p class="caption">
+Figure 3.5: Distribución de población por nivel de ingreso
+</p>
+</div>
+<p>El diagrama de cajas por nivel de ingreso pone en evidencia un hallazgo interesante: los países clasificados como de ingreso medio-bajo tienden a presentar las poblaciones más elevadas, con una mediana visiblemente superior a la de los demás grupos. Este patrón es consistente con el hecho de que naciones como India, Indonesia, Bangladesh y varios países del África subsahariana pertenecen a esta categoría. Por otra parte, los países de ingreso alto, a pesar de concentrar la mayor parte de la riqueza mundial, exhiben poblaciones más dispersas con una mediana comparativamente menor.</p>
+
+</div>
+</div>
+<div id="bivariado" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Análisis bivariado<a href="eda.html#bivariado" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En esta sección se exploran las relaciones entre pares de variables del dataset, complementando el análisis univariado previo. El objetivo es identificar asociaciones, tendencias y patrones conjuntos que permitan entender cómo interactúan las dimensiones demográficas, geográficas y económicas entre sí.</p>
+</div>
+<div id="población-vs.-densidad-poblacional" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Población vs. densidad poblacional<a href="eda.html#población-vs.-densidad-poblacional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="eda.html#cb47-1" tabindex="-1"></a>df_biv <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb47-2"><a href="eda.html#cb47-2" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="fu">max</span>(year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">&amp;</span></span>
+<span id="cb47-3"><a href="eda.html#cb47-3" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(population) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(pop_density))</span>
+<span id="cb47-4"><a href="eda.html#cb47-4" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="eda.html#cb47-5" tabindex="-1"></a><span class="fu">ggplot</span>(df_biv, <span class="fu">aes</span>(<span class="at">x =</span> population, <span class="at">y =</span> pop_density, <span class="at">color =</span> region)) <span class="sc">+</span></span>
+<span id="cb47-6"><a href="eda.html#cb47-6" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb47-7"><a href="eda.html#cb47-7" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb47-8"><a href="eda.html#cb47-8" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb47-9"><a href="eda.html#cb47-9" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;grey30&quot;</span>,</span>
+<span id="cb47-10"><a href="eda.html#cb47-10" tabindex="-1"></a>              <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb47-11"><a href="eda.html#cb47-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Población vs. Densidad Poblacional&quot;</span>,</span>
+<span id="cb47-12"><a href="eda.html#cb47-12" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">&quot;Año:&quot;</span>, <span class="fu">max</span>(df_biv<span class="sc">$</span>year)),</span>
+<span id="cb47-13"><a href="eda.html#cb47-13" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Población (log10)&quot;</span>,</span>
+<span id="cb47-14"><a href="eda.html#cb47-14" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Densidad Poblacional (hab/km², log10)&quot;</span>,</span>
+<span id="cb47-15"><a href="eda.html#cb47-15" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Región&quot;</span>) <span class="sc">+</span></span>
+<span id="cb47-16"><a href="eda.html#cb47-16" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb47-17"><a href="eda.html#cb47-17" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb47-18"><a href="eda.html#cb47-18" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;grey50&quot;</span>),</span>
+<span id="cb47-19"><a href="eda.html#cb47-19" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb47-20"><a href="eda.html#cb47-20" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">7</span>)) <span class="sc">+</span></span>
+<span id="cb47-21"><a href="eda.html#cb47-21" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">nrow =</span> <span class="dv">3</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:biv-pop-densidad"></span>
+<img src="eda_poblacion_mundial_files/figure-html/biv-pop-densidad-1.png" alt="Relación entre población y densidad poblacional (escala log-log)" width="90%" />
+<p class="caption">
+Figure 3.6: Relación entre población y densidad poblacional (escala log-log)
+</p>
+</div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="eda.html#cb48-1" tabindex="-1"></a>cor_pop_dens <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="fu">log10</span>(df_biv<span class="sc">$</span>population), <span class="fu">log10</span>(df_biv<span class="sc">$</span>pop_density),</span>
+<span id="cb48-2"><a href="eda.html#cb48-2" tabindex="-1"></a>                    <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span></code></pre></div>
+<p>El coeficiente de correlación de Pearson en escala logarítmica resulta en <span class="math inline">\(r =\)</span> -0.121, lo que clasifica esta relación como débil. Este resultado indica que la densidad poblacional depende en mayor medida de la extensión territorial de un país que de cuántos habitantes tiene. Para ilustrarlo con ejemplos concretos, India combina una población muy elevada con una alta densidad, pero Australia y Canadá, pese a contar con poblaciones considerables, presentan densidades muy bajas debido a la vasta extensión de sus territorios. En el extremo opuesto, ciudades-estado como Singapur o Mónaco muestran las densidades más altas del mundo con poblaciones relativamente pequeñas.</p>
+</div>
+<div id="migración-neta-vs.-nivel-de-ingreso" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Migración neta vs. nivel de ingreso<a href="eda.html#migración-neta-vs.-nivel-de-ingreso" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="eda.html#cb49-1" tabindex="-1"></a>df_mig_income <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a href="eda.html#cb49-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(net_migration) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(incomeLevel) <span class="sc">&amp;</span> incomeLevel <span class="sc">!=</span> <span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb49-3"><a href="eda.html#cb49-3" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="fu">max</span>(year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb49-4"><a href="eda.html#cb49-4" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="eda.html#cb49-5" tabindex="-1"></a><span class="fu">ggplot</span>(df_mig_income,</span>
+<span id="cb49-6"><a href="eda.html#cb49-6" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(incomeLevel, net_migration, <span class="at">FUN =</span> median),</span>
+<span id="cb49-7"><a href="eda.html#cb49-7" tabindex="-1"></a>           <span class="at">y =</span> net_migration)) <span class="sc">+</span></span>
+<span id="cb49-8"><a href="eda.html#cb49-8" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> COLOR_PRINCIPAL, <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb49-9"><a href="eda.html#cb49-9" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb49-10"><a href="eda.html#cb49-10" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb49-11"><a href="eda.html#cb49-11" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="fu">round</span>(x <span class="sc">/</span> <span class="fl">1e6</span>, <span class="dv">1</span>), <span class="st">&quot;M&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb49-12"><a href="eda.html#cb49-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Migración Neta por Nivel de Ingreso&quot;</span>,</span>
+<span id="cb49-13"><a href="eda.html#cb49-13" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;La línea roja marca migración neta = 0&quot;</span>,</span>
+<span id="cb49-14"><a href="eda.html#cb49-14" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Migración Neta&quot;</span>) <span class="sc">+</span></span>
+<span id="cb49-15"><a href="eda.html#cb49-15" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb49-16"><a href="eda.html#cb49-16" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb49-17"><a href="eda.html#cb49-17" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;grey50&quot;</span>),</span>
+<span id="cb49-18"><a href="eda.html#cb49-18" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:biv-mig-ingreso"></span>
+<img src="eda_poblacion_mundial_files/figure-html/biv-mig-ingreso-1.png" alt="Migración neta por nivel de ingreso" width="90%" />
+<p class="caption">
+Figure 3.7: Migración neta por nivel de ingreso
+</p>
+</div>
+<p>El diagrama de cajas revela un vínculo claro entre el nivel de ingresos y la dirección de los flujos migratorios. Los países de ingresos altos presentan medianas de migración neta positivas, lo que significa que reciben más personas de las que emigran: funcionan como receptores netos de población. En cambio, los países de ingresos bajos y medios-bajos muestran medianas negativas o cercanas a cero, lo que los posiciona como emisores netos de migrantes. Este patrón es coherente con la teoría económica de la migración, que sostiene que las diferencias salariales y de oportunidades impulsan a la población a desplazarse desde economías menos desarrolladas hacia las de mayor prosperidad. La línea roja en cero facilita la identificación visual de qué grupos se encuentran por encima (inmigran más) o por debajo (emigran más) de ese umbral.</p>
+</div>
+<div id="densidad-poblacional-vs.-migración-neta" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Densidad poblacional vs. migración neta (%)<a href="eda.html#densidad-poblacional-vs.-migración-neta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="eda.html#cb50-1" tabindex="-1"></a>df_dens_mig <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb50-2"><a href="eda.html#cb50-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(pop_density) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(migration_perc)) <span class="sc">%&gt;%</span></span>
+<span id="cb50-3"><a href="eda.html#cb50-3" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="fu">max</span>(year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb50-4"><a href="eda.html#cb50-4" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="eda.html#cb50-5" tabindex="-1"></a><span class="fu">ggplot</span>(df_dens_mig, <span class="fu">aes</span>(<span class="at">x =</span> pop_density, <span class="at">y =</span> migration_perc <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb50-6"><a href="eda.html#cb50-6" tabindex="-1"></a>                         <span class="at">color =</span> incomeLevel)) <span class="sc">+</span></span>
+<span id="cb50-7"><a href="eda.html#cb50-7" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb50-8"><a href="eda.html#cb50-8" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb50-9"><a href="eda.html#cb50-9" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb50-10"><a href="eda.html#cb50-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Densidad Poblacional vs. Migración Neta (%)&quot;</span>,</span>
+<span id="cb50-11"><a href="eda.html#cb50-11" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Densidad Poblacional (hab/km², log10)&quot;</span>,</span>
+<span id="cb50-12"><a href="eda.html#cb50-12" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Migración Neta (% de población)&quot;</span>,</span>
+<span id="cb50-13"><a href="eda.html#cb50-13" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Nivel de Ingreso&quot;</span>) <span class="sc">+</span></span>
+<span id="cb50-14"><a href="eda.html#cb50-14" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb50-15"><a href="eda.html#cb50-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb50-16"><a href="eda.html#cb50-16" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="sc">+</span></span>
+<span id="cb50-17"><a href="eda.html#cb50-17" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:biv-dens-mig"></span>
+<img src="eda_poblacion_mundial_files/figure-html/biv-dens-mig-1.png" alt="Relación entre densidad poblacional y porcentaje de migración neta" width="90%" />
+<p class="caption">
+Figure 3.8: Relación entre densidad poblacional y porcentaje de migración neta
+</p>
+</div>
+<p>El gráfico de dispersión entre la densidad poblacional y el porcentaje de migración neta no muestra una asociación lineal directa entre ambas variables. Sin embargo, se puede observar que los países que combinan alta densidad con ingresos elevados, tienden a mostrar tasas de migración neta marcadamente positivas. En cambio, países con alta densidad pero de bajos ingresos, funcionan como emisores netos.</p>
+</div>
+<div id="crecimiento-poblacional-vs.-región-e-ingreso" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Crecimiento poblacional vs. región e ingreso<a href="eda.html#crecimiento-poblacional-vs.-región-e-ingreso" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="eda.html#cb51-1" tabindex="-1"></a>crecimiento_biv <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb51-2"><a href="eda.html#cb51-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(population) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(region) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(incomeLevel) <span class="sc">&amp;</span></span>
+<span id="cb51-3"><a href="eda.html#cb51-3" tabindex="-1"></a>         region <span class="sc">!=</span> <span class="st">&quot;Aggregates&quot;</span> <span class="sc">&amp;</span> incomeLevel <span class="sc">!=</span> <span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb51-4"><a href="eda.html#cb51-4" tabindex="-1"></a>  <span class="fu">group_by</span>(country, region, incomeLevel) <span class="sc">%&gt;%</span></span>
+<span id="cb51-5"><a href="eda.html#cb51-5" tabindex="-1"></a>  <span class="fu">arrange</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb51-6"><a href="eda.html#cb51-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tasa_crecimiento =</span> (population <span class="sc">/</span> <span class="fu">lag</span>(population) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb51-7"><a href="eda.html#cb51-7" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb51-8"><a href="eda.html#cb51-8" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(tasa_crecimiento))</span>
+<span id="cb51-9"><a href="eda.html#cb51-9" tabindex="-1"></a></span>
+<span id="cb51-10"><a href="eda.html#cb51-10" tabindex="-1"></a>crecimiento_resumen <span class="ot">&lt;-</span> crecimiento_biv <span class="sc">%&gt;%</span></span>
+<span id="cb51-11"><a href="eda.html#cb51-11" tabindex="-1"></a>  <span class="fu">group_by</span>(region, incomeLevel) <span class="sc">%&gt;%</span></span>
+<span id="cb51-12"><a href="eda.html#cb51-12" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">tasa_media =</span> <span class="fu">mean</span>(tasa_crecimiento, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb51-13"><a href="eda.html#cb51-13" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb51-14"><a href="eda.html#cb51-14" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>)</span>
+<span id="cb51-15"><a href="eda.html#cb51-15" tabindex="-1"></a></span>
+<span id="cb51-16"><a href="eda.html#cb51-16" tabindex="-1"></a><span class="fu">ggplot</span>(crecimiento_resumen <span class="sc">%&gt;%</span> <span class="fu">filter</span>(n <span class="sc">&gt;=</span> <span class="dv">10</span>),</span>
+<span id="cb51-17"><a href="eda.html#cb51-17" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> region, <span class="at">y =</span> incomeLevel, <span class="at">fill =</span> tasa_media)) <span class="sc">+</span></span>
+<span id="cb51-18"><a href="eda.html#cb51-18" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb51-19"><a href="eda.html#cb51-19" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(tasa_media, <span class="dv">2</span>)), <span class="at">size =</span> <span class="fl">3.2</span>) <span class="sc">+</span></span>
+<span id="cb51-20"><a href="eda.html#cb51-20" tabindex="-1"></a>  <span class="fu">scale_fill_gradient2</span>(<span class="at">low =</span> <span class="st">&quot;#2980B9&quot;</span>, <span class="at">mid =</span> <span class="st">&quot;#F7DC6F&quot;</span>, <span class="at">high =</span> <span class="st">&quot;#E74C3C&quot;</span>,</span>
+<span id="cb51-21"><a href="eda.html#cb51-21" tabindex="-1"></a>                       <span class="at">midpoint =</span> <span class="dv">2</span>, <span class="at">name =</span> <span class="st">&quot;Tasa media (%)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb51-22"><a href="eda.html#cb51-22" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Tasa de Crecimiento Promedio por Región y Nivel de Ingreso&quot;</span>,</span>
+<span id="cb51-23"><a href="eda.html#cb51-23" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb51-24"><a href="eda.html#cb51-24" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb51-25"><a href="eda.html#cb51-25" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb51-26"><a href="eda.html#cb51-26" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">35</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb51-27"><a href="eda.html#cb51-27" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:biv-crec-region-ingreso"></span>
+<img src="eda_poblacion_mundial_files/figure-html/biv-crec-region-ingreso-1.png" alt="Tasa de crecimiento por región y nivel de ingreso" width="90%" />
+<p class="caption">
+Figure 3.9: Tasa de crecimiento por región y nivel de ingreso
+</p>
+</div>
+<p>El mapa de calor revela una interacción entre la ubicación geográfica y el nivel de ingresos al analizar las tasas de crecimiento demográfico. Las mayores tasas se concentran en los tonos rojizos y naranjas, donde destaca de manera excepcional el caso de Medio Oriente y Norte de África en el segmento de ingresos altos (<span class="math inline">\(4.47\%\)</span>), seguido por África Subsahariana. En contraste, las tonalidades grisáceas exponen los ritmos de crecimiento más lentos, un patrón evidente en Europa y Asia Central tanto en sus niveles de ingresos altos (<span class="math inline">\(0.65\%\)</span>) como medios-altos (<span class="math inline">\(0.73\%\)</span>). Este hallazgo subraya que evaluar la región o el ingreso de forma aislada sesga el análisis.</p>
+</div>
+<div id="tabla-de-contingencia-región-vs.-nivel-de-ingreso" class="section level2 hasAnchor" number="3.8">
+<h2><span class="header-section-number">3.8</span> Tabla de contingencia: región vs. nivel de ingreso<a href="eda.html#tabla-de-contingencia-región-vs.-nivel-de-ingreso" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="eda.html#cb52-1" tabindex="-1"></a>df_ultimo <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb52-2"><a href="eda.html#cb52-2" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="fu">max</span>(year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">&amp;</span></span>
+<span id="cb52-3"><a href="eda.html#cb52-3" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(region) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(incomeLevel) <span class="sc">&amp;</span></span>
+<span id="cb52-4"><a href="eda.html#cb52-4" tabindex="-1"></a>         region <span class="sc">!=</span> <span class="st">&quot;Aggregates&quot;</span> <span class="sc">&amp;</span> incomeLevel <span class="sc">!=</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb52-5"><a href="eda.html#cb52-5" tabindex="-1"></a></span>
+<span id="cb52-6"><a href="eda.html#cb52-6" tabindex="-1"></a>tabla_cont <span class="ot">&lt;-</span> <span class="fu">table</span>(df_ultimo<span class="sc">$</span>region, df_ultimo<span class="sc">$</span>incomeLevel)</span>
+<span id="cb52-7"><a href="eda.html#cb52-7" tabindex="-1"></a><span class="fu">kable</span>(tabla_cont,</span>
+<span id="cb52-8"><a href="eda.html#cb52-8" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Tabla de contingencia: Región × Nivel de Ingreso (año más reciente)&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:biv-contingencia">Table 3.12: </span>Tabla de contingencia: Región × Nivel de Ingreso (año más reciente)</caption>
+<colgroup>
+<col width="26%" />
+<col width="10%" />
+<col width="11%" />
+<col width="10%" />
+<col width="19%" />
+<col width="19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Aggregates</th>
+<th align="right">High income</th>
+<th align="right">Low income</th>
+<th align="right">Lower middle income</th>
+<th align="right">Upper middle income</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Aggregates</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">East Asia &amp; Pacific</td>
+<td align="right">0</td>
+<td align="right">13</td>
+<td align="right">1</td>
+<td align="right">13</td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="left">Europe &amp; Central Asia</td>
+<td align="right">0</td>
+<td align="right">37</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">16</td>
+</tr>
+<tr class="even">
+<td align="left">Latin America &amp; Caribbean</td>
+<td align="right">0</td>
+<td align="right">17</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">20</td>
+</tr>
+<tr class="odd">
+<td align="left">Middle East &amp; North Africa</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">North America</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">South Asia</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Sub-Saharan Africa</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">23</td>
+<td align="right">17</td>
+<td align="right">6</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="eda.html#cb53-1" tabindex="-1"></a>tabla_plot <span class="ot">&lt;-</span> df_ultimo <span class="sc">%&gt;%</span></span>
+<span id="cb53-2"><a href="eda.html#cb53-2" tabindex="-1"></a>  <span class="fu">count</span>(region, incomeLevel) <span class="sc">%&gt;%</span></span>
+<span id="cb53-3"><a href="eda.html#cb53-3" tabindex="-1"></a>  <span class="fu">group_by</span>(region) <span class="sc">%&gt;%</span></span>
+<span id="cb53-4"><a href="eda.html#cb53-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pct =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span>
+<span id="cb53-5"><a href="eda.html#cb53-5" tabindex="-1"></a></span>
+<span id="cb53-6"><a href="eda.html#cb53-6" tabindex="-1"></a><span class="fu">ggplot</span>(tabla_plot, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(region, <span class="sc">-</span>n, sum), <span class="at">y =</span> pct, <span class="at">fill =</span> incomeLevel)) <span class="sc">+</span></span>
+<span id="cb53-7"><a href="eda.html#cb53-7" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;fill&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb53-8"><a href="eda.html#cb53-8" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">percent</span>(pct, <span class="at">accuracy =</span> <span class="dv">1</span>)),</span>
+<span id="cb53-9"><a href="eda.html#cb53-9" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_fill</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb53-10"><a href="eda.html#cb53-10" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb53-11"><a href="eda.html#cb53-11" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb53-12"><a href="eda.html#cb53-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de Países por Región y Nivel de Ingreso&quot;</span>,</span>
+<span id="cb53-13"><a href="eda.html#cb53-13" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Región&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Proporción&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Nivel de Ingreso&quot;</span>) <span class="sc">+</span></span>
+<span id="cb53-14"><a href="eda.html#cb53-14" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb53-15"><a href="eda.html#cb53-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb53-16"><a href="eda.html#cb53-16" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">35</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb53-17"><a href="eda.html#cb53-17" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:biv-mosaico"></span>
+<img src="eda_poblacion_mundial_files/figure-html/biv-mosaico-1.png" alt="Gráfico de barras proporcionales: Región vs. Nivel de Ingreso" width="90%" />
+<p class="caption">
+Figure 3.10: Gráfico de barras proporcionales: Región vs. Nivel de Ingreso
+</p>
+</div>
+<p>La tabla de contingencia y el gráfico de barras proporcionales revelan cómo se distribuyen los países según su región y su nivel de ingreso. Se observa que África Subsahariana concentra la mayor proporción de economías de bajos ingresos, mientras que Europa y Asia Central alberga la mayor parte de las naciones de ingresos altos. América Latina y el Caribe se ubica mayoritariamente en el estrato de ingresos medios-altos, y Asia del Sur se divide entre las categorías de ingresos bajos y medios-bajos. Estos patrones reflejan las desigualdades estructurales del orden económico internacional y ayudan a entender por qué los flujos migratorios siguen direcciones predecibles, desde las regiones con mayor concentración de países de bajos ingresos hacia aquellas dominadas por economías de altos ingresos.</p>
+</div>
+<div id="evolución-temporal-de-la-densidad-por-región" class="section level2 hasAnchor" number="3.9">
+<h2><span class="header-section-number">3.9</span> Evolución temporal de la densidad por región<a href="eda.html#evolución-temporal-de-la-densidad-por-región" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="eda.html#cb54-1" tabindex="-1"></a>dens_temporal <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb54-2"><a href="eda.html#cb54-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(pop_density) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(region) <span class="sc">&amp;</span> region <span class="sc">!=</span> <span class="st">&quot;Aggregates&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb54-3"><a href="eda.html#cb54-3" tabindex="-1"></a>  <span class="fu">group_by</span>(region, year) <span class="sc">%&gt;%</span></span>
+<span id="cb54-4"><a href="eda.html#cb54-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">densidad_media =</span> <span class="fu">mean</span>(pop_density, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>)</span>
+<span id="cb54-5"><a href="eda.html#cb54-5" tabindex="-1"></a></span>
+<span id="cb54-6"><a href="eda.html#cb54-6" tabindex="-1"></a><span class="fu">ggplot</span>(dens_temporal, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> densidad_media, <span class="at">color =</span> region)) <span class="sc">+</span></span>
+<span id="cb54-7"><a href="eda.html#cb54-7" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb54-8"><a href="eda.html#cb54-8" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> dens_temporal <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="fu">max</span>(year)),</span>
+<span id="cb54-9"><a href="eda.html#cb54-9" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(densidad_media, <span class="dv">1</span>)),</span>
+<span id="cb54-10"><a href="eda.html#cb54-10" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.2</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb54-11"><a href="eda.html#cb54-11" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.15</span>))) <span class="sc">+</span></span>
+<span id="cb54-12"><a href="eda.html#cb54-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Evolución de la Densidad Poblacional Media por Región&quot;</span>,</span>
+<span id="cb54-13"><a href="eda.html#cb54-13" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Año&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Densidad Media (hab/km²)&quot;</span>,</span>
+<span id="cb54-14"><a href="eda.html#cb54-14" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&quot;Región&quot;</span>) <span class="sc">+</span></span>
+<span id="cb54-15"><a href="eda.html#cb54-15" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb54-16"><a href="eda.html#cb54-16" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb54-17"><a href="eda.html#cb54-17" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb54-18"><a href="eda.html#cb54-18" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>)) <span class="sc">+</span></span>
+<span id="cb54-19"><a href="eda.html#cb54-19" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">nrow =</span> <span class="dv">3</span>)) <span class="sc">+</span></span>
+<span id="cb54-20"><a href="eda.html#cb54-20" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:biv-dens-temporal"></span>
+<img src="eda_poblacion_mundial_files/figure-html/biv-dens-temporal-1.png" alt="Evolución de la densidad poblacional media por región" width="90%" />
+<p class="caption">
+Figure 3.11: Evolución de la densidad poblacional media por región
+</p>
+</div>
+<p>La evolución temporal de la densidad media por región muestra que Asia del Sur y Asia Oriental y el Pacífico registran los índices de concentración demográfica más altos y con las pendientes de crecimiento más pronunciadas a lo largo de las casi seis décadas analizadas. Esto refleja un aumento sostenido de la presión demográfica sobre sus territorios. En el otro extremo, regiones como América del Norte y Medio Oriente y Norte de África mantienen niveles de densidad comparativamente bajos y con poca variación a lo largo del tiempo. Esta divergencia en las trayectorias tiene implicaciones directas para la planificación territorial, la gestión de recursos naturales y los desafíos de sostenibilidad ambiental que enfrenta cada región.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="estructura.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="inferencial.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["eda_poblacion_mundial.pdf", "eda_poblacion_mundial.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

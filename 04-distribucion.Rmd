@@ -1,67 +1,206 @@
-# Distribución de Variables {#distribucion}
+# Análisis Exploratorio de Datos {#eda}
 
-## Variables Categóricas
+## Distribución de Variables {#distribucion}
+
+### Composición del dataset
 
 ```{r categoricas-resumen}
 resumen_cat <- data.frame(
-  Metrica = c("Países/entidades únicas", "Rango de años", "Regiones únicas",
-              "Niveles de ingreso", "Filas (solo países)", "Países únicos (sin agregados)"),
+  Metrica = c("Países únicos", "Rango de años", "Regiones únicas",
+              "Niveles de ingreso"),
   Valor = c(
-    n_distinct(df$country),
-    paste(min(df$year, na.rm = TRUE), "-", max(df$year, na.rm = TRUE)),
-    n_distinct(df$region),
-    n_distinct(df$incomeLevel),
-    nrow(df_paises),
-    n_distinct(df_paises$country)
+    n_distinct(df_paises$country),
+    paste(min(df_paises$year, na.rm = TRUE), "-", max(df_paises$year, na.rm = TRUE)),
+    n_distinct(df_paises$region),
+    n_distinct(df_paises$incomeLevel)
   )
 )
 
-kable(resumen_cat, caption = "Resumen de variables categóricas")
+kable(resumen_cat, caption = "Composición general del dataset (países excluyendo agregados)")
 ```
 
 ```{r region-counts}
-region_counts <- df %>% count(region, sort = TRUE)
+region_counts <- df_paises %>%
+  count(region, sort = TRUE) %>%
+  mutate(Porcentaje = round(n / sum(n) * 100, 2))
 
-kable(region_counts, caption = "Observaciones por región")
+kable(region_counts, caption = "Observaciones por región (frecuencia y porcentaje)")
 ```
 
 ```{r plot-region, fig.cap="Distribución de observaciones por región"}
 ggplot(region_counts, aes(x = reorder(region, n), y = n)) +
-  geom_bar(stat = "identity", fill = "#3498DB", alpha = 0.8) +
+  geom_bar(stat = "identity", fill = COLOR_PRINCIPAL, alpha = 0.8) +
+  geom_text(aes(label = paste0(n, " (", Porcentaje, "%)")),
+            hjust = -0.05, size = 3) +
   coord_flip() +
-  labs(title = "Número de Observaciones por Región",
-       x = "Región", y = "Número de Observaciones") +
+  labs(title = "Número de observaciones por región",
+       x = "Región", y = "Número de observaciones") +
   theme_minimal(base_size = 11) +
-  theme(plot.title = element_text(face = "bold", hjust = 0.5))
+  theme(plot.title = element_text(face = "bold", hjust = 0.5)) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15)))
 ```
 
 ```{r income-counts}
-income_counts <- df %>% count(incomeLevel, sort = TRUE)
+income_counts <- df_paises %>%
+  count(incomeLevel, sort = TRUE) %>%
+  mutate(Porcentaje = round(n / sum(n) * 100, 2))
 
-kable(income_counts, caption = "Observaciones por nivel de ingreso")
+kable(income_counts, caption = "Observaciones por nivel de ingreso (frecuencia y porcentaje)")
 ```
 
 ```{r plot-income, fig.cap="Distribución de observaciones por nivel de ingreso"}
 ggplot(income_counts, aes(x = reorder(incomeLevel, n), y = n)) +
-  geom_bar(stat = "identity", fill = "#2ECC71", alpha = 0.8) +
+  geom_bar(stat = "identity", fill = COLOR_PRINCIPAL, alpha = 0.8) +
+  geom_text(aes(label = paste0(n, " (", Porcentaje, "%)")),
+            hjust = -0.05, size = 3) +
   coord_flip() +
-  labs(title = "Número de Observaciones por Nivel de Ingreso",
-       x = "Nivel de Ingreso", y = "Número de Observaciones") +
+  labs(title = "Número de observaciones por nivel de ingreso",
+       x = "Nivel de ingreso", y = "Número de observaciones") +
   theme_minimal(base_size = 11) +
-  theme(plot.title = element_text(face = "bold", hjust = 0.5))
+  theme(plot.title = element_text(face = "bold", hjust = 0.5)) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15)))
 ```
 
-> Las regiones con mayor representación son las que contienen mayor cantidad de países (África Subsahariana, Europa y Asia Central). La categoría "Aggregates" corresponde a totales regionales y mundiales que el Banco Mundial incluye como filas separadas; es fundamental filtrarlos para evitar doble conteo en análisis a nivel de país.
+Al observar la distribución de observaciones por región, se aprecia que África Subsahariana y Europa y Asia Central encabezan la lista con la mayor cantidad de registros, lo cual se explica por el elevado número de países que conforman estas regiones. En contraste, América del Norte cuenta con la menor representación, dado que incluye únicamente tres entidades. Es importante aclarar que para la totalidad de este análisis se excluyeron los agregados regionales (como "Mundo" o "Unión Europea") con el propósito de evitar el doble conteo y asegurar que las distribuciones reflejen fielmente a las naciones individuales.
 
-## Variables Numéricas
+### Países que conforman cada región
 
-### Distribución de la Población
+```{r paises-por-region}
+paises_region <- df_paises %>%
+  filter(year == max(year, na.rm = TRUE)) %>%
+  group_by(region) %>%
+  summarise(
+    `N° Países` = n(),
+    Países = paste(sort(country), collapse = ", "),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(`N° Países`))
+
+kable(paises_region, caption = "Países que conforman cada región geográfica (año más reciente)")
+```
+
+### Rankings por variables clave
+
+Para entender mejor la distribución de las principales variables numéricas, a continuación se presentan los 5 países con los valores más altos y los 5 con los valores más bajos en población, densidad poblacional y migración neta, considerando únicamente el año más reciente disponible.
+
+```{r top-poblacion}
+df_ultimo_anio <- df_paises %>%
+  filter(year == max(year, na.rm = TRUE))
+
+top5_pop <- df_ultimo_anio %>%
+  filter(!is.na(population)) %>%
+  arrange(desc(population)) %>%
+  head(5) %>%
+  select(País = country, Región = region, `Nivel de Ingreso` = incomeLevel,
+         Población = population) %>%
+  mutate(Población = scales::comma(Población))
+
+kable(top5_pop, caption = "Top 5 países con mayor población")
+```
+
+```{r bottom-poblacion}
+bottom5_pop <- df_ultimo_anio %>%
+  filter(!is.na(population)) %>%
+  arrange(population) %>%
+  head(5) %>%
+  select(País = country, Región = region, `Nivel de Ingreso` = incomeLevel,
+         Población = population) %>%
+  mutate(Población = scales::comma(Población))
+
+kable(bottom5_pop, caption = "5 países con menor población")
+```
+
+Los 5 países más poblados del mundo concentran una proporción significativa de la población global, con China e India liderando ampliamente. En el extremo opuesto, los países menos poblados corresponden a pequeños territorios insulares y ciudades-estado cuyas poblaciones no superan unas decenas de miles de habitantes.
+
+```{r top-densidad}
+top5_dens <- df_ultimo_anio %>%
+  filter(!is.na(pop_density)) %>%
+  arrange(desc(pop_density)) %>%
+  head(5) %>%
+  select(País = country, Región = region, `Nivel de Ingreso` = incomeLevel,
+         `Densidad (hab/km²)` = pop_density) %>%
+  mutate(`Densidad (hab/km²)` = scales::comma(round(`Densidad (hab/km²)`, 1)))
+
+kable(top5_dens, caption = "Top 5 países con mayor densidad poblacional")
+```
+
+```{r bottom-densidad}
+bottom5_dens <- df_ultimo_anio %>%
+  filter(!is.na(pop_density) & pop_density > 0) %>%
+  arrange(pop_density) %>%
+  head(5) %>%
+  select(País = country, Región = region, `Nivel de Ingreso` = incomeLevel,
+         `Densidad (hab/km²)` = pop_density) %>%
+  mutate(`Densidad (hab/km²)` = round(`Densidad (hab/km²)`, 2))
+
+kable(bottom5_dens, caption = "5 países con menor densidad poblacional")
+```
+
+Los territorios con mayor densidad poblacional son invariablemente ciudades-estado o territorios de extensión muy reducida, como Macao, Singapur y Hong Kong. En contraste, los países menos densos corresponden a vastas extensiones territoriales con poblaciones dispersas, como Mongolia o Groenlandia. Este contraste confirma que la densidad depende en mayor medida de la superficie territorial que del tamaño absoluto de la población.
+
+```{r top-migracion}
+df_ultimo_migracion <- df_paises %>%
+  filter(!is.na(net_migration)) %>%
+  filter(year == max(year))
+
+top5_mig <- df_ultimo_migracion %>%
+  arrange(desc(net_migration)) %>%
+  head(5) %>%
+  select(País = country, Región = region, `Nivel de Ingreso` = incomeLevel,
+         `Migración Neta` = net_migration) %>%
+  mutate(`Migración Neta` = scales::comma(`Migración Neta`))
+
+kable(top5_mig, caption = "Top 5 países con mayor migración neta (receptores)")
+```
+
+```{r bottom-migracion}
+bottom5_mig <- df_ultimo_migracion %>%
+  arrange(net_migration) %>%
+  head(5) %>%
+  select(País = country, Región = region, `Nivel de Ingreso` = incomeLevel,
+         `Migración Neta` = net_migration) %>%
+  mutate(`Migración Neta` = scales::comma(`Migración Neta`))
+
+kable(bottom5_mig, caption = "5 países con mayor emigración neta (emisores)")
+```
+
+Los principales receptores de migrantes son economías de ingreso alto con mercados laborales atractivos, lo que refuerza el patrón identificado en el análisis bivariado posterior. Los mayores emisores de población corresponden a países afectados por conflictos, inestabilidad económica o altas tasas de emigración laboral.
+
+## Variables numéricas
+
+### Estadísticas descriptivas
+
+```{r estadisticas-descriptivas}
+estadisticas_df <- df_paises %>%
+  select(population, pop_density, net_migration) %>%
+  pivot_longer(cols = everything(), names_to = "Variable", values_to = "Valor") %>%
+  filter(!is.na(Valor)) %>%
+  group_by(Variable) %>%
+  summarise(
+    Media = mean(Valor),
+    `Desviación` = sd(Valor),
+    Q1 = quantile(Valor, 0.25),
+    `Mediana (Q2)` = median(Valor),
+    Q3 = quantile(Valor, 0.75),
+    `Q4 (Máximo)` = max(Valor),
+    IQR = IQR(Valor)
+  ) %>%
+  mutate(across(where(is.numeric), ~ scales::comma(round(.x, 2))))
+
+kable(estadisticas_df, caption = "Estadísticas descriptivas de las variables numéricas")
+```
+
+La tabla anterior consolida las medidas de tendencia central, dispersión y posición para las principales variables numéricas del estudio. Es notable cómo, para la población y la densidad poblacional, la media supera ampliamente a la mediana (Q2), lo que indica una fuerte asimetría positiva generada por valores extremos en el límite superior (Q4). El rango intercuartílico (IQR) nos permite observar la dispersión del 50% central de los datos, evidenciando la inmensa variabilidad demográfica entre los diferentes países.
+
+### Distribución de la población
 
 ```{r hist-poblacion, fig.cap="Distribución de la población en escala logarítmica"}
 ggplot(df_paises, aes(x = population)) +
-  geom_histogram(bins = 50, fill = "#9B59B6", alpha = 0.7, color = "white") +
+  geom_histogram(bins = 50, fill = COLOR_PRINCIPAL, alpha = 0.7, color = "white") +
+  stat_bin(bins = 50, geom = "text", aes(label = after_stat(ifelse(count > 0, count, ""))), vjust = -0.5, size = 2.5) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
   scale_x_log10(labels = comma) +
-  labs(title = "Distribución de la Población (escala log10)",
+  labs(title = "Distribución de la población (escala log10)",
        subtitle = "Solo países (excluyendo agregados regionales)",
        x = "Población (log10)", y = "Frecuencia") +
   theme_minimal(base_size = 12) +
@@ -69,34 +208,34 @@ ggplot(df_paises, aes(x = population)) +
         plot.subtitle = element_text(hjust = 0.5, color = "grey50"))
 ```
 
-### Distribución de la Densidad Poblacional
+### Distribución de la densidad poblacional
 
 ```{r hist-densidad, fig.cap="Distribución de la densidad poblacional en escala logarítmica"}
 ggplot(df_paises %>% filter(!is.na(pop_density)), aes(x = pop_density)) +
-  geom_histogram(bins = 50, fill = "#E67E22", alpha = 0.7, color = "white") +
+  geom_histogram(bins = 50, fill = COLOR_PRINCIPAL, alpha = 0.7, color = "white") +
+  stat_bin(bins = 50, geom = "text", aes(label = after_stat(ifelse(count > 0, count, ""))), vjust = -0.5, size = 2.5) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
   scale_x_log10(labels = comma) +
-  labs(title = "Distribución de la Densidad Poblacional (escala log10)",
-       x = "Densidad Poblacional (hab/km²) - log10", y = "Frecuencia") +
+  labs(title = "Distribución de la densidad poblacional (escala log10)",
+       x = "Densidad poblacional (hab/km²) - log10", y = "Frecuencia") +
   theme_minimal(base_size = 12) +
   theme(plot.title = element_text(face = "bold", hjust = 0.5))
 ```
 
-> La distribución de la densidad poblacional es fuertemente asimétrica (sesgada a la derecha), confirmando que la mayoría de países tienen densidades poblacionales relativamente pequeñas, mientras unos pocos países concentran gran parte de la densidad poblacional mundial.
+La distribución de la densidad poblacional resulta fuertemente asimétrica, con un sesgo pronunciado hacia la derecha. Esto nos indica que la gran mayoría de países poseen densidades relativamente bajas, mientras que un pequeño grupo de territorios, como ciudades-estado y países insulares, concentran densidades extremadamente altas. Esta asimetría justifica el uso de la escala logarítmica (log10) para poder apreciar la forma real de la distribución sin que los valores extremos distorsionen la visualización.
 
-### Población por Nivel de Ingreso
+### Población por nivel de ingreso
 
 ```{r boxplot-pop-income, fig.cap="Distribución de población por nivel de ingreso"}
 ggplot(df_paises %>% filter(!is.na(population) & !is.na(incomeLevel)),
-       aes(x = incomeLevel, y = population, fill = incomeLevel)) +
-  geom_boxplot(alpha = 0.7, outlier.alpha = 0.4) +
+       aes(x = incomeLevel, y = population)) +
+  geom_boxplot(fill = COLOR_PRINCIPAL, alpha = 0.7, outlier.alpha = 0.4) +
   scale_y_log10(labels = comma) +
-  labs(title = "Distribución de Población por Nivel de Ingreso",
-       x = "Nivel de Ingreso", y = "Población (log10)") +
+  labs(title = "Distribución de población por nivel de ingreso",
+       x = "Nivel de ingreso", y = "Población (log10)") +
   theme_minimal(base_size = 11) +
   theme(plot.title = element_text(face = "bold", hjust = 0.5),
-        axis.text.x = element_text(angle = 30, hjust = 1),
-        legend.position = "none") +
-  scale_fill_brewer(palette = "Set2")
+        axis.text.x = element_text(angle = 30, hjust = 1))
 ```
 
-> El boxplot por nivel de ingreso sugiere que los países de ingreso medio-bajo tienden a tener poblaciones mayores, consistente con el hecho de que India y varias naciones del Sudeste Asiático y África pertenecen a esta categoría.
+El diagrama de cajas por nivel de ingreso pone en evidencia un hallazgo interesante: los países clasificados como de ingreso medio-bajo tienden a presentar las poblaciones más elevadas, con una mediana visiblemente superior a la de los demás grupos. Este patrón es consistente con el hecho de que naciones como India, Indonesia, Bangladesh y varios países del África subsahariana pertenecen a esta categoría. Por otra parte, los países de ingreso alto, a pesar de concentrar la mayor parte de la riqueza mundial, exhiben poblaciones más dispersas con una mediana comparativamente menor.

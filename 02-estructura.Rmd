@@ -1,37 +1,50 @@
-# Estructura y Calidad del Dataset {#estructura}
+# Carga y Estructura de los Datos {#estructura}
 
-## Dimensiones y Estructura General
+## Dimensiones y estructura general
 
-Comenzamos explorando las dimensiones del dataset, los tipos de variables y una vista previa de los datos.
-
-- **Filas (observaciones):** `r nrow(df)`
-- **Columnas (variables):** `r ncol(df)`
+El dataset cuenta con `r nrow(df)` filas (observaciones) y `r ncol(df)` columnas (variables).
 
 ```{r estructura}
 str(df)
 ```
 
-```{r head-tail}
+```{r head}
 kable(head(df), caption = "Primeras 6 filas del dataset")
+```
+
+```{r tail}
 kable(tail(df), caption = "Últimas 6 filas del dataset")
 ```
 
-> El dataset tiene una estructura de panel de datos (datos longitudinales), donde cada fila representa un país en un año particular. Esto permite analizar tanto comparaciones transversales (entre países en un mismo año) como evoluciones temporales.
+El conjunto de datos presenta una estructura de panel o datos longitudinales, en la cual cada observación corresponde a un país durante un año específico. Esta organización resulta fundamental, ya que facilita la ejecución tanto de comparaciones transversales, evaluando distintos países en un mismo periodo, como de análisis de tendencias temporales.
 
-## Resumen Estadístico
+## Conversión de variables categóricas
 
-```{r resumen}
-summary(df)
+Las variables `iso3c`, `iso2c`, `region`, `adminregion`, `incomeLevel` y `lendingType` son de tipo carácter en el dataset original, pero representan categorías con un número finito de niveles. Para un tratamiento estadístico adecuado se convierten a factores.
+
+```{r conversion-factores}
+df$iso3c <- as.factor(df$iso3c)
+df$iso2c <- as.factor(df$iso2c)
+df$region <- as.factor(df$region)
+df$adminregion <- as.factor(df$adminregion)
+df$incomeLevel <- as.factor(df$incomeLevel)
+df$lendingType <- as.factor(df$lendingType)
+```
+
+La conversión de estas variables a factores asegura que el entorno de análisis las procese adecuadamente como variables categóricas. Esto resulta indispensable para garantizar la precisión en la generación de tablas de frecuencia, representaciones gráficas y en la aplicación de pruebas estadísticas formales, tales como la ejecución de pruebas inferenciales.
+
+
+```{r verificar-factores}
+tipos_actualizados <- data.frame(
+  Variable = names(df),
+  Tipo = sapply(df, class)
+)
+kable(tipos_actualizados, row.names = FALSE,
+      caption = "Tipos de datos después de la conversión a factores")
 ```
 
 
-```{r skim}
-skim(df)
-```
-
-> El resumen estadístico revela una gran variabilidad en la población entre países — desde microestados con miles de habitantes hasta gigantes demográficos como China e India. Esta alta dispersión justifica el uso de escalas logarítmicas en las visualizaciones posteriores.
-
-## Análisis de Valores Faltantes (NA)
+## Análisis de valores faltantes (NA)
 
 ```{r valores-faltantes}
 na_por_columna <- colSums(is.na(df))
@@ -48,19 +61,18 @@ kable(na_resumen, row.names = FALSE,
       caption = "Valores faltantes por variable")
 ```
 
-- **Total de valores faltantes:** `r sum(is.na(df))`
-- **Total de celdas en el dataset:** `r format(prod(dim(df)), big.mark = ",")`
-- **Porcentaje global de NAs:** `r round(sum(is.na(df)) / prod(dim(df)) * 100, 2)`%
+Del total de `r format(prod(dim(df)), big.mark = ",")` celdas en el dataset, se identificaron `r sum(is.na(df))` valores faltantes, lo que representa un `r round(sum(is.na(df)) / prod(dim(df)) * 100, 2)`% del total. La mayor concentración de valores ausentes se encuentra en las variables de migración, debido a que estos datos se recopilan con periodicidad quinquenal. Esto se puede representar gráficamente de la siguiente manera: 
+
 
 ```{r grafico-na, fig.cap="Porcentaje de valores faltantes por variable"}
 ggplot(na_resumen, aes(x = reorder(Variable, Porcentaje), y = Porcentaje)) +
-  geom_bar(stat = "identity", fill = "#E74C3C", alpha = 0.8) +
+  geom_bar(stat = "identity", fill = COLOR_PRINCIPAL, alpha = 0.8) +
   geom_text(aes(label = paste0(Porcentaje, "%")), hjust = -0.1, size = 3) +
   coord_flip() +
-  labs(title = "Porcentaje de Valores Faltantes por Variable",
+  labs(title = "Porcentaje de valores faltantes por variable",
        x = "Variable", y = "Porcentaje de NAs (%)") +
   theme_minimal(base_size = 12) +
   theme(plot.title = element_text(face = "bold", hjust = 0.5))
 ```
 
-> Las variables de migración (`net_migration` y `migration_perc`) concentran la mayoría de los valores faltantes, lo cual es esperado dado que estas estadísticas solo se recopilan cada cinco años. Las variables demográficas básicas (`population`, `pop_density`) tienen una cobertura prácticamente completa, lo que permite realizar análisis robustos sobre tendencias poblacionales.
+Como se puede observar en la gráfica, las variables con mayor porcentaje de valores faltantes son `migration_perc` y `net_migration`, ambas con porcentajes cercanos al 80%. Como se menciono anteriormente, esto se debe a que el Banco Mundial recopila los datos de migración de forma quinquenal (cada 5 años), por lo que en los años intermedios estos campos quedan vacíos. En contraste, las variables centrales como `population`, `year`, `country` y las coordenadas geográficas presentan porcentajes de NAs prácticamente nulos o de cero, lo que confirma la solidez del dataset para las dimensiones fundamentales del análisis. La variable `adminregion` también muestra un porcentaje considerable de valores faltantes, dado que esta clasificación no aplica para todos los países.

@@ -16,3 +16,15 @@ pre code {
 .book .book-body .page-wrapper .page-inner section.normal table th {
   padding: 6px 13px;
 }
+
+caption {
+  text-align: left !important;
+  margin-top: 2em !important;
+  margin-bottom: 1em !important;
+  caption-side: top;
+  color: #777;
+}
+
+table {
+  margin-top: 2em !important;
+}

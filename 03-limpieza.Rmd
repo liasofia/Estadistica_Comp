@@ -1,8 +1,8 @@
-# Limpieza y Preparación de Datos {#limpieza}
+## Limpieza y preparación de datos {#limpieza}
 
 Antes de proceder con el análisis exploratorio, es fundamental realizar una limpieza de los datos para garantizar la calidad y confiabilidad de los resultados. En esta sección se documentan todas las transformaciones aplicadas al dataset original.
 
-## Verificación de Duplicados
+## Verificación de duplicados
 
 ```{r duplicados}
 n_duplicados <- sum(duplicated(df))
@@ -18,9 +18,9 @@ if (n_duplicados > 0) {
 
 `r if (n_duplicados > 0) paste0("Se eliminaron ", n_duplicados, " duplicados. Nuevas dimensiones: ", nrow(df), " x ", ncol(df), ".") else "No se encontraron duplicados. No se requiere acción."`
 
-> La verificación de duplicados es un paso crítico en cualquier EDA. En datasets del Banco Mundial, los duplicados son raros pero pueden ocurrir por errores en la descarga o fusión de fuentes.
 
-## Corrección de Tipos de Datos
+
+## Corrección de tipos de datos
 
 Verificamos que cada variable tenga el tipo de dato correcto y realizamos las conversiones necesarias.
 
@@ -46,25 +46,17 @@ df$latitude <- as.numeric(df$latitude)
 
 tipos_despues <- data.frame(
   Variable = names(df),
-  Tipo = sapply(df, class)
+  Tipo = sapply(df, function(x) paste(class(x), collapse = ", "))
 )
 kable(tipos_despues, row.names = FALSE, caption = "Tipos de datos después de la conversión")
 ```
 
-## Limpieza de Variables Categóricas
+## Limpieza de variables categóricas
 
 Las variables categóricas pueden contener valores vacíos, espacios extra o inconsistencias que es necesario estandarizar.
 
 ```{r limpieza-categoricas}
-# Eliminar espacios en blanco al inicio y final
-df$country <- trimws(df$country)
-df$iso3c <- trimws(df$iso3c)
-df$iso2c <- trimws(df$iso2c)
-df$region <- trimws(df$region)
-df$incomeLevel <- trimws(df$incomeLevel)
-df$adminregion <- trimws(df$adminregion)
-df$lendingType <- trimws(df$lendingType)
-df$capitalCity <- trimws(df$capitalCity)
+# En lugar de usar trimws, utilizaremos dplyr para limpieza básica
 
 # Conteo de valores vacíos
 vacios <- data.frame(
@@ -82,10 +74,10 @@ kable(vacios, row.names = FALSE, caption = "Valores vacíos o NA por variable ca
 
 ```{r estandarizar-vacios}
 # Reemplazar cadenas vacías por NA para tratamiento uniforme
-df$region[df$region == ""] <- NA
-df$incomeLevel[df$incomeLevel == ""] <- NA
-df$adminregion[df$adminregion == ""] <- NA
-df$lendingType[df$lendingType == ""] <- NA
+df <- df %>%
+  mutate(across(c(region, incomeLevel, adminregion, lendingType), 
+                ~na_if(as.character(.), ""))) %>%
+  mutate(across(c(region, incomeLevel, adminregion, lendingType), as.factor))
 df$capitalCity[df$capitalCity == ""] <- NA
 ```
 
@@ -102,7 +94,7 @@ sort(unique(df$incomeLevel))
 ```
 
 
-## Separación de Agregados y Países
+## Separación de agregados y países
 
 El dataset incluye tanto países individuales como filas de **agregados regionales** (e.g., "World", "East Asia & Pacific") que el Banco Mundial calcula sumando los países individuales. Es fundamental separarlos para evitar doble conteo.
 
@@ -128,11 +120,9 @@ sort(unique(df_agregados$country))
 
 >  Si no se filtran los agregados, se inflarían artificialmente los totales de población y se distorsionarían todas las estadísticas descriptivas. A partir de este punto, el análisis a nivel de país utiliza exclusivamente `df_paises`.
 
-## Tratamiento de Valores Faltantes (NAs)
+## Tratamiento de valores faltantes (NAs)
 
-### Estrategia de Tratamiento
 
-Definimos una estrategia diferenciada según la naturaleza de cada variable:
 
 ```{r estrategia-na}
 na_resumen_limpio <- data.frame(
@@ -167,7 +157,7 @@ filas_eliminadas <- filas_antes - filas_despues
 Se eliminaron **`r filas_eliminadas`** filas por falta de datos de población. Quedan **`r filas_despues`** filas.
 
 
-## Detección de Valores Atípicos (Outliers)
+## Detección de valores atípicos (outliers)
 
 Identificamos valores atípicos en las variables numéricas principales utilizando el criterio del rango intercuartílico (IQR).
 
@@ -201,31 +191,44 @@ outliers_resumen <- bind_rows(
   detectar_outliers(df_paises$migration_perc, "migration_perc")
 )
 
-kable(outliers_resumen, caption = "Detección de valores atípicos por variable numérica")
+kable(
+  outliers_resumen, 
+  caption = "Detección de valores atípicos por variable numérica",
+  col.names = c("Variable", "Q1", "Q3", "IQR", "Mínimo", "Máximo", "Nº Outliers", "% Outliers"),
+  align = c("l", "r", "r", "r", "r", "r", "r", "r") 
+) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+    full_width = TRUE,      
+    font_size = 11          
+  )
 ```
 
-```{r boxplots-outliers, fig.cap="Boxplots para visualización de valores atípicos", fig.height=8}
-par(mfrow = c(2, 2), mar = c(4, 4, 3, 1))
+```{r boxplots-outliers, fig.cap="Boxplots para visualización de valores atípicos", fig.height=10}
+df_outliers_long <- df_paises %>%
+  select(
+    `Población Total` = population, 
+    `Densidad Poblacional` = pop_density, 
+    `Migración Neta` = net_migration, 
+    `Porcentaje de Migración` = migration_perc
+  ) %>%
+  pivot_longer(cols = everything(), names_to = "Variable", values_to = "Valor") %>%
+  filter(!is.na(Valor))
 
-boxplot(df_paises$population, main = "Población", col = "#3498DB",
-        outline = TRUE, horizontal = TRUE, log = "x")
-boxplot(df_paises$pop_density[!is.na(df_paises$pop_density)],
-        main = "Densidad Poblacional", col = "#E67E22",
-        outline = TRUE, horizontal = TRUE, log = "x")
-boxplot(df_paises$net_migration[!is.na(df_paises$net_migration)],
-        main = "Migración Neta", col = "#27AE60",
-        outline = TRUE, horizontal = TRUE)
-boxplot(df_paises$migration_perc[!is.na(df_paises$migration_perc)],
-        main = "% Migración", col = "#8E44AD",
-        outline = TRUE, horizontal = TRUE)
-
-par(mfrow = c(1, 1))
+ggplot(df_outliers_long, aes(x = "", y = Valor)) +
+  geom_boxplot(fill = COLOR_PRINCIPAL, alpha = 0.7, outlier.alpha = 0.3, width = 0.6) +
+  coord_flip() +
+  facet_wrap(~ Variable, scales = "free", ncol = 1) +
+  labs(title = "Distribución de variables numéricas con valores atípicos",
+       x = "", y = "Valor") +
+  theme_minimal(base_size = 11) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        strip.text = element_text(face = "bold", size = 12))
 ```
 
-> Las variables demográficas presentan un alto porcentaje de outliers según el criterio IQR, pero esto **no significa que sean errores**. En población, valores como los de China e India son extremos pero legítimos. De manera similar, ciudades-estado como Macao o Mónaco son outliers válidos en densidad. 
-**Decisión:** se conservan todos los outliers dado que representan la variabilidad real del fenómeno demográfico mundial. Eliminarlos sería descartar información valiosa.
+Las variables demográficas presentan un alto porcentaje de outliers según el criterio IQR, pero esto no necesariamente implica que sean errores. En la variable población, valores como los de China e India son extremos pero correctos porque corresponden a datos reales. De manera similar, ciudades-estado como Macao o Mónaco son outliers válidos en densidad, dado que son territorios con una población muy concentrada en un área pequeña. Por esta razón, se tomó la decisión de conservar todos los outliers del dataset, ya que eliminarlos significaría descartar información legítima sobre la variabilidad real del fenómeno demográfico mundial.
 
-## Validación de Rangos y Consistencia
+## Validación de rangos y consistencia
 
 ```{r validacion-rangos}
 validacion <- data.frame(
@@ -250,28 +253,9 @@ validacion <- data.frame(
 kable(validacion, caption = "Validación de rangos en variables numéricas")
 ```
 
-```{r validacion-consistencia}
-# Verificar que cada país tiene un solo código, región y nivel de ingreso
-consistencia <- df_paises %>%
-  group_by(country) %>%
-  summarise(
-    n_codigos = n_distinct(iso3c),
-    n_regiones = n_distinct(region),
-    n_income = n_distinct(incomeLevel, na.rm = FALSE),
-    .groups = "drop"
-  ) %>%
-  filter(n_codigos > 1 | n_regiones > 1 | n_income > 1)
-```
+En la tabla anterior se muestra el resultado de la validación de rangos en las variables numéricas. Se observa que todos los valores se encuentran dentro de los rangos permitidos según la naturaleza de cada variable.
 
-`r if (nrow(consistencia) > 0) "Se encontraron países con inconsistencias en sus atributos fijos:" else "Todos los países tienen atributos consistentes (código, región, nivel de ingreso) a lo largo del tiempo."`
-
-```{r tabla-consistencia, eval=(nrow(consistencia) > 0)}
-kable(consistencia, caption = "Países con inconsistencias")
-```
-
-> La validación de rangos confirma que los datos no contienen errores evidentes como poblaciones negativas o coordenadas fuera de rango. La verificación de consistencia asegura que cada país mantiene los mismos atributos categóricos a lo largo del tiempo, lo cual es esencial para la integridad de los análisis longitudinales.
-
-## Resumen de la Limpieza
+## Resumen de la limpieza
 
 ```{r resumen-limpieza}
 resumen_limpieza <- data.frame(
@@ -301,4 +285,4 @@ resumen_limpieza <- data.frame(
 kable(resumen_limpieza, caption = "Resumen del proceso de limpieza de datos")
 ```
 
-> La limpieza realizada es de tipo conservador, priorizando la preservación de la información sobre la eliminación de datos. Los principales cambios son la separación de agregados (para evitar doble conteo), la estandarización de valores vacíos, y la eliminación de observaciones sin la variable central (`population`). El dataset resultante está listo para el análisis exploratorio.
+ Los principales cambios son la separación de agregados (para evitar doble conteo), la estandarización de valores vacíos, y la eliminación de observaciones sin la variable central (`population`). 

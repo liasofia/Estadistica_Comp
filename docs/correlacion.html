@@ -4,29 +4,35 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo 7 Correlación y Densidad Poblacional | Análisis Exploratorio de Datos: Población Mundial y Migración</title>
+  <title>Capítulo 7 Correlación y densidad poblacional | Análisis Exploratorio de Datos: Población Mundial y Migración</title>
   <meta name="description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
-Población Mundial y Migración del Banco Mundial.</p>" />
+Población Mundial y Migración del Banco Mundial. Trabajo desarrollado
+en el marco de la asignatura de Estadística Computacional de la
+Maestría en Estadística.</p>" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo 7 Correlación y Densidad Poblacional | Análisis Exploratorio de Datos: Población Mundial y Migración" />
+  <meta property="og:title" content="Capítulo 7 Correlación y densidad poblacional | Análisis Exploratorio de Datos: Población Mundial y Migración" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
-Población Mundial y Migración del Banco Mundial.</p>" />
+Población Mundial y Migración del Banco Mundial. Trabajo desarrollado
+en el marco de la asignatura de Estadística Computacional de la
+Maestría en Estadística.</p>" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 7 Correlación y Densidad Poblacional | Análisis Exploratorio de Datos: Población Mundial y Migración" />
+  <meta name="twitter:title" content="Capítulo 7 Correlación y densidad poblacional | Análisis Exploratorio de Datos: Población Mundial y Migración" />
   
   <meta name="twitter:description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
-Población Mundial y Migración del Banco Mundial.</p>" />
+Población Mundial y Migración del Banco Mundial. Trabajo desarrollado
+en el marco de la asignatura de Estadística Computacional de la
+Maestría en Estadística.</p>" />
   
 
 <meta name="author" content="Lia Castillo" />
 
 
-<meta name="date" content="2026-04-25" />
+<meta name="date" content="2026-05-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -144,69 +150,87 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introducción</a>
 <ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#objetivos-del-eda"><i class="fa fa-check"></i>Objetivos del EDA</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#objetivos"><i class="fa fa-check"></i>Objetivos</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#metodología"><i class="fa fa-check"></i>Metodología</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#fuente-de-datos"><i class="fa fa-check"></i>Fuente de Datos</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="diccionario.html"><a href="diccionario.html"><i class="fa fa-check"></i><b>1</b> Diccionario de Variables</a></li>
-<li class="chapter" data-level="2" data-path="estructura.html"><a href="estructura.html"><i class="fa fa-check"></i><b>2</b> Estructura y Calidad del Dataset</a>
+<li class="chapter" data-level="1" data-path="diccionario.html"><a href="diccionario.html"><i class="fa fa-check"></i><b>1</b> Diccionario de variables</a></li>
+<li class="chapter" data-level="2" data-path="estructura.html"><a href="estructura.html"><i class="fa fa-check"></i><b>2</b> Estructura y calidad del dataset</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="estructura.html"><a href="estructura.html#dimensiones-y-estructura-general"><i class="fa fa-check"></i><b>2.1</b> Dimensiones y Estructura General</a></li>
-<li class="chapter" data-level="2.2" data-path="estructura.html"><a href="estructura.html#resumen-estadístico"><i class="fa fa-check"></i><b>2.2</b> Resumen Estadístico</a></li>
-<li class="chapter" data-level="2.3" data-path="estructura.html"><a href="estructura.html#análisis-de-valores-faltantes-na"><i class="fa fa-check"></i><b>2.3</b> Análisis de Valores Faltantes (NA)</a></li>
+<li class="chapter" data-level="2.1" data-path="estructura.html"><a href="estructura.html#dimensiones-y-estructura-general"><i class="fa fa-check"></i><b>2.1</b> Dimensiones y estructura general</a></li>
+<li class="chapter" data-level="2.2" data-path="estructura.html"><a href="estructura.html#conversión-de-variables-categóricas"><i class="fa fa-check"></i><b>2.2</b> Conversión de variables categóricas</a></li>
+<li class="chapter" data-level="2.3" data-path="estructura.html"><a href="estructura.html#análisis-de-valores-faltantes-na"><i class="fa fa-check"></i><b>2.3</b> Análisis de valores faltantes (NA)</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="limpieza.html"><a href="limpieza.html"><i class="fa fa-check"></i><b>3</b> Limpieza y Preparación de Datos</a>
+<li class="chapter" data-level="3" data-path="limpieza.html"><a href="limpieza.html"><i class="fa fa-check"></i><b>3</b> Limpieza y preparación de datos</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="limpieza.html"><a href="limpieza.html#verificación-de-duplicados"><i class="fa fa-check"></i><b>3.1</b> Verificación de Duplicados</a></li>
-<li class="chapter" data-level="3.2" data-path="limpieza.html"><a href="limpieza.html#corrección-de-tipos-de-datos"><i class="fa fa-check"></i><b>3.2</b> Corrección de Tipos de Datos</a></li>
-<li class="chapter" data-level="3.3" data-path="limpieza.html"><a href="limpieza.html#limpieza-de-variables-categóricas"><i class="fa fa-check"></i><b>3.3</b> Limpieza de Variables Categóricas</a></li>
-<li class="chapter" data-level="3.4" data-path="limpieza.html"><a href="limpieza.html#separación-de-agregados-y-países"><i class="fa fa-check"></i><b>3.4</b> Separación de Agregados y Países</a></li>
-<li class="chapter" data-level="3.5" data-path="limpieza.html"><a href="limpieza.html#tratamiento-de-valores-faltantes-nas"><i class="fa fa-check"></i><b>3.5</b> Tratamiento de Valores Faltantes (NAs)</a>
+<li class="chapter" data-level="3.1" data-path="limpieza.html"><a href="limpieza.html#verificación-de-duplicados"><i class="fa fa-check"></i><b>3.1</b> Verificación de duplicados</a></li>
+<li class="chapter" data-level="3.2" data-path="limpieza.html"><a href="limpieza.html#corrección-de-tipos-de-datos"><i class="fa fa-check"></i><b>3.2</b> Corrección de tipos de datos</a></li>
+<li class="chapter" data-level="3.3" data-path="limpieza.html"><a href="limpieza.html#limpieza-de-variables-categóricas"><i class="fa fa-check"></i><b>3.3</b> Limpieza de variables categóricas</a></li>
+<li class="chapter" data-level="3.4" data-path="limpieza.html"><a href="limpieza.html#separación-de-agregados-y-países"><i class="fa fa-check"></i><b>3.4</b> Separación de agregados y países</a></li>
+<li class="chapter" data-level="3.5" data-path="limpieza.html"><a href="limpieza.html#tratamiento-de-valores-faltantes-nas"><i class="fa fa-check"></i><b>3.5</b> Tratamiento de valores faltantes (NAs)</a>
 <ul>
-<li class="chapter" data-level="3.5.1" data-path="limpieza.html"><a href="limpieza.html#estrategia-de-tratamiento"><i class="fa fa-check"></i><b>3.5.1</b> Estrategia de Tratamiento</a></li>
+<li class="chapter" data-level="3.5.1" data-path="limpieza.html"><a href="limpieza.html#estrategia-de-tratamiento"><i class="fa fa-check"></i><b>3.5.1</b> Estrategia de tratamiento</a></li>
 </ul></li>
-<li class="chapter" data-level="3.6" data-path="limpieza.html"><a href="limpieza.html#detección-de-valores-atípicos-outliers"><i class="fa fa-check"></i><b>3.6</b> Detección de Valores Atípicos (Outliers)</a></li>
-<li class="chapter" data-level="3.7" data-path="limpieza.html"><a href="limpieza.html#validación-de-rangos-y-consistencia"><i class="fa fa-check"></i><b>3.7</b> Validación de Rangos y Consistencia</a></li>
-<li class="chapter" data-level="3.8" data-path="limpieza.html"><a href="limpieza.html#resumen-de-la-limpieza"><i class="fa fa-check"></i><b>3.8</b> Resumen de la Limpieza</a></li>
+<li class="chapter" data-level="3.6" data-path="limpieza.html"><a href="limpieza.html#detección-de-valores-atípicos-outliers"><i class="fa fa-check"></i><b>3.6</b> Detección de valores atípicos (outliers)</a></li>
+<li class="chapter" data-level="3.7" data-path="limpieza.html"><a href="limpieza.html#validación-de-rangos-y-consistencia"><i class="fa fa-check"></i><b>3.7</b> Validación de rangos y consistencia</a></li>
+<li class="chapter" data-level="3.8" data-path="limpieza.html"><a href="limpieza.html#resumen-de-la-limpieza"><i class="fa fa-check"></i><b>3.8</b> Resumen de la limpieza</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="distribucion.html"><a href="distribucion.html"><i class="fa fa-check"></i><b>4</b> Distribución de Variables</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="distribucion.html"><a href="distribucion.html#variables-categóricas"><i class="fa fa-check"></i><b>4.1</b> Variables Categóricas</a></li>
-<li class="chapter" data-level="4.2" data-path="distribucion.html"><a href="distribucion.html#variables-numéricas"><i class="fa fa-check"></i><b>4.2</b> Variables Numéricas</a>
+<li class="chapter" data-level="4.1" data-path="distribucion.html"><a href="distribucion.html#composición-del-dataset"><i class="fa fa-check"></i><b>4.1</b> Composición del dataset</a></li>
+<li class="chapter" data-level="4.2" data-path="distribucion.html"><a href="distribucion.html#variables-numéricas"><i class="fa fa-check"></i><b>4.2</b> Variables numéricas</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="distribucion.html"><a href="distribucion.html#distribución-de-la-población"><i class="fa fa-check"></i><b>4.2.1</b> Distribución de la Población</a></li>
-<li class="chapter" data-level="4.2.2" data-path="distribucion.html"><a href="distribucion.html#distribución-de-la-densidad-poblacional"><i class="fa fa-check"></i><b>4.2.2</b> Distribución de la Densidad Poblacional</a></li>
-<li class="chapter" data-level="4.2.3" data-path="distribucion.html"><a href="distribucion.html#población-por-nivel-de-ingreso"><i class="fa fa-check"></i><b>4.2.3</b> Población por Nivel de Ingreso</a></li>
+<li class="chapter" data-level="4.2.1" data-path="distribucion.html"><a href="distribucion.html#distribución-de-la-población"><i class="fa fa-check"></i><b>4.2.1</b> Distribución de la población</a></li>
+<li class="chapter" data-level="4.2.2" data-path="distribucion.html"><a href="distribucion.html#distribución-de-la-densidad-poblacional"><i class="fa fa-check"></i><b>4.2.2</b> Distribución de la densidad poblacional</a></li>
+<li class="chapter" data-level="4.2.3" data-path="distribucion.html"><a href="distribucion.html#población-por-nivel-de-ingreso"><i class="fa fa-check"></i><b>4.2.3</b> Población por nivel de ingreso</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="temporal.html"><a href="temporal.html"><i class="fa fa-check"></i><b>5</b> Evolución Temporal</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="temporal.html"><a href="temporal.html#población-mundial-total"><i class="fa fa-check"></i><b>5.1</b> Población Mundial Total</a></li>
-<li class="chapter" data-level="5.2" data-path="temporal.html"><a href="temporal.html#top-10-países-más-poblados"><i class="fa fa-check"></i><b>5.2</b> Top 10 Países Más Poblados</a></li>
-<li class="chapter" data-level="5.3" data-path="temporal.html"><a href="temporal.html#evolución-de-los-top-5-países"><i class="fa fa-check"></i><b>5.3</b> Evolución de los Top 5 Países</a></li>
+<li class="chapter" data-level="5.1" data-path="temporal.html"><a href="temporal.html#población-mundial-total"><i class="fa fa-check"></i><b>5.1</b> Población mundial total</a></li>
+<li class="chapter" data-level="5.2" data-path="temporal.html"><a href="temporal.html#top-10-de-los-países-más-poblados"><i class="fa fa-check"></i><b>5.2</b> Top 10 de los países más poblados</a></li>
+<li class="chapter" data-level="5.3" data-path="temporal.html"><a href="temporal.html#evolución-de-los-top-5-países"><i class="fa fa-check"></i><b>5.3</b> Evolución de los top 5 países</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="migracion.html"><a href="migracion.html"><i class="fa fa-check"></i><b>6</b> Análisis de Migración Neta</a>
+<li class="chapter" data-level="6" data-path="migracion.html"><a href="migracion.html"><i class="fa fa-check"></i><b>6</b> Análisis de migración neta</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="migracion.html"><a href="migracion.html#estadísticas-de-migración"><i class="fa fa-check"></i><b>6.1</b> Estadísticas de Migración</a></li>
-<li class="chapter" data-level="6.2" data-path="migracion.html"><a href="migracion.html#principales-receptores-y-emisores"><i class="fa fa-check"></i><b>6.2</b> Principales Receptores y Emisores</a></li>
+<li class="chapter" data-level="6.1" data-path="migracion.html"><a href="migracion.html#estadísticas-de-migración"><i class="fa fa-check"></i><b>6.1</b> Estadísticas de migración</a></li>
+<li class="chapter" data-level="6.2" data-path="migracion.html"><a href="migracion.html#principales-receptores-y-emisores"><i class="fa fa-check"></i><b>6.2</b> Principales receptores y emisores</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="correlacion.html"><a href="correlacion.html"><i class="fa fa-check"></i><b>7</b> Correlación y Densidad Poblacional</a>
+<li class="chapter" data-level="7" data-path="correlacion.html"><a href="correlacion.html"><i class="fa fa-check"></i><b>7</b> Correlación y densidad poblacional</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="correlacion.html"><a href="correlacion.html#análisis-de-correlación"><i class="fa fa-check"></i><b>7.1</b> Análisis de Correlación</a></li>
-<li class="chapter" data-level="7.2" data-path="correlacion.html"><a href="correlacion.html#densidad-poblacional"><i class="fa fa-check"></i><b>7.2</b> Densidad Poblacional</a>
+<li class="chapter" data-level="7.1" data-path="correlacion.html"><a href="correlacion.html#análisis-de-correlación"><i class="fa fa-check"></i><b>7.1</b> Análisis de correlación</a></li>
+<li class="chapter" data-level="7.2" data-path="correlacion.html"><a href="correlacion.html#densidad-poblacional"><i class="fa fa-check"></i><b>7.2</b> Densidad poblacional</a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="correlacion.html"><a href="correlacion.html#top-15-territorios-más-densos"><i class="fa fa-check"></i><b>7.2.1</b> Top 15 Territorios Más Densos</a></li>
+<li class="chapter" data-level="7.2.1" data-path="correlacion.html"><a href="correlacion.html#top-15-territorios-más-densos"><i class="fa fa-check"></i><b>7.2.1</b> Top 15 territorios más densos</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="ingreso-region.html"><a href="ingreso-region.html"><i class="fa fa-check"></i><b>8</b> Análisis por Nivel de Ingreso y Región</a>
+<li class="chapter" data-level="8" data-path="ingreso-region.html"><a href="ingreso-region.html"><i class="fa fa-check"></i><b>8</b> Análisis por nivel de ingreso y región</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="ingreso-region.html"><a href="ingreso-region.html#análisis-por-nivel-de-ingreso"><i class="fa fa-check"></i><b>8.1</b> Análisis por Nivel de Ingreso</a></li>
-<li class="chapter" data-level="8.2" data-path="ingreso-region.html"><a href="ingreso-region.html#análisis-por-región"><i class="fa fa-check"></i><b>8.2</b> Análisis por Región</a></li>
+<li class="chapter" data-level="8.1" data-path="ingreso-region.html"><a href="ingreso-region.html#análisis-por-nivel-de-ingreso"><i class="fa fa-check"></i><b>8.1</b> Análisis por nivel de ingreso</a></li>
+<li class="chapter" data-level="8.2" data-path="ingreso-region.html"><a href="ingreso-region.html#análisis-por-región"><i class="fa fa-check"></i><b>8.2</b> Análisis por región</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>9</b> Tasa de Crecimiento y Conclusiones</a>
+<li class="chapter" data-level="9" data-path="bivariado.html"><a href="bivariado.html"><i class="fa fa-check"></i><b>9</b> Análisis bivariado</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="conclusiones.html"><a href="conclusiones.html#tasa-de-crecimiento-poblacional"><i class="fa fa-check"></i><b>9.1</b> Tasa de Crecimiento Poblacional</a></li>
-<li class="chapter" data-level="9.2" data-path="conclusiones.html"><a href="conclusiones.html#conclusiones-1"><i class="fa fa-check"></i><b>9.2</b> Conclusiones</a></li>
+<li class="chapter" data-level="9.1" data-path="bivariado.html"><a href="bivariado.html#población-vs.-densidad-poblacional"><i class="fa fa-check"></i><b>9.1</b> Población vs. densidad poblacional</a></li>
+<li class="chapter" data-level="9.2" data-path="bivariado.html"><a href="bivariado.html#migración-neta-vs.-nivel-de-ingreso"><i class="fa fa-check"></i><b>9.2</b> Migración neta vs. nivel de ingreso</a></li>
+<li class="chapter" data-level="9.3" data-path="bivariado.html"><a href="bivariado.html#densidad-poblacional-vs.-migración-neta"><i class="fa fa-check"></i><b>9.3</b> Densidad poblacional vs. migración neta (%)</a></li>
+<li class="chapter" data-level="9.4" data-path="bivariado.html"><a href="bivariado.html#crecimiento-poblacional-vs.-región-e-ingreso"><i class="fa fa-check"></i><b>9.4</b> Crecimiento poblacional vs. región e ingreso</a></li>
+<li class="chapter" data-level="9.5" data-path="bivariado.html"><a href="bivariado.html#tabla-de-contingencia-región-vs.-nivel-de-ingreso"><i class="fa fa-check"></i><b>9.5</b> Tabla de contingencia: región vs. nivel de ingreso</a></li>
+<li class="chapter" data-level="9.6" data-path="bivariado.html"><a href="bivariado.html#evolución-temporal-de-la-densidad-por-región"><i class="fa fa-check"></i><b>9.6</b> Evolución temporal de la densidad por región</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="inferencial.html"><a href="inferencial.html"><i class="fa fa-check"></i><b>10</b> Análisis inferencial</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="inferencial.html"><a href="inferencial.html#prueba-de-normalidad"><i class="fa fa-check"></i><b>10.1</b> Prueba de normalidad</a></li>
+<li class="chapter" data-level="10.2" data-path="inferencial.html"><a href="inferencial.html#prueba-t-migración-neta-en-países-de-ingreso-alto-vs.-bajo"><i class="fa fa-check"></i><b>10.2</b> Prueba t: migración neta en países de ingreso alto vs. bajo</a></li>
+<li class="chapter" data-level="10.3" data-path="inferencial.html"><a href="inferencial.html#anova-densidad-poblacional-por-región"><i class="fa fa-check"></i><b>10.3</b> ANOVA: densidad poblacional por región</a></li>
+<li class="chapter" data-level="10.4" data-path="inferencial.html"><a href="inferencial.html#prueba-chi-cuadrado-independencia-región-ingreso"><i class="fa fa-check"></i><b>10.4</b> Prueba Chi-cuadrado: independencia región-ingreso</a></li>
+<li class="chapter" data-level="10.5" data-path="inferencial.html"><a href="inferencial.html#intervalo-de-confianza-para-la-tasa-de-crecimiento"><i class="fa fa-check"></i><b>10.5</b> Intervalo de confianza para la tasa de crecimiento</a></li>
+<li class="chapter" data-level="10.6" data-path="inferencial.html"><a href="inferencial.html#correlación-de-pearson-prueba-de-significancia"><i class="fa fa-check"></i><b>10.6</b> Correlación de Pearson: prueba de significancia</a></li>
+<li class="chapter" data-level="10.7" data-path="inferencial.html"><a href="inferencial.html#resumen-del-análisis-inferencial"><i class="fa fa-check"></i><b>10.7</b> Resumen del análisis inferencial</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>11</b> Tasa de crecimiento y conclusiones</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="conclusiones.html"><a href="conclusiones.html#tasa-de-crecimiento-poblacional"><i class="fa fa-check"></i><b>11.1</b> Tasa de crecimiento poblacional</a></li>
+<li class="chapter" data-level="11.2" data-path="conclusiones.html"><a href="conclusiones.html#conclusiones-1"><i class="fa fa-check"></i><b>11.2</b> Conclusiones</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Publicado con bookdown</a></li>
@@ -229,17 +253,17 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="correlacion" class="section level1 hasAnchor" number="7">
-<h1><span class="header-section-number">Capítulo 7</span> Correlación y Densidad Poblacional<a href="correlacion.html#correlacion" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">Capítulo 7</span> Correlación y densidad poblacional<a href="correlacion.html#correlacion" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="análisis-de-correlación" class="section level2 hasAnchor" number="7.1">
-<h2><span class="header-section-number">7.1</span> Análisis de Correlación<a href="correlacion.html#análisis-de-correlación" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="correlacion.html#cb55-1" tabindex="-1"></a>vars_numericas <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
-<span id="cb55-2"><a href="correlacion.html#cb55-2" tabindex="-1"></a>  <span class="fu">select</span>(population, pop_density, net_migration, migration_perc, longitude, latitude) <span class="sc">%&gt;%</span></span>
-<span id="cb55-3"><a href="correlacion.html#cb55-3" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code></pre></div>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="correlacion.html#cb56-1" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(vars_numericas) <span class="sc">&gt;</span> <span class="dv">10</span>) {</span>
-<span id="cb56-2"><a href="correlacion.html#cb56-2" tabindex="-1"></a>  cor_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(vars_numericas, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
-<span id="cb56-3"><a href="correlacion.html#cb56-3" tabindex="-1"></a></span>
-<span id="cb56-4"><a href="correlacion.html#cb56-4" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="fu">round</span>(cor_matrix, <span class="dv">3</span>), <span class="at">caption =</span> <span class="st">&quot;Matriz de correlación entre variables numéricas&quot;</span>)</span>
-<span id="cb56-5"><a href="correlacion.html#cb56-5" tabindex="-1"></a>}</span></code></pre></div>
+<h2><span class="header-section-number">7.1</span> Análisis de correlación<a href="correlacion.html#análisis-de-correlación" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="correlacion.html#cb53-1" tabindex="-1"></a>vars_numericas <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb53-2"><a href="correlacion.html#cb53-2" tabindex="-1"></a>  <span class="fu">select</span>(population, pop_density, net_migration, migration_perc, longitude, latitude) <span class="sc">%&gt;%</span></span>
+<span id="cb53-3"><a href="correlacion.html#cb53-3" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="correlacion.html#cb54-1" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(vars_numericas) <span class="sc">&gt;</span> <span class="dv">10</span>) {</span>
+<span id="cb54-2"><a href="correlacion.html#cb54-2" tabindex="-1"></a>  cor_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(vars_numericas, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
+<span id="cb54-3"><a href="correlacion.html#cb54-3" tabindex="-1"></a></span>
+<span id="cb54-4"><a href="correlacion.html#cb54-4" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="fu">round</span>(cor_matrix, <span class="dv">3</span>), <span class="at">caption =</span> <span class="st">&quot;Matriz de correlación entre variables numéricas&quot;</span>)</span>
+<span id="cb54-5"><a href="correlacion.html#cb54-5" tabindex="-1"></a>}</span></code></pre></div>
 <table style="width:100%;">
 <caption><span id="tab:matriz-cor">Table 7.1: </span>Matriz de correlación entre variables numéricas</caption>
 <colgroup>
@@ -324,13 +348,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 Se observa que la mayoría de los coeficientes son cercanos a cero, lo que indica una baja colinealidad entre las variables y sugiere que cada indicador aporta información relativamente independiente al análisis. La correlación más destacada se presenta entre <code>net_migration</code> y <code>population</code>, lo cual responde a un efecto de escala: los países con mayor población tienden a registrar flujos migratorios absolutos más elevados, sin que ello implique necesariamente una mayor propensión migratoria per cápita.
 Las coordenadas geográficas (<code>latitude</code> y <code>longitude</code>) muestran correlaciones débiles con el resto de las variables, indicando que la posición geográfica por sí sola no es un predictor directo de los indicadores demográficos analizados.</p>
 </blockquote>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="correlacion.html#cb57-1" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(vars_numericas) <span class="sc">&gt;</span> <span class="dv">10</span>) {</span>
-<span id="cb57-2"><a href="correlacion.html#cb57-2" tabindex="-1"></a>  <span class="fu">corrplot</span>(cor_matrix,</span>
-<span id="cb57-3"><a href="correlacion.html#cb57-3" tabindex="-1"></a>           <span class="at">method =</span> <span class="st">&quot;color&quot;</span>, <span class="at">type =</span> <span class="st">&quot;upper&quot;</span>, <span class="at">order =</span> <span class="st">&quot;hclust&quot;</span>,</span>
-<span id="cb57-4"><a href="correlacion.html#cb57-4" tabindex="-1"></a>           <span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.srt =</span> <span class="dv">45</span>,</span>
-<span id="cb57-5"><a href="correlacion.html#cb57-5" tabindex="-1"></a>           <span class="at">title =</span> <span class="st">&quot;Matriz de Correlación - Variables Numéricas&quot;</span>,</span>
-<span id="cb57-6"><a href="correlacion.html#cb57-6" tabindex="-1"></a>           <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>), <span class="at">number.cex =</span> <span class="fl">0.8</span>)</span>
-<span id="cb57-7"><a href="correlacion.html#cb57-7" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="correlacion.html#cb55-1" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(vars_numericas) <span class="sc">&gt;</span> <span class="dv">10</span>) {</span>
+<span id="cb55-2"><a href="correlacion.html#cb55-2" tabindex="-1"></a>  <span class="fu">corrplot</span>(cor_matrix,</span>
+<span id="cb55-3"><a href="correlacion.html#cb55-3" tabindex="-1"></a>           <span class="at">method =</span> <span class="st">&quot;color&quot;</span>, <span class="at">type =</span> <span class="st">&quot;upper&quot;</span>, <span class="at">order =</span> <span class="st">&quot;hclust&quot;</span>,</span>
+<span id="cb55-4"><a href="correlacion.html#cb55-4" tabindex="-1"></a>           <span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.srt =</span> <span class="dv">45</span>,</span>
+<span id="cb55-5"><a href="correlacion.html#cb55-5" tabindex="-1"></a>           <span class="at">title =</span> <span class="st">&quot;Matriz de correlación - Variables numéricas&quot;</span>,</span>
+<span id="cb55-6"><a href="correlacion.html#cb55-6" tabindex="-1"></a>           <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>), <span class="at">number.cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb55-7"><a href="correlacion.html#cb55-7" tabindex="-1"></a>}</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:plot-corrplot"></span>
 <img src="eda_poblacion_mundial_files/figure-html/plot-corrplot-1.png" alt="Mapa de calor de la matriz de correlación" width="90%" />
 <p class="caption">
@@ -339,16 +363,16 @@ Figure 7.1: Mapa de calor de la matriz de correlación
 </div>
 </div>
 <div id="densidad-poblacional" class="section level2 hasAnchor" number="7.2">
-<h2><span class="header-section-number">7.2</span> Densidad Poblacional<a href="correlacion.html#densidad-poblacional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">7.2</span> Densidad poblacional<a href="correlacion.html#densidad-poblacional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="top-15-territorios-más-densos" class="section level3 hasAnchor" number="7.2.1">
-<h3><span class="header-section-number">7.2.1</span> Top 15 Territorios Más Densos<a href="correlacion.html#top-15-territorios-más-densos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="correlacion.html#cb58-1" tabindex="-1"></a>top_densidad <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
-<span id="cb58-2"><a href="correlacion.html#cb58-2" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="fu">max</span>(year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(pop_density)) <span class="sc">%&gt;%</span></span>
-<span id="cb58-3"><a href="correlacion.html#cb58-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(pop_density)) <span class="sc">%&gt;%</span></span>
-<span id="cb58-4"><a href="correlacion.html#cb58-4" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)</span>
-<span id="cb58-5"><a href="correlacion.html#cb58-5" tabindex="-1"></a></span>
-<span id="cb58-6"><a href="correlacion.html#cb58-6" tabindex="-1"></a><span class="fu">kable</span>(top_densidad <span class="sc">%&gt;%</span> <span class="fu">select</span>(country, pop_density, population, incomeLevel),</span>
-<span id="cb58-7"><a href="correlacion.html#cb58-7" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Top 15 territorios más densamente poblados&quot;</span>)</span></code></pre></div>
+<h3><span class="header-section-number">7.2.1</span> Top 15 territorios más densos<a href="correlacion.html#top-15-territorios-más-densos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="correlacion.html#cb56-1" tabindex="-1"></a>top_densidad <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb56-2"><a href="correlacion.html#cb56-2" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="fu">max</span>(year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(pop_density)) <span class="sc">%&gt;%</span></span>
+<span id="cb56-3"><a href="correlacion.html#cb56-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(pop_density)) <span class="sc">%&gt;%</span></span>
+<span id="cb56-4"><a href="correlacion.html#cb56-4" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)</span>
+<span id="cb56-5"><a href="correlacion.html#cb56-5" tabindex="-1"></a></span>
+<span id="cb56-6"><a href="correlacion.html#cb56-6" tabindex="-1"></a><span class="fu">kable</span>(top_densidad <span class="sc">%&gt;%</span> <span class="fu">select</span>(country, pop_density, population, incomeLevel),</span>
+<span id="cb56-7"><a href="correlacion.html#cb56-7" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Top 15 territorios más densamente poblados&quot;</span>)</span></code></pre></div>
 <table>
 <caption><span id="tab:top-densidad">Table 7.2: </span>Top 15 territorios más densamente poblados</caption>
 <thead>
@@ -452,17 +476,17 @@ Figure 7.1: Mapa de calor de la matriz de correlación
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="correlacion.html#cb59-1" tabindex="-1"></a><span class="fu">ggplot</span>(top_densidad, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(country, pop_density), <span class="at">y =</span> pop_density)) <span class="sc">+</span></span>
-<span id="cb59-2"><a href="correlacion.html#cb59-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;#F39C12&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.85</span>) <span class="sc">+</span></span>
-<span id="cb59-3"><a href="correlacion.html#cb59-3" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(pop_density, <span class="dv">0</span>)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">size =</span> <span class="fl">3.2</span>) <span class="sc">+</span></span>
-<span id="cb59-4"><a href="correlacion.html#cb59-4" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb59-5"><a href="correlacion.html#cb59-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Top 15 Territorios Más Densamente Poblados&quot;</span>,</span>
-<span id="cb59-6"><a href="correlacion.html#cb59-6" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">&quot;Año:&quot;</span>, <span class="fu">max</span>(df_paises<span class="sc">$</span>year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
-<span id="cb59-7"><a href="correlacion.html#cb59-7" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Densidad Poblacional (hab/km²)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb59-8"><a href="correlacion.html#cb59-8" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
-<span id="cb59-9"><a href="correlacion.html#cb59-9" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb59-10"><a href="correlacion.html#cb59-10" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;grey50&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb59-11"><a href="correlacion.html#cb59-11" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.15</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="correlacion.html#cb57-1" tabindex="-1"></a><span class="fu">ggplot</span>(top_densidad, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(country, pop_density), <span class="at">y =</span> pop_density)) <span class="sc">+</span></span>
+<span id="cb57-2"><a href="correlacion.html#cb57-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">fill =</span> COLOR_PRINCIPAL, <span class="at">alpha =</span> <span class="fl">0.85</span>) <span class="sc">+</span></span>
+<span id="cb57-3"><a href="correlacion.html#cb57-3" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(pop_density, <span class="dv">0</span>)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">size =</span> <span class="fl">3.2</span>) <span class="sc">+</span></span>
+<span id="cb57-4"><a href="correlacion.html#cb57-4" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb57-5"><a href="correlacion.html#cb57-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Top 15 territorios más densamente poblados&quot;</span>,</span>
+<span id="cb57-6"><a href="correlacion.html#cb57-6" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">&quot;Año:&quot;</span>, <span class="fu">max</span>(df_paises<span class="sc">$</span>year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb57-7"><a href="correlacion.html#cb57-7" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Densidad poblacional (hab/km²)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb57-8"><a href="correlacion.html#cb57-8" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb57-9"><a href="correlacion.html#cb57-9" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb57-10"><a href="correlacion.html#cb57-10" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;grey50&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb57-11"><a href="correlacion.html#cb57-11" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.15</span>)))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:plot-densidad"></span>
 <img src="eda_poblacion_mundial_files/figure-html/plot-densidad-1.png" alt="Territorios con mayor densidad poblacional" width="90%" />
 <p class="caption">

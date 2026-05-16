@@ -1,40 +1,46 @@
 ---
 title: "Análisis Exploratorio de Datos: Población Mundial y Migración"
 author: "Lia Castillo"
-date: "`r Sys.Date()`"
+date: "Mayo 2026"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: []
 description: |
   Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
-  Población Mundial y Migración del Banco Mundial.
+  Población Mundial y Migración del Banco Mundial. Trabajo desarrollado
+  en el marco de la asignatura de Estadística Computacional de la
+  Maestría en Estadística.
 link-citations: yes
 ---
 
 # Introducción {-}
 
-Este documento presenta un análisis exploratorio de datos (EDA) de los flujos migratorios globales y la densidad poblacional. En el contexto actual de globalización, entender dinámicas de migración es crucial para establecer planes de respuesta ante un fenómeno migratorio
-Este tipo de datos resulta fundamental para comprender las dinámicas poblacionales globales, los patrones de crecimiento demográfico, y los flujos migratorios que moldean la distribución de la población a lo largo del tiempo.
-Además, entender estas dinámica permite el desarrollo de políticas públicas 
+Este documento presenta un análisis exploratorio de datos (EDA) y un análisis inferencial sobre los flujos migratorios globales y la densidad poblacional. En el contexto actual de globalización, comprender las dinámicas de migración resulta fundamental para anticipar fenómenos demográficos y diseñar políticas públicas adecuadas. Analizar estos datos permite identificar los patrones de crecimiento demográfico, entender cómo se distribuye la población mundial y evaluar qué factores económicos y geográficos condicionan los movimientos migratorios a lo largo del tiempo.
 
-Se utilizará conjunto de datos de Migration and Population Density (https://data.world/eliasdabbas/migration-and-population-density). El dataset recopila información demográfica y migratoria de países y territorios a nivel mundial, cubriendo un periodo histórico que abarca desde 1960 hasta 2018.
-La densidad poblacional ($\rho$) se define generalmente mediante la relación:$$\rho = \frac{P}{A}$$Donde:$P$ es la población total.$A$ es el área de la superficie terrestre en $km^2$.
+Para ello, se utiliza el conjunto de datos *Migration and Population Density* disponible en [data.world](https://data.world/eliasdabbas/migration-and-population-density), el cual recopila información demográfica y migratoria de países y territorios a nivel mundial, cubriendo un periodo histórico desde 1960 hasta 2018. La densidad poblacional ($\rho$) se define mediante la relación:
 
-## Objetivos del EDA {-}
+$$\rho = \frac{P}{A}$$
 
-1. **Analizar la estructura** del dataset mediante la exploración de sus dimensiones, tipos de variables y evaluación de la calidad de los datos, para garantizar la confiabilidad del análisis posterior.
-2. **Identificar patrones** en la distribución poblacional a través de visualizaciones segmentadas a nivel global, regional y por nivel de ingreso, para comprender las desigualdades demográficas existentes.
-3. **Comparar dinámicas demográficas** entre regiones mediante el cálculo de tasas de crecimiento poblacional, para evaluar disparidades en el desarrollo demográfico a nivel mundial.
+Donde $P$ es la población total y $A$ es el área de la superficie terrestre en $km^2$.
+
+## Objetivos {-}
+
+**Objetivo General**
+
+Analizar las dinámicas de la población mundial y los flujos migratorios, con el fin de identificar patrones demográficos y su relación con el desarrollo económico y geográfico a nivel global.
+
+**Objetivos Específicos**
+
+1. Examinar y depurar la estructura del conjunto de datos para asegurar la calidad y fiabilidad de la información.
+2. Identificar los posibles patrones en la distribución y crecimiento de la población mundial, así como en los flujos migratorios, por medio de un análisis exploratorio de datos.
+3. Explorar las interacciones entre variables demográficas, migratorias y económicas, a través de un analisis bivariado.
+4. Validar estadísticamente los hallazgos exploratorios aplicando métodos de inferencia para confirmar si las diferencias y patrones hallados son significativos.
 
 ## Metodología {-}
 
-El análisis se realiza en **R** utilizando los paquetes `ggplot2`, `dplyr`, `tidyr`, `corrplot`, `scales`, y `skimr`. Se emplean técnicas de estadística descriptiva, visualización de datos, y análisis de correlación.
+Para comprender a fondo la dinámica de la población y la migración, este estudio se desarrolló en dos fases complementarias. Inicialmente, realizamos un análisis descriptivo que nos permitió conocer a detalle cómo se comportan nuestros datos. En esta etapa resumimos la información calculando promedios y medidas de variación, además de construir tablas de frecuencias. Para que esta información fuera más clara y visual, utilizamos diversas gráficas (como histogramas, diagramas de caja, gráficos de dispersión y mapas de calor), las cuales nos ayudaron a identificar las tendencias principales y a explorar de qué manera se relacionan las variables entre sí.
 
-## Fuente de Datos {-}
-
-- **Proveedor:** Banco Mundial (World Bank)
-- **Plataforma:** data.world
-- **URL:** `https://query.data.world/s/kyzrcbixkyhsiuj4qb3773ampd333o`
+Una vez identificados estos patrones visuales, pasamos a un análisis inferencial. El objetivo de esta segunda fase fue asegurar que nuestros hallazgos no fueran simples coincidencias, sino que tuvieran un respaldo estadístico sólido. Para ello, comprobamos si los datos seguían una distribución normal mediante la prueba de Kolmogorov-Smirnov, y comparamos diferencias importantes entre grupos utilizando tanto pruebas paramétricas (t de Welch, ANOVA con pruebas post-hoc de Tukey) como sus equivalentes no paramétricas (U de Mann-Whitney, Kruskal-Wallis), lo que nos permitió validar las conclusiones sin depender de un único supuesto distribucional. Adicionalmente, evaluamos la independencia entre variables categóricas con la prueba de Chi-cuadrado, calculamos intervalos de confianza al 95% para las tasas de crecimiento regional, y medimos la fuerza de las relaciones numéricas mediante los coeficientes de correlación de Pearson (paramétrico) y Spearman (no paramétrico).
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
@@ -46,6 +52,9 @@ knitr::opts_chunk$set(
   fig.height = 6,
   out.width = "90%"
 )
+
+# Color principal unificado para gráficos univariados
+COLOR_PRINCIPAL <- "#2C3E50"
 ```
 
 ```{r paquetes, message=FALSE, warning=FALSE}
@@ -57,6 +66,7 @@ library(corrplot)
 library(RColorBrewer)
 library(gridExtra)
 library(knitr)
+library(kableExtra)
 library(skimr)
 ```
 

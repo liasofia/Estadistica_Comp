@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 4 Análisis inferencial | Análisis Exploratorio de Datos: Población Mundial y Migración</title>
+  <meta name="description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
+Población Mundial y Migración del Banco Mundial. Trabajo desarrollado
+en el marco de la asignatura de Estadística Computacional de la
+Maestría en Estadística.</p>" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 4 Análisis inferencial | Análisis Exploratorio de Datos: Población Mundial y Migración" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
+Población Mundial y Migración del Banco Mundial. Trabajo desarrollado
+en el marco de la asignatura de Estadística Computacional de la
+Maestría en Estadística.</p>" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 4 Análisis inferencial | Análisis Exploratorio de Datos: Población Mundial y Migración" />
+  
+  <meta name="twitter:description" content="<p>Reporte de Análisis Exploratorio de Datos (EDA) sobre el dataset de
+Población Mundial y Migración del Banco Mundial. Trabajo desarrollado
+en el marco de la asignatura de Estadística Computacional de la
+Maestría en Estadística.</p>" />
+  
+
+<meta name="author" content="Lia Castillo" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="eda.html"/>
+<link rel="next" href="conclusiones.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">EDA - Población Mundial</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introducción</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#objetivos"><i class="fa fa-check"></i>Objetivos</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#metodología"><i class="fa fa-check"></i>Metodología</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="diccionario.html"><a href="diccionario.html"><i class="fa fa-check"></i><b>1</b> Diccionario de variables</a></li>
+<li class="chapter" data-level="2" data-path="estructura.html"><a href="estructura.html"><i class="fa fa-check"></i><b>2</b> Carga y Estructura de los Datos</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="estructura.html"><a href="estructura.html#dimensiones-y-estructura-general"><i class="fa fa-check"></i><b>2.1</b> Dimensiones y estructura general</a></li>
+<li class="chapter" data-level="2.2" data-path="estructura.html"><a href="estructura.html#conversión-de-variables-categóricas"><i class="fa fa-check"></i><b>2.2</b> Conversión de variables categóricas</a></li>
+<li class="chapter" data-level="2.3" data-path="estructura.html"><a href="estructura.html#análisis-de-valores-faltantes-na"><i class="fa fa-check"></i><b>2.3</b> Análisis de valores faltantes (NA)</a></li>
+<li class="chapter" data-level="2.4" data-path="estructura.html"><a href="estructura.html#limpieza"><i class="fa fa-check"></i><b>2.4</b> Limpieza y preparación de datos</a></li>
+<li class="chapter" data-level="2.5" data-path="estructura.html"><a href="estructura.html#verificación-de-duplicados"><i class="fa fa-check"></i><b>2.5</b> Verificación de duplicados</a></li>
+<li class="chapter" data-level="2.6" data-path="estructura.html"><a href="estructura.html#corrección-de-tipos-de-datos"><i class="fa fa-check"></i><b>2.6</b> Corrección de tipos de datos</a></li>
+<li class="chapter" data-level="2.7" data-path="estructura.html"><a href="estructura.html#limpieza-de-variables-categóricas"><i class="fa fa-check"></i><b>2.7</b> Limpieza de variables categóricas</a></li>
+<li class="chapter" data-level="2.8" data-path="estructura.html"><a href="estructura.html#separación-de-agregados-y-países"><i class="fa fa-check"></i><b>2.8</b> Separación de agregados y países</a></li>
+<li class="chapter" data-level="2.9" data-path="estructura.html"><a href="estructura.html#tratamiento-de-valores-faltantes-nas"><i class="fa fa-check"></i><b>2.9</b> Tratamiento de valores faltantes (NAs)</a></li>
+<li class="chapter" data-level="2.10" data-path="estructura.html"><a href="estructura.html#detección-de-valores-atípicos-outliers"><i class="fa fa-check"></i><b>2.10</b> Detección de valores atípicos (outliers)</a></li>
+<li class="chapter" data-level="2.11" data-path="estructura.html"><a href="estructura.html#validación-de-rangos-y-consistencia"><i class="fa fa-check"></i><b>2.11</b> Validación de rangos y consistencia</a></li>
+<li class="chapter" data-level="2.12" data-path="estructura.html"><a href="estructura.html#resumen-de-la-limpieza"><i class="fa fa-check"></i><b>2.12</b> Resumen de la limpieza</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>3</b> Análisis Exploratorio de Datos</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="eda.html"><a href="eda.html#distribucion"><i class="fa fa-check"></i><b>3.1</b> Distribución de Variables</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="eda.html"><a href="eda.html#composición-del-dataset"><i class="fa fa-check"></i><b>3.1.1</b> Composición del dataset</a></li>
+<li class="chapter" data-level="3.1.2" data-path="eda.html"><a href="eda.html#países-que-conforman-cada-región"><i class="fa fa-check"></i><b>3.1.2</b> Países que conforman cada región</a></li>
+<li class="chapter" data-level="3.1.3" data-path="eda.html"><a href="eda.html#rankings-por-variables-clave"><i class="fa fa-check"></i><b>3.1.3</b> Rankings por variables clave</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="eda.html"><a href="eda.html#variables-numéricas"><i class="fa fa-check"></i><b>3.2</b> Variables numéricas</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="eda.html"><a href="eda.html#estadísticas-descriptivas"><i class="fa fa-check"></i><b>3.2.1</b> Estadísticas descriptivas</a></li>
+<li class="chapter" data-level="3.2.2" data-path="eda.html"><a href="eda.html#distribución-de-la-población"><i class="fa fa-check"></i><b>3.2.2</b> Distribución de la población</a></li>
+<li class="chapter" data-level="3.2.3" data-path="eda.html"><a href="eda.html#distribución-de-la-densidad-poblacional"><i class="fa fa-check"></i><b>3.2.3</b> Distribución de la densidad poblacional</a></li>
+<li class="chapter" data-level="3.2.4" data-path="eda.html"><a href="eda.html#población-por-nivel-de-ingreso"><i class="fa fa-check"></i><b>3.2.4</b> Población por nivel de ingreso</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="eda.html"><a href="eda.html#bivariado"><i class="fa fa-check"></i><b>3.3</b> Análisis bivariado</a></li>
+<li class="chapter" data-level="3.4" data-path="eda.html"><a href="eda.html#población-vs.-densidad-poblacional"><i class="fa fa-check"></i><b>3.4</b> Población vs. densidad poblacional</a></li>
+<li class="chapter" data-level="3.5" data-path="eda.html"><a href="eda.html#migración-neta-vs.-nivel-de-ingreso"><i class="fa fa-check"></i><b>3.5</b> Migración neta vs. nivel de ingreso</a></li>
+<li class="chapter" data-level="3.6" data-path="eda.html"><a href="eda.html#densidad-poblacional-vs.-migración-neta"><i class="fa fa-check"></i><b>3.6</b> Densidad poblacional vs. migración neta (%)</a></li>
+<li class="chapter" data-level="3.7" data-path="eda.html"><a href="eda.html#crecimiento-poblacional-vs.-región-e-ingreso"><i class="fa fa-check"></i><b>3.7</b> Crecimiento poblacional vs. región e ingreso</a></li>
+<li class="chapter" data-level="3.8" data-path="eda.html"><a href="eda.html#tabla-de-contingencia-región-vs.-nivel-de-ingreso"><i class="fa fa-check"></i><b>3.8</b> Tabla de contingencia: región vs. nivel de ingreso</a></li>
+<li class="chapter" data-level="3.9" data-path="eda.html"><a href="eda.html#evolución-temporal-de-la-densidad-por-región"><i class="fa fa-check"></i><b>3.9</b> Evolución temporal de la densidad por región</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="inferencial.html"><a href="inferencial.html"><i class="fa fa-check"></i><b>4</b> Análisis inferencial</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="inferencial.html"><a href="inferencial.html#prueba-de-normalidad"><i class="fa fa-check"></i><b>4.1</b> Prueba de normalidad</a></li>
+<li class="chapter" data-level="4.2" data-path="inferencial.html"><a href="inferencial.html#prueba-t-migración-neta-en-países-de-ingreso-alto-vs.-bajo"><i class="fa fa-check"></i><b>4.2</b> Prueba t: migración neta en países de ingreso alto vs. bajo</a></li>
+<li class="chapter" data-level="4.3" data-path="inferencial.html"><a href="inferencial.html#anova-densidad-poblacional-por-región"><i class="fa fa-check"></i><b>4.3</b> ANOVA: densidad poblacional por región</a></li>
+<li class="chapter" data-level="4.4" data-path="inferencial.html"><a href="inferencial.html#prueba-chi-cuadrado-independencia-región-ingreso"><i class="fa fa-check"></i><b>4.4</b> Prueba Chi-cuadrado: independencia región-ingreso</a></li>
+<li class="chapter" data-level="4.5" data-path="inferencial.html"><a href="inferencial.html#intervalo-de-confianza-para-la-tasa-de-crecimiento"><i class="fa fa-check"></i><b>4.5</b> Intervalo de confianza para la tasa de crecimiento</a></li>
+<li class="chapter" data-level="4.6" data-path="inferencial.html"><a href="inferencial.html#correlación"><i class="fa fa-check"></i><b>4.6</b> Correlación</a></li>
+<li class="chapter" data-level="4.7" data-path="inferencial.html"><a href="inferencial.html#resumen-del-análisis-inferencial"><i class="fa fa-check"></i><b>4.7</b> Resumen del análisis inferencial</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i>Conclusiones</a></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Publicado con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis Exploratorio de Datos: Población Mundial y Migración</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="inferencial" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Capítulo 4</span> Análisis inferencial<a href="inferencial.html#inferencial" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>En este capítulo se aplican técnicas de estadística inferencial para contrastar hipótesis y estimar parámetros poblacionales a partir de la muestra de datos. El objetivo es ir más allá de la descripción y determinar si las diferencias y asociaciones observadas en el análisis exploratorio son estadísticamente significativas.</p>
+<div id="prueba-de-normalidad" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Prueba de normalidad<a href="inferencial.html#prueba-de-normalidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Antes de aplicar pruebas paramétricas, evaluamos si las variables numéricas clave siguen una distribución normal.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="inferencial.html#cb55-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb55-2"><a href="inferencial.html#cb55-2" tabindex="-1"></a>df_reciente <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb55-3"><a href="inferencial.html#cb55-3" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="fu">max</span>(year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">&amp;</span></span>
+<span id="cb55-4"><a href="inferencial.html#cb55-4" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(population) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(pop_density))</span>
+<span id="cb55-5"><a href="inferencial.html#cb55-5" tabindex="-1"></a></span>
+<span id="cb55-6"><a href="inferencial.html#cb55-6" tabindex="-1"></a>vars_test <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb55-7"><a href="inferencial.html#cb55-7" tabindex="-1"></a>  <span class="st">&quot;population (original)&quot;</span> <span class="ot">=</span> df_reciente<span class="sc">$</span>population,</span>
+<span id="cb55-8"><a href="inferencial.html#cb55-8" tabindex="-1"></a>  <span class="st">&quot;population (log10)&quot;</span> <span class="ot">=</span> <span class="fu">log10</span>(df_reciente<span class="sc">$</span>population),</span>
+<span id="cb55-9"><a href="inferencial.html#cb55-9" tabindex="-1"></a>  <span class="st">&quot;pop_density (original)&quot;</span> <span class="ot">=</span> df_reciente<span class="sc">$</span>pop_density,</span>
+<span id="cb55-10"><a href="inferencial.html#cb55-10" tabindex="-1"></a>  <span class="st">&quot;pop_density (log10)&quot;</span> <span class="ot">=</span> <span class="fu">log10</span>(df_reciente<span class="sc">$</span>pop_density[df_reciente<span class="sc">$</span>pop_density <span class="sc">&gt;</span> <span class="dv">0</span>])</span>
+<span id="cb55-11"><a href="inferencial.html#cb55-11" tabindex="-1"></a>)</span>
+<span id="cb55-12"><a href="inferencial.html#cb55-12" tabindex="-1"></a></span>
+<span id="cb55-13"><a href="inferencial.html#cb55-13" tabindex="-1"></a>normalidad_resultados <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">names</span>(vars_test), <span class="cf">function</span>(v) {</span>
+<span id="cb55-14"><a href="inferencial.html#cb55-14" tabindex="-1"></a>  x <span class="ot">&lt;-</span> vars_test[[v]]</span>
+<span id="cb55-15"><a href="inferencial.html#cb55-15" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">length</span>(x) <span class="sc">&lt;</span> <span class="dv">3</span>) {</span>
+<span id="cb55-16"><a href="inferencial.html#cb55-16" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">data.frame</span>(<span class="at">Variable =</span> v, <span class="at">D =</span> <span class="cn">NA</span>, <span class="at">p_valor =</span> <span class="cn">NA</span>, <span class="at">Normal =</span> <span class="st">&quot;NA (N &lt; 3)&quot;</span>))</span>
+<span id="cb55-17"><a href="inferencial.html#cb55-17" tabindex="-1"></a>  }</span>
+<span id="cb55-18"><a href="inferencial.html#cb55-18" tabindex="-1"></a>  <span class="co"># Prueba de Kolmogorov-Smirnov</span></span>
+<span id="cb55-19"><a href="inferencial.html#cb55-19" tabindex="-1"></a>  test <span class="ot">&lt;-</span> <span class="fu">ks.test</span>(<span class="fu">scale</span>(x), <span class="st">&quot;pnorm&quot;</span>)</span>
+<span id="cb55-20"><a href="inferencial.html#cb55-20" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">Variable =</span> v, <span class="at">D =</span> <span class="fu">round</span>(test<span class="sc">$</span>statistic, <span class="dv">4</span>),</span>
+<span id="cb55-21"><a href="inferencial.html#cb55-21" tabindex="-1"></a>             <span class="at">p_valor =</span> <span class="fu">format.pval</span>(test<span class="sc">$</span>p.value, <span class="at">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb55-22"><a href="inferencial.html#cb55-22" tabindex="-1"></a>             <span class="at">Normal =</span> <span class="fu">ifelse</span>(test<span class="sc">$</span>p.value <span class="sc">&gt;</span> <span class="fl">0.05</span>, <span class="st">&quot;Sí&quot;</span>, <span class="st">&quot;No&quot;</span>))</span>
+<span id="cb55-23"><a href="inferencial.html#cb55-23" tabindex="-1"></a>})</span>
+<span id="cb55-24"><a href="inferencial.html#cb55-24" tabindex="-1"></a></span>
+<span id="cb55-25"><a href="inferencial.html#cb55-25" tabindex="-1"></a>normalidad_df <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(normalidad_resultados)</span>
+<span id="cb55-26"><a href="inferencial.html#cb55-26" tabindex="-1"></a><span class="fu">kable</span>(normalidad_df, <span class="at">caption =</span> <span class="st">&quot;Prueba de normalidad de Kolmogorov-Smirnov&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:inf-normalidad">Table 4.1: </span>Prueba de normalidad de Kolmogorov-Smirnov</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Variable</th>
+<th align="right">D</th>
+<th align="left">p_valor</th>
+<th align="left">Normal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">D…1</td>
+<td align="left">population (original)</td>
+<td align="right">0.3981</td>
+<td align="left">&lt; 2.2e-16</td>
+<td align="left">No</td>
+</tr>
+<tr class="even">
+<td align="left">D…2</td>
+<td align="left">population (log10)</td>
+<td align="right">0.0983</td>
+<td align="left">0.0352</td>
+<td align="left">No</td>
+</tr>
+<tr class="odd">
+<td align="left">D…3</td>
+<td align="left">pop_density (original)</td>
+<td align="right">0.4121</td>
+<td align="left">&lt; 2.2e-16</td>
+<td align="left">No</td>
+</tr>
+<tr class="even">
+<td align="left">D…4</td>
+<td align="left">pop_density (log10)</td>
+<td align="right">0.0699</td>
+<td align="left">0.2582</td>
+<td align="left">Sí</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="inferencial.html#cb56-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>))</span>
+<span id="cb56-2"><a href="inferencial.html#cb56-2" tabindex="-1"></a></span>
+<span id="cb56-3"><a href="inferencial.html#cb56-3" tabindex="-1"></a><span class="fu">qqnorm</span>(df_reciente<span class="sc">$</span>population,</span>
+<span id="cb56-4"><a href="inferencial.html#cb56-4" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">&quot;Q-Q: Población (original)&quot;</span>, <span class="at">col =</span> COLOR_PRINCIPAL, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="fl">0.6</span>)</span>
+<span id="cb56-5"><a href="inferencial.html#cb56-5" tabindex="-1"></a><span class="fu">qqline</span>(df_reciente<span class="sc">$</span>population, <span class="at">col =</span> <span class="st">&quot;#7F8C8D&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb56-6"><a href="inferencial.html#cb56-6" tabindex="-1"></a></span>
+<span id="cb56-7"><a href="inferencial.html#cb56-7" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">log10</span>(df_reciente<span class="sc">$</span>population),</span>
+<span id="cb56-8"><a href="inferencial.html#cb56-8" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">&quot;Q-Q: log10(Población)&quot;</span>, <span class="at">col =</span> COLOR_PRINCIPAL, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="fl">0.6</span>)</span>
+<span id="cb56-9"><a href="inferencial.html#cb56-9" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">log10</span>(df_reciente<span class="sc">$</span>population), <span class="at">col =</span> <span class="st">&quot;#7F8C8D&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb56-10"><a href="inferencial.html#cb56-10" tabindex="-1"></a></span>
+<span id="cb56-11"><a href="inferencial.html#cb56-11" tabindex="-1"></a><span class="fu">qqnorm</span>(df_reciente<span class="sc">$</span>pop_density,</span>
+<span id="cb56-12"><a href="inferencial.html#cb56-12" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">&quot;Q-Q: Densidad (original)&quot;</span>, <span class="at">col =</span> COLOR_PRINCIPAL, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="fl">0.6</span>)</span>
+<span id="cb56-13"><a href="inferencial.html#cb56-13" tabindex="-1"></a><span class="fu">qqline</span>(df_reciente<span class="sc">$</span>pop_density, <span class="at">col =</span> <span class="st">&quot;#7F8C8D&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb56-14"><a href="inferencial.html#cb56-14" tabindex="-1"></a></span>
+<span id="cb56-15"><a href="inferencial.html#cb56-15" tabindex="-1"></a>dens_pos <span class="ot">&lt;-</span> df_reciente<span class="sc">$</span>pop_density[df_reciente<span class="sc">$</span>pop_density <span class="sc">&gt;</span> <span class="dv">0</span>]</span>
+<span id="cb56-16"><a href="inferencial.html#cb56-16" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">log10</span>(dens_pos),</span>
+<span id="cb56-17"><a href="inferencial.html#cb56-17" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">&quot;Q-Q: log10(Densidad)&quot;</span>, <span class="at">col =</span> COLOR_PRINCIPAL, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="fl">0.6</span>)</span>
+<span id="cb56-18"><a href="inferencial.html#cb56-18" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">log10</span>(dens_pos), <span class="at">col =</span> <span class="st">&quot;#7F8C8D&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:inf-qq"></span>
+<img src="eda_poblacion_mundial_files/figure-html/inf-qq-1.png" alt="Gráficos Q-Q para evaluar normalidad (original vs log10)" width="90%" />
+<p class="caption">
+Figure 4.1: Gráficos Q-Q para evaluar normalidad (original vs log10)
+</p>
+</div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="inferencial.html#cb57-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<p>La evaluación del supuesto de normalidad mediante los gráficos Q-Q y la prueba de Kolmogorov-Smirnov revela que las variables analizadas no siguen una distribución normal, incluso después de aplicar transformaciones logarítmicas. Si bien la transformación log10 logra reducir la asimetría de las distribuciones, las desviaciones persisten, un fenómeno típico de los datos demográficos dada la enorme heterogeneidad entre países. Este resultado motiva la inclusión de pruebas no paramétricas como complemento a las paramétricas, lo que nos permite contrastar las conclusiones desde ambas perspectivas y garantizar la robustez de nuestras inferencias.</p>
+</div>
+<div id="prueba-t-migración-neta-en-países-de-ingreso-alto-vs.-bajo" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Prueba t: migración neta en países de ingreso alto vs. bajo<a href="inferencial.html#prueba-t-migración-neta-en-países-de-ingreso-alto-vs.-bajo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se contrasta si la migración neta promedio difiere significativamente entre países de ingreso alto e ingreso bajo.</p>
+<p><span class="math display">\[H_0: \mu_{\text{alto}} = \mu_{\text{bajo}} \quad \text{vs.} \quad H_1: \mu_{\text{alto}} \neq \mu_{\text{bajo}}\]</span></p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="inferencial.html#cb58-1" tabindex="-1"></a>df_t <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb58-2"><a href="inferencial.html#cb58-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(net_migration)) <span class="sc">%&gt;%</span></span>
+<span id="cb58-3"><a href="inferencial.html#cb58-3" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="fu">max</span>(year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb58-4"><a href="inferencial.html#cb58-4" tabindex="-1"></a>  <span class="fu">filter</span>(incomeLevel <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;High income&quot;</span>, <span class="st">&quot;Low income&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb58-5"><a href="inferencial.html#cb58-5" tabindex="-1"></a>  <span class="fu">droplevels</span>()</span>
+<span id="cb58-6"><a href="inferencial.html#cb58-6" tabindex="-1"></a></span>
+<span id="cb58-7"><a href="inferencial.html#cb58-7" tabindex="-1"></a>t_result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(net_migration <span class="sc">~</span> incomeLevel, <span class="at">data =</span> df_t, <span class="at">var.equal =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb58-8"><a href="inferencial.html#cb58-8" tabindex="-1"></a>wilcox_result <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(net_migration <span class="sc">~</span> incomeLevel, <span class="at">data =</span> df_t, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb58-9"><a href="inferencial.html#cb58-9" tabindex="-1"></a></span>
+<span id="cb58-10"><a href="inferencial.html#cb58-10" tabindex="-1"></a>t_resumen <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb58-11"><a href="inferencial.html#cb58-11" tabindex="-1"></a>  <span class="at">Prueba =</span> <span class="fu">c</span>(<span class="st">&quot;t de Welch (Paramétrica)&quot;</span>, <span class="st">&quot;U de Mann-Whitney (No paramétrica)&quot;</span>),</span>
+<span id="cb58-12"><a href="inferencial.html#cb58-12" tabindex="-1"></a>  Estadístico <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">round</span>(t_result<span class="sc">$</span>statistic, <span class="dv">4</span>), <span class="fu">round</span>(wilcox_result<span class="sc">$</span>statistic, <span class="dv">4</span>)),</span>
+<span id="cb58-13"><a href="inferencial.html#cb58-13" tabindex="-1"></a>  <span class="st">`</span><span class="at">p_valor</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">format.pval</span>(t_result<span class="sc">$</span>p.value, <span class="at">digits =</span> <span class="dv">4</span>), <span class="fu">format.pval</span>(wilcox_result<span class="sc">$</span>p.value, <span class="at">digits =</span> <span class="dv">4</span>))</span>
+<span id="cb58-14"><a href="inferencial.html#cb58-14" tabindex="-1"></a>)</span>
+<span id="cb58-15"><a href="inferencial.html#cb58-15" tabindex="-1"></a></span>
+<span id="cb58-16"><a href="inferencial.html#cb58-16" tabindex="-1"></a><span class="fu">kable</span>(t_resumen, <span class="at">caption =</span> <span class="st">&quot;Comparación: Migración neta por nivel de ingreso&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:inf-ttest">Table 4.2: </span>Comparación: Migración neta por nivel de ingreso</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Prueba</th>
+<th align="right">Estadístico</th>
+<th align="left">p_valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">t</td>
+<td align="left">t de Welch (Paramétrica)</td>
+<td align="right">3.0461</td>
+<td align="left">0.003097</td>
+</tr>
+<tr class="even">
+<td align="left">W</td>
+<td align="left">U de Mann-Whitney (No paramétrica)</td>
+<td align="right">1501.0000</td>
+<td align="left">2.015e-06</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="inferencial.html#cb59-1" tabindex="-1"></a>medias_t <span class="ot">&lt;-</span> df_t <span class="sc">%&gt;%</span></span>
+<span id="cb59-2"><a href="inferencial.html#cb59-2" tabindex="-1"></a>  <span class="fu">group_by</span>(incomeLevel) <span class="sc">%&gt;%</span></span>
+<span id="cb59-3"><a href="inferencial.html#cb59-3" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb59-4"><a href="inferencial.html#cb59-4" tabindex="-1"></a>    <span class="at">media =</span> <span class="fu">mean</span>(net_migration, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb59-5"><a href="inferencial.html#cb59-5" tabindex="-1"></a>    <span class="at">se =</span> <span class="fu">sd</span>(net_migration, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>()),</span>
+<span id="cb59-6"><a href="inferencial.html#cb59-6" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb59-7"><a href="inferencial.html#cb59-7" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb59-8"><a href="inferencial.html#cb59-8" tabindex="-1"></a>  )</span>
+<span id="cb59-9"><a href="inferencial.html#cb59-9" tabindex="-1"></a></span>
+<span id="cb59-10"><a href="inferencial.html#cb59-10" tabindex="-1"></a><span class="fu">ggplot</span>(medias_t, <span class="fu">aes</span>(<span class="at">x =</span> incomeLevel, <span class="at">y =</span> media, <span class="at">fill =</span> incomeLevel)) <span class="sc">+</span></span>
+<span id="cb59-11"><a href="inferencial.html#cb59-11" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">width =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb59-12"><a href="inferencial.html#cb59-12" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> media <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se, <span class="at">ymax =</span> media <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se),</span>
+<span id="cb59-13"><a href="inferencial.html#cb59-13" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.15</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb59-14"><a href="inferencial.html#cb59-14" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">comma</span>(<span class="fu">round</span>(media, <span class="dv">0</span>)),</span>
+<span id="cb59-15"><a href="inferencial.html#cb59-15" tabindex="-1"></a>                <span class="at">y =</span> media <span class="sc">+</span> <span class="fu">sign</span>(media) <span class="sc">*</span> (<span class="fl">1.96</span> <span class="sc">*</span> se <span class="sc">+</span> <span class="fu">abs</span>(media)<span class="sc">*</span><span class="fl">0.15</span>)),</span>
+<span id="cb59-16"><a href="inferencial.html#cb59-16" tabindex="-1"></a>            <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb59-17"><a href="inferencial.html#cb59-17" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey40&quot;</span>) <span class="sc">+</span></span>
+<span id="cb59-18"><a href="inferencial.html#cb59-18" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Media de Migración Neta: Ingreso Alto vs. Bajo&quot;</span>,</span>
+<span id="cb59-19"><a href="inferencial.html#cb59-19" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Barras de error: IC 95%&quot;</span>,</span>
+<span id="cb59-20"><a href="inferencial.html#cb59-20" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Nivel de Ingreso&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Migración Neta (promedio)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb59-21"><a href="inferencial.html#cb59-21" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb59-22"><a href="inferencial.html#cb59-22" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb59-23"><a href="inferencial.html#cb59-23" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;grey50&quot;</span>),</span>
+<span id="cb59-24"><a href="inferencial.html#cb59-24" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb59-25"><a href="inferencial.html#cb59-25" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;High income&quot;</span> <span class="ot">=</span> <span class="st">&quot;#7F8C8D&quot;</span>, <span class="st">&quot;Low income&quot;</span> <span class="ot">=</span> <span class="st">&quot;#BDC3C7&quot;</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:inf-ttest-plot"></span>
+<img src="eda_poblacion_mundial_files/figure-html/inf-ttest-plot-1.png" alt="Comparación de medias de migración neta entre niveles de ingreso" width="90%" />
+<p class="caption">
+Figure 4.2: Comparación de medias de migración neta entre niveles de ingreso
+</p>
+</div>
+<p>Tanto la prueba t de Welch (p = 0.003097) como la prueba U de Mann-Whitney (p = 2.015e-06) coinciden en rechazar la hipótesis nula con un nivel de confianza del 95%. Esto confirma que la migración neta promedio difiere de manera significativa entre los países de ingresos altos y los de ingresos bajos. En términos prácticos, los países de ingresos altos funcionan como receptores netos de población, mientras que los de ingresos bajos se comportan como emisores netos. La concordancia entre la prueba paramétrica y la no paramétrica refuerza la solidez de esta conclusión, ya que ambos métodos la respaldan independientemente de los supuestos distribucionales.</p>
+</div>
+<div id="anova-densidad-poblacional-por-región" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> ANOVA: densidad poblacional por región<a href="inferencial.html#anova-densidad-poblacional-por-región" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se evalúa si la densidad poblacional media difiere significativamente entre las regiones geográficas del Banco Mundial. Se utiliza ANOVA dado que la muestra es mayor a 30 observaciones, lo que nos daría una aproximación a la distribución normal. Sin embargo, tambien se evalua la prueba no paramétrica de Kruskal-Wallis para confirmar los resultados.</p>
+<p><span class="math display">\[H_0: \mu_1 = \mu_2 = \ldots = \mu_k \quad \text{vs.} \quad H_1: \text{al menos una } \mu_i \text{ difiere}\]</span></p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="inferencial.html#cb60-1" tabindex="-1"></a>df_anova <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb60-2"><a href="inferencial.html#cb60-2" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="fu">max</span>(year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">&amp;</span></span>
+<span id="cb60-3"><a href="inferencial.html#cb60-3" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(pop_density) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(region) <span class="sc">&amp;</span></span>
+<span id="cb60-4"><a href="inferencial.html#cb60-4" tabindex="-1"></a>         region <span class="sc">!=</span> <span class="st">&quot;Aggregates&quot;</span> <span class="sc">&amp;</span> region <span class="sc">!=</span> <span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb60-5"><a href="inferencial.html#cb60-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_density =</span> <span class="fu">log10</span>(pop_density <span class="sc">+</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb60-6"><a href="inferencial.html#cb60-6" tabindex="-1"></a>  <span class="fu">droplevels</span>()</span>
+<span id="cb60-7"><a href="inferencial.html#cb60-7" tabindex="-1"></a></span>
+<span id="cb60-8"><a href="inferencial.html#cb60-8" tabindex="-1"></a>anova_result <span class="ot">&lt;-</span> <span class="fu">aov</span>(log_density <span class="sc">~</span> region, <span class="at">data =</span> df_anova)</span>
+<span id="cb60-9"><a href="inferencial.html#cb60-9" tabindex="-1"></a>anova_tabla <span class="ot">&lt;-</span> <span class="fu">tidy</span>(anova_result)</span>
+<span id="cb60-10"><a href="inferencial.html#cb60-10" tabindex="-1"></a></span>
+<span id="cb60-11"><a href="inferencial.html#cb60-11" tabindex="-1"></a>kruskal_result <span class="ot">&lt;-</span> <span class="fu">kruskal.test</span>(log_density <span class="sc">~</span> region, <span class="at">data =</span> df_anova)</span>
+<span id="cb60-12"><a href="inferencial.html#cb60-12" tabindex="-1"></a></span>
+<span id="cb60-13"><a href="inferencial.html#cb60-13" tabindex="-1"></a>anova_resumen <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb60-14"><a href="inferencial.html#cb60-14" tabindex="-1"></a>  <span class="at">Prueba =</span> <span class="fu">c</span>(<span class="st">&quot;ANOVA (Paramétrica)&quot;</span>, <span class="st">&quot;Kruskal-Wallis (No paramétrica)&quot;</span>),</span>
+<span id="cb60-15"><a href="inferencial.html#cb60-15" tabindex="-1"></a>  Estadístico <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">round</span>(anova_tabla<span class="sc">$</span>statistic[<span class="dv">1</span>], <span class="dv">4</span>), <span class="fu">round</span>(kruskal_result<span class="sc">$</span>statistic, <span class="dv">4</span>)),</span>
+<span id="cb60-16"><a href="inferencial.html#cb60-16" tabindex="-1"></a>  <span class="st">`</span><span class="at">p_valor</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">format.pval</span>(anova_tabla<span class="sc">$</span>p.value[<span class="dv">1</span>], <span class="at">digits =</span> <span class="dv">4</span>), <span class="fu">format.pval</span>(kruskal_result<span class="sc">$</span>p.value, <span class="at">digits =</span> <span class="dv">4</span>))</span>
+<span id="cb60-17"><a href="inferencial.html#cb60-17" tabindex="-1"></a>)</span>
+<span id="cb60-18"><a href="inferencial.html#cb60-18" tabindex="-1"></a></span>
+<span id="cb60-19"><a href="inferencial.html#cb60-19" tabindex="-1"></a><span class="fu">kable</span>(anova_resumen, <span class="at">caption =</span> <span class="st">&quot;Comparación: Densidad poblacional por región&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:inf-anova">Table 4.3: </span>Comparación: Densidad poblacional por región</caption>
+<colgroup>
+<col width="34%" />
+<col width="40%" />
+<col width="15%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Prueba</th>
+<th align="right">Estadístico</th>
+<th align="left">p_valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">ANOVA (Paramétrica)</td>
+<td align="right">1.9286</td>
+<td align="left">0.07779</td>
+</tr>
+<tr class="even">
+<td align="left">Kruskal-Wallis chi-squared</td>
+<td align="left">Kruskal-Wallis (No paramétrica)</td>
+<td align="right">10.6518</td>
+<td align="left">0.09975</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="inferencial.html#cb61-1" tabindex="-1"></a><span class="fu">ggplot</span>(df_anova, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(region, log_density, <span class="at">FUN =</span> median),</span>
+<span id="cb61-2"><a href="inferencial.html#cb61-2" tabindex="-1"></a>                      <span class="at">y =</span> log_density)) <span class="sc">+</span></span>
+<span id="cb61-3"><a href="inferencial.html#cb61-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> COLOR_PRINCIPAL, <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb61-4"><a href="inferencial.html#cb61-4" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb61-5"><a href="inferencial.html#cb61-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Densidad poblacional (log10) por región&quot;</span>,</span>
+<span id="cb61-6"><a href="inferencial.html#cb61-6" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">&quot;ANOVA p-valor:&quot;</span>,</span>
+<span id="cb61-7"><a href="inferencial.html#cb61-7" tabindex="-1"></a>                        <span class="fu">format.pval</span>(anova_tabla<span class="sc">$</span>p.value[<span class="dv">1</span>], <span class="at">digits =</span> <span class="dv">4</span>)),</span>
+<span id="cb61-8"><a href="inferencial.html#cb61-8" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> <span class="st">&quot;log10(Densidad poblacional + 1)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb61-9"><a href="inferencial.html#cb61-9" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb61-10"><a href="inferencial.html#cb61-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb61-11"><a href="inferencial.html#cb61-11" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;grey50&quot;</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:inf-anova-plot"></span>
+<img src="eda_poblacion_mundial_files/figure-html/inf-anova-plot-1.png" alt="Distribución de densidad poblacional (log) por región" width="90%" />
+<p class="caption">
+Figure 4.3: Distribución de densidad poblacional (log) por región
+</p>
+</div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="inferencial.html#cb62-1" tabindex="-1"></a>tukey_result <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(anova_result)</span>
+<span id="cb62-2"><a href="inferencial.html#cb62-2" tabindex="-1"></a>tukey_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(tukey_result<span class="sc">$</span>region)</span>
+<span id="cb62-3"><a href="inferencial.html#cb62-3" tabindex="-1"></a>tukey_df<span class="sc">$</span>Comparacion <span class="ot">&lt;-</span> <span class="fu">rownames</span>(tukey_df)</span>
+<span id="cb62-4"><a href="inferencial.html#cb62-4" tabindex="-1"></a>tukey_df <span class="ot">&lt;-</span> tukey_df <span class="sc">%&gt;%</span></span>
+<span id="cb62-5"><a href="inferencial.html#cb62-5" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="st">`</span><span class="at">p adj</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-6"><a href="inferencial.html#cb62-6" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span>
+<span id="cb62-7"><a href="inferencial.html#cb62-7" tabindex="-1"></a></span>
+<span id="cb62-8"><a href="inferencial.html#cb62-8" tabindex="-1"></a><span class="fu">kable</span>(tukey_df <span class="sc">%&gt;%</span> <span class="fu">select</span>(Comparacion, diff, lwr, upr, <span class="st">`</span><span class="at">p adj</span><span class="st">`</span>),</span>
+<span id="cb62-9"><a href="inferencial.html#cb62-9" tabindex="-1"></a>      <span class="at">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb62-10"><a href="inferencial.html#cb62-10" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Top 10 comparaciones múltiples de Tukey (pares con menor p-valor)&quot;</span>)</span></code></pre></div>
+<table style="width:100%;">
+<caption><span id="tab:inf-tukey">Table 4.4: </span>Top 10 comparaciones múltiples de Tukey (pares con menor p-valor)</caption>
+<colgroup>
+<col width="37%" />
+<col width="37%" />
+<col width="6%" />
+<col width="6%" />
+<col width="5%" />
+<col width="5%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Comparacion</th>
+<th align="right">diff</th>
+<th align="right">lwr</th>
+<th align="right">upr</th>
+<th align="right">p adj</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Sub-Saharan Africa -South Asia</td>
+<td align="left">Sub-Saharan Africa -South Asia</td>
+<td align="right">-0.6381</td>
+<td align="right">-1.3526</td>
+<td align="right">0.0763</td>
+<td align="right">0.1141</td>
+</tr>
+<tr class="even">
+<td align="left">Sub-Saharan Africa -East Asia &amp; Pacific</td>
+<td align="left">Sub-Saharan Africa -East Asia &amp; Pacific</td>
+<td align="right">-0.3447</td>
+<td align="right">-0.7580</td>
+<td align="right">0.0685</td>
+<td align="right">0.1705</td>
+</tr>
+<tr class="odd">
+<td align="left">South Asia-Europe &amp; Central Asia</td>
+<td align="left">South Asia-Europe &amp; Central Asia</td>
+<td align="right">0.5012</td>
+<td align="right">-0.2026</td>
+<td align="right">1.2050</td>
+<td align="right">0.3444</td>
+</tr>
+<tr class="even">
+<td align="left">South Asia-Latin America &amp; Caribbean</td>
+<td align="left">South Asia-Latin America &amp; Caribbean</td>
+<td align="right">0.4887</td>
+<td align="right">-0.2340</td>
+<td align="right">1.2114</td>
+<td align="right">0.4091</td>
+</tr>
+<tr class="odd">
+<td align="left">Sub-Saharan Africa -Middle East &amp; North Africa</td>
+<td align="left">Sub-Saharan Africa -Middle East &amp; North Africa</td>
+<td align="right">-0.2643</td>
+<td align="right">-0.7564</td>
+<td align="right">0.2278</td>
+<td align="right">0.6829</td>
+</tr>
+<tr class="even">
+<td align="left">Europe &amp; Central Asia-East Asia &amp; Pacific</td>
+<td align="left">Europe &amp; Central Asia-East Asia &amp; Pacific</td>
+<td align="right">-0.2078</td>
+<td align="right">-0.6023</td>
+<td align="right">0.1867</td>
+<td align="right">0.7023</td>
+</tr>
+<tr class="odd">
+<td align="left">South Asia-North America</td>
+<td align="left">South Asia-North America</td>
+<td align="right">0.6364</td>
+<td align="right">-0.6242</td>
+<td align="right">1.8970</td>
+<td align="right">0.7425</td>
+</tr>
+<tr class="even">
+<td align="left">South Asia-Middle East &amp; North Africa</td>
+<td align="left">South Asia-Middle East &amp; North Africa</td>
+<td align="right">0.3739</td>
+<td align="right">-0.3998</td>
+<td align="right">1.1475</td>
+<td align="right">0.7798</td>
+</tr>
+<tr class="odd">
+<td align="left">Latin America &amp; Caribbean -East Asia &amp; Pacific</td>
+<td align="left">Latin America &amp; Caribbean -East Asia &amp; Pacific</td>
+<td align="right">-0.1953</td>
+<td align="right">-0.6226</td>
+<td align="right">0.2320</td>
+<td align="right">0.8217</td>
+</tr>
+<tr class="even">
+<td align="left">South Asia-East Asia &amp; Pacific</td>
+<td align="left">South Asia-East Asia &amp; Pacific</td>
+<td align="right">0.2934</td>
+<td align="right">-0.4326</td>
+<td align="right">1.0194</td>
+<td align="right">0.8921</td>
+</tr>
+</tbody>
+</table>
+<p>ANOVA (Paramétrica): El <span class="math inline">\(p\text{-valor}\)</span> es 0.07779. Al ser mayor a 0.05, no se rechaza la hipótesis nula (<span class="math inline">\(H_0\)</span>). Indica que no hay evidencia estadística suficiente para afirmar que las medias de la densidad poblacional son diferentes entre las regiones.Kruskal-Wallis (No paramétrica): El <span class="math inline">\(p\text{-valor}\)</span> es 0.09975. Al ser también mayor a 0.05, tampoco se rechaza la hipótesis nula. Indica que no hay evidencia estadística suficiente para afirmar que las distribuciones (o medianas) de la densidad varían entre las regiones.</p>
+</div>
+<div id="prueba-chi-cuadrado-independencia-región-ingreso" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Prueba Chi-cuadrado: independencia región-ingreso<a href="inferencial.html#prueba-chi-cuadrado-independencia-región-ingreso" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se evalúa si existe una asociación significativa entre la región geográfica y el nivel de ingreso de los países.</p>
+<p><span class="math display">\[H_0: \text{Región e Ingreso son independientes} \quad \text{vs.} \quad H_1: \text{Existe asociación}\]</span></p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="inferencial.html#cb63-1" tabindex="-1"></a>df_chi <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb63-2"><a href="inferencial.html#cb63-2" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="fu">max</span>(year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">&amp;</span></span>
+<span id="cb63-3"><a href="inferencial.html#cb63-3" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(region) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(incomeLevel) <span class="sc">&amp;</span></span>
+<span id="cb63-4"><a href="inferencial.html#cb63-4" tabindex="-1"></a>         region <span class="sc">!=</span> <span class="st">&quot;Aggregates&quot;</span> <span class="sc">&amp;</span> incomeLevel <span class="sc">!=</span> <span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb63-5"><a href="inferencial.html#cb63-5" tabindex="-1"></a>  <span class="fu">droplevels</span>()</span>
+<span id="cb63-6"><a href="inferencial.html#cb63-6" tabindex="-1"></a></span>
+<span id="cb63-7"><a href="inferencial.html#cb63-7" tabindex="-1"></a>tabla_chi <span class="ot">&lt;-</span> <span class="fu">table</span>(df_chi<span class="sc">$</span>region, df_chi<span class="sc">$</span>incomeLevel)</span>
+<span id="cb63-8"><a href="inferencial.html#cb63-8" tabindex="-1"></a>chi_result <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(tabla_chi)</span>
+<span id="cb63-9"><a href="inferencial.html#cb63-9" tabindex="-1"></a></span>
+<span id="cb63-10"><a href="inferencial.html#cb63-10" tabindex="-1"></a>chi_resumen <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb63-11"><a href="inferencial.html#cb63-11" tabindex="-1"></a>  Estadístico <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;X²&quot;</span>, <span class="st">&quot;Grados de libertad&quot;</span>, <span class="st">&quot;p-valor&quot;</span>),</span>
+<span id="cb63-12"><a href="inferencial.html#cb63-12" tabindex="-1"></a>  <span class="at">Valor =</span> <span class="fu">c</span>(</span>
+<span id="cb63-13"><a href="inferencial.html#cb63-13" tabindex="-1"></a>    <span class="fu">round</span>(chi_result<span class="sc">$</span>statistic, <span class="dv">4</span>),</span>
+<span id="cb63-14"><a href="inferencial.html#cb63-14" tabindex="-1"></a>    chi_result<span class="sc">$</span>parameter,</span>
+<span id="cb63-15"><a href="inferencial.html#cb63-15" tabindex="-1"></a>    <span class="fu">format.pval</span>(chi_result<span class="sc">$</span>p.value, <span class="at">digits =</span> <span class="dv">4</span>)</span>
+<span id="cb63-16"><a href="inferencial.html#cb63-16" tabindex="-1"></a>  )</span>
+<span id="cb63-17"><a href="inferencial.html#cb63-17" tabindex="-1"></a>)</span>
+<span id="cb63-18"><a href="inferencial.html#cb63-18" tabindex="-1"></a></span>
+<span id="cb63-19"><a href="inferencial.html#cb63-19" tabindex="-1"></a><span class="fu">kable</span>(chi_resumen, <span class="at">caption =</span> <span class="st">&quot;Prueba Chi-cuadrado de independencia: Región × Nivel de Ingreso&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:inf-chisq">Table 4.5: </span>Prueba Chi-cuadrado de independencia: Región × Nivel de Ingreso</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Estadístico</th>
+<th align="left">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">X-squared</td>
+<td align="left">X²</td>
+<td align="left">120.4971</td>
+</tr>
+<tr class="even">
+<td align="left">df</td>
+<td align="left">Grados de libertad</td>
+<td align="left">18</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">p-valor</td>
+<td align="left">&lt; 2.2e-16</td>
+</tr>
+</tbody>
+</table>
+<p>La prueba Chi-cuadrado arroja un valor p de &lt; 2.2e-16, lo que nos lleva a rechazar la hipótesis de independencia con un nivel de confianza del 95%. Esto significa que la región geográfica y el nivel de ingresos no son variables independientes: la ubicación de un país en el mapa guarda una relación estadísticamente significativa con su clasificación económica.</p>
+</div>
+<div id="intervalo-de-confianza-para-la-tasa-de-crecimiento" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Intervalo de confianza para la tasa de crecimiento<a href="inferencial.html#intervalo-de-confianza-para-la-tasa-de-crecimiento" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se construyen intervalos de confianza al 95% para la tasa de crecimiento poblacional promedio por región. La tasa de crecimiento se calcula como:</p>
+<p><span class="math display">\[tasa = \left(\frac{\text{Población Actual}}{\text{Población Anterior}} - 1\right) \times 100\]</span></p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="inferencial.html#cb64-1" tabindex="-1"></a>ic_crecimiento <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb64-2"><a href="inferencial.html#cb64-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(population) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(region) <span class="sc">&amp;</span></span>
+<span id="cb64-3"><a href="inferencial.html#cb64-3" tabindex="-1"></a>         region <span class="sc">!=</span> <span class="st">&quot;Aggregates&quot;</span> <span class="sc">&amp;</span> region <span class="sc">!=</span> <span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb64-4"><a href="inferencial.html#cb64-4" tabindex="-1"></a>  <span class="fu">group_by</span>(country, region) <span class="sc">%&gt;%</span></span>
+<span id="cb64-5"><a href="inferencial.html#cb64-5" tabindex="-1"></a>  <span class="fu">arrange</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb64-6"><a href="inferencial.html#cb64-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tasa =</span> (population <span class="sc">/</span> <span class="fu">lag</span>(population) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb64-7"><a href="inferencial.html#cb64-7" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb64-8"><a href="inferencial.html#cb64-8" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(tasa)) <span class="sc">%&gt;%</span></span>
+<span id="cb64-9"><a href="inferencial.html#cb64-9" tabindex="-1"></a>  <span class="fu">group_by</span>(region) <span class="sc">%&gt;%</span></span>
+<span id="cb64-10"><a href="inferencial.html#cb64-10" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb64-11"><a href="inferencial.html#cb64-11" tabindex="-1"></a>    <span class="at">media =</span> <span class="fu">mean</span>(tasa, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb64-12"><a href="inferencial.html#cb64-12" tabindex="-1"></a>    <span class="at">se =</span> <span class="fu">sd</span>(tasa, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>()),</span>
+<span id="cb64-13"><a href="inferencial.html#cb64-13" tabindex="-1"></a>    <span class="at">ic_inf =</span> media <span class="sc">-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="fu">n</span>() <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se,</span>
+<span id="cb64-14"><a href="inferencial.html#cb64-14" tabindex="-1"></a>    <span class="at">ic_sup =</span> media <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="fu">n</span>() <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> se,</span>
+<span id="cb64-15"><a href="inferencial.html#cb64-15" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb64-16"><a href="inferencial.html#cb64-16" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb64-17"><a href="inferencial.html#cb64-17" tabindex="-1"></a>  )</span>
+<span id="cb64-18"><a href="inferencial.html#cb64-18" tabindex="-1"></a></span>
+<span id="cb64-19"><a href="inferencial.html#cb64-19" tabindex="-1"></a><span class="fu">kable</span>(ic_crecimiento <span class="sc">%&gt;%</span></span>
+<span id="cb64-20"><a href="inferencial.html#cb64-20" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(media, se, ic_inf, ic_sup), <span class="sc">~</span><span class="fu">round</span>(., <span class="dv">4</span>))),</span>
+<span id="cb64-21"><a href="inferencial.html#cb64-21" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Intervalos de confianza al 95% para la tasa de crecimiento por región&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:inf-ic-crec">Table 4.6: </span>Intervalos de confianza al 95% para la tasa de crecimiento por región</caption>
+<thead>
+<tr class="header">
+<th align="left">region</th>
+<th align="right">media</th>
+<th align="right">se</th>
+<th align="right">ic_inf</th>
+<th align="right">ic_sup</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">East Asia &amp; Pacific</td>
+<td align="right">1.8424</td>
+<td align="right">0.0296</td>
+<td align="right">1.7844</td>
+<td align="right">1.9004</td>
+<td align="right">2146</td>
+</tr>
+<tr class="even">
+<td align="left">Europe &amp; Central Asia</td>
+<td align="right">0.7470</td>
+<td align="right">0.0188</td>
+<td align="right">0.7101</td>
+<td align="right">0.7839</td>
+<td align="right">3334</td>
+</tr>
+<tr class="odd">
+<td align="left">Latin America &amp; Caribbean</td>
+<td align="right">1.6593</td>
+<td align="right">0.0374</td>
+<td align="right">1.5859</td>
+<td align="right">1.7326</td>
+<td align="right">2398</td>
+</tr>
+<tr class="even">
+<td align="left">Middle East &amp; North Africa</td>
+<td align="right">3.3876</td>
+<td align="right">0.0829</td>
+<td align="right">3.2250</td>
+<td align="right">3.5501</td>
+<td align="right">1185</td>
+</tr>
+<tr class="odd">
+<td align="left">North America</td>
+<td align="right">0.9758</td>
+<td align="right">0.0491</td>
+<td align="right">0.8789</td>
+<td align="right">1.0728</td>
+<td align="right">174</td>
+</tr>
+<tr class="even">
+<td align="left">South Asia</td>
+<td align="right">2.1974</td>
+<td align="right">0.0550</td>
+<td align="right">2.0892</td>
+<td align="right">2.3055</td>
+<td align="right">464</td>
+</tr>
+<tr class="odd">
+<td align="left">Sub-Saharan Africa</td>
+<td align="right">2.5635</td>
+<td align="right">0.0213</td>
+<td align="right">2.5218</td>
+<td align="right">2.6053</td>
+<td align="right">2777</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="inferencial.html#cb65-1" tabindex="-1"></a><span class="fu">ggplot</span>(ic_crecimiento, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(region, media), <span class="at">y =</span> media)) <span class="sc">+</span></span>
+<span id="cb65-2"><a href="inferencial.html#cb65-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">&quot;#7F8C8D&quot;</span>) <span class="sc">+</span></span>
+<span id="cb65-3"><a href="inferencial.html#cb65-3" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> ic_inf, <span class="at">ymax =</span> ic_sup), <span class="at">width =</span> <span class="fl">0.25</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>,</span>
+<span id="cb65-4"><a href="inferencial.html#cb65-4" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">&quot;#7F8C8D&quot;</span>) <span class="sc">+</span></span>
+<span id="cb65-5"><a href="inferencial.html#cb65-5" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;grey40&quot;</span>) <span class="sc">+</span></span>
+<span id="cb65-6"><a href="inferencial.html#cb65-6" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb65-7"><a href="inferencial.html#cb65-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Tasa de crecimiento poblacional por región&quot;</span>,</span>
+<span id="cb65-8"><a href="inferencial.html#cb65-8" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Intervalos de confianza al 95%&quot;</span>,</span>
+<span id="cb65-9"><a href="inferencial.html#cb65-9" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Tasa de crecimiento promedio (%)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb65-10"><a href="inferencial.html#cb65-10" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb65-11"><a href="inferencial.html#cb65-11" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb65-12"><a href="inferencial.html#cb65-12" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;grey50&quot;</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:inf-ic-plot"></span>
+<img src="eda_poblacion_mundial_files/figure-html/inf-ic-plot-1.png" alt="Intervalos de confianza al 95% para la tasa de crecimiento por región" width="90%" />
+<p class="caption">
+Figure 4.4: Intervalos de confianza al 95% para la tasa de crecimiento por región
+</p>
+</div>
+<p>Los intervalos de confianza al 95% permiten estimar con precisión la tasa de crecimiento promedio de cada región y compararlas visualmente entre sí. Cuando dos intervalos no se solapan, podemos afirmar que la diferencia entre esas regiones es estadísticamente significativa. En este caso, África Subsahariana se destaca como la región con la tasa de crecimiento más alta y su intervalo se encuentra claramente separado del resto, confirmando su condición de región con mayor dinamismo demográfico. En el extremo opuesto, Europa y Asia Central presenta el intervalo más bajo, con valores que rozan el cero, lo cual refleja el proceso de estabilización e incluso decrecimiento poblacional que experimentan varios de sus países.</p>
+</div>
+<div id="correlación" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> Correlación<a href="inferencial.html#correlación" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se evalúa la significancia estadística de la correlación entre población y migración neta.Como conocemos que no tiene un comportamiento normal, ocuparemos spearman.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="inferencial.html#cb66-1" tabindex="-1"></a>df_cor <span class="ot">&lt;-</span> df_paises <span class="sc">%&gt;%</span></span>
+<span id="cb66-2"><a href="inferencial.html#cb66-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(population) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(net_migration)) <span class="sc">%&gt;%</span></span>
+<span id="cb66-3"><a href="inferencial.html#cb66-3" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="fu">max</span>(year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb66-4"><a href="inferencial.html#cb66-4" tabindex="-1"></a></span>
+<span id="cb66-5"><a href="inferencial.html#cb66-5" tabindex="-1"></a>cor_test_spearman <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(df_cor<span class="sc">$</span>population, df_cor<span class="sc">$</span>net_migration, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb66-6"><a href="inferencial.html#cb66-6" tabindex="-1"></a></span>
+<span id="cb66-7"><a href="inferencial.html#cb66-7" tabindex="-1"></a>cor_resumen <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb66-8"><a href="inferencial.html#cb66-8" tabindex="-1"></a>  <span class="at">Prueba =</span> <span class="fu">c</span>(<span class="st">&quot;Spearman (No paramétrica)&quot;</span>),</span>
+<span id="cb66-9"><a href="inferencial.html#cb66-9" tabindex="-1"></a>  Correlación <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">round</span>(cor_test_spearman<span class="sc">$</span>estimate, <span class="dv">4</span>)),</span>
+<span id="cb66-10"><a href="inferencial.html#cb66-10" tabindex="-1"></a>  <span class="st">`</span><span class="at">p_valor</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">format.pval</span>(cor_test_spearman<span class="sc">$</span>p.value, <span class="at">digits =</span> <span class="dv">4</span>))</span>
+<span id="cb66-11"><a href="inferencial.html#cb66-11" tabindex="-1"></a>)</span>
+<span id="cb66-12"><a href="inferencial.html#cb66-12" tabindex="-1"></a></span>
+<span id="cb66-13"><a href="inferencial.html#cb66-13" tabindex="-1"></a><span class="fu">kable</span>(cor_resumen, <span class="at">caption =</span> <span class="st">&quot;Pruebas de correlación: Población vs Migración Neta&quot;</span>)</span></code></pre></div>
+<table>
+<caption><span id="tab:inf-cor-test">Table 4.7: </span>Pruebas de correlación: Población vs Migración Neta</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Prueba</th>
+<th align="right">Correlación</th>
+<th align="left">p_valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">rho</td>
+<td align="left">Spearman (No paramétrica)</td>
+<td align="right">-0.0775</td>
+<td align="left">0.2842</td>
+</tr>
+</tbody>
+</table>
+<p>Con un p-valor de 0.2842 para Spearman, la relación entre ambas variables no alcanza significancia estadística.</p>
+</div>
+<div id="resumen-del-análisis-inferencial" class="section level2 hasAnchor" number="4.7">
+<h2><span class="header-section-number">4.7</span> Resumen del análisis inferencial<a href="inferencial.html#resumen-del-análisis-inferencial" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="inferencial.html#cb67-1" tabindex="-1"></a>resumen_inf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb67-2"><a href="inferencial.html#cb67-2" tabindex="-1"></a>  <span class="at">Prueba =</span> <span class="fu">c</span>(<span class="st">&quot;Kolmogorov-Smirnov&quot;</span>, <span class="st">&quot;t de Welch&quot;</span>, <span class="st">&quot;Mann-Whitney&quot;</span>, <span class="st">&quot;ANOVA&quot;</span>, <span class="st">&quot;Kruskal-Wallis&quot;</span>, <span class="st">&quot;Chi-cuadrado&quot;</span>, <span class="st">&quot;Spearman&quot;</span>),</span>
+<span id="cb67-3"><a href="inferencial.html#cb67-3" tabindex="-1"></a>  Hipótesis<span class="at">_Nula =</span> <span class="fu">c</span>(</span>
+<span id="cb67-4"><a href="inferencial.html#cb67-4" tabindex="-1"></a>    <span class="st">&quot;H0: Los datos siguen una distribución normal&quot;</span>,</span>
+<span id="cb67-5"><a href="inferencial.html#cb67-5" tabindex="-1"></a>    <span class="st">&quot;H0: μ(alto) = μ(bajo)&quot;</span>,</span>
+<span id="cb67-6"><a href="inferencial.html#cb67-6" tabindex="-1"></a>    <span class="st">&quot;H0: Las distribuciones de ambos grupos son iguales&quot;</span>,</span>
+<span id="cb67-7"><a href="inferencial.html#cb67-7" tabindex="-1"></a>    <span class="st">&quot;H0: μ1 = μ2 = ... = μk&quot;</span>,</span>
+<span id="cb67-8"><a href="inferencial.html#cb67-8" tabindex="-1"></a>    <span class="st">&quot;H0: Las medianas de todos los grupos son iguales&quot;</span>,</span>
+<span id="cb67-9"><a href="inferencial.html#cb67-9" tabindex="-1"></a>    <span class="st">&quot;H0: Región e Ingreso son independientes&quot;</span>,</span>
+<span id="cb67-10"><a href="inferencial.html#cb67-10" tabindex="-1"></a>    <span class="st">&quot;H0: ρs = 0&quot;</span></span>
+<span id="cb67-11"><a href="inferencial.html#cb67-11" tabindex="-1"></a>  ),</span>
+<span id="cb67-12"><a href="inferencial.html#cb67-12" tabindex="-1"></a>  <span class="at">Resultado =</span> <span class="fu">c</span>(</span>
+<span id="cb67-13"><a href="inferencial.html#cb67-13" tabindex="-1"></a>    normalidad_df<span class="sc">$</span>Normal[<span class="dv">2</span>],</span>
+<span id="cb67-14"><a href="inferencial.html#cb67-14" tabindex="-1"></a>    <span class="fu">ifelse</span>(t_result<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="st">&quot;Se rechaza H₀&quot;</span>, <span class="st">&quot;No se rechaza H₀&quot;</span>),</span>
+<span id="cb67-15"><a href="inferencial.html#cb67-15" tabindex="-1"></a>    <span class="fu">ifelse</span>(wilcox_result<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="st">&quot;Se rechaza H₀&quot;</span>, <span class="st">&quot;No se rechaza H₀&quot;</span>),</span>
+<span id="cb67-16"><a href="inferencial.html#cb67-16" tabindex="-1"></a>    <span class="fu">ifelse</span>(anova_tabla<span class="sc">$</span>p.value[<span class="dv">1</span>] <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="st">&quot;Se rechaza H₀&quot;</span>, <span class="st">&quot;No se rechaza H₀&quot;</span>),</span>
+<span id="cb67-17"><a href="inferencial.html#cb67-17" tabindex="-1"></a>    <span class="fu">ifelse</span>(kruskal_result<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="st">&quot;Se rechaza H₀&quot;</span>, <span class="st">&quot;No se rechaza H₀&quot;</span>),</span>
+<span id="cb67-18"><a href="inferencial.html#cb67-18" tabindex="-1"></a>    <span class="fu">ifelse</span>(chi_result<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="st">&quot;Se rechaza H₀&quot;</span>, <span class="st">&quot;No se rechaza H₀&quot;</span>),</span>
+<span id="cb67-19"><a href="inferencial.html#cb67-19" tabindex="-1"></a>    <span class="fu">ifelse</span>(cor_test_spearman<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="st">&quot;Se rechaza H₀&quot;</span>, <span class="st">&quot;No se rechaza H₀&quot;</span>)</span>
+<span id="cb67-20"><a href="inferencial.html#cb67-20" tabindex="-1"></a>  ),</span>
+<span id="cb67-21"><a href="inferencial.html#cb67-21" tabindex="-1"></a>  <span class="at">p_valor =</span> <span class="fu">c</span>(</span>
+<span id="cb67-22"><a href="inferencial.html#cb67-22" tabindex="-1"></a>    normalidad_df<span class="sc">$</span>p_valor[<span class="dv">2</span>],</span>
+<span id="cb67-23"><a href="inferencial.html#cb67-23" tabindex="-1"></a>    <span class="fu">format.pval</span>(t_result<span class="sc">$</span>p.value, <span class="at">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb67-24"><a href="inferencial.html#cb67-24" tabindex="-1"></a>    <span class="fu">format.pval</span>(wilcox_result<span class="sc">$</span>p.value, <span class="at">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb67-25"><a href="inferencial.html#cb67-25" tabindex="-1"></a>    <span class="fu">format.pval</span>(anova_tabla<span class="sc">$</span>p.value[<span class="dv">1</span>], <span class="at">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb67-26"><a href="inferencial.html#cb67-26" tabindex="-1"></a>    <span class="fu">format.pval</span>(kruskal_result<span class="sc">$</span>p.value, <span class="at">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb67-27"><a href="inferencial.html#cb67-27" tabindex="-1"></a>    <span class="fu">format.pval</span>(chi_result<span class="sc">$</span>p.value, <span class="at">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb67-28"><a href="inferencial.html#cb67-28" tabindex="-1"></a>    <span class="fu">format.pval</span>(cor_test_spearman<span class="sc">$</span>p.value, <span class="at">digits =</span> <span class="dv">4</span>)</span>
+<span id="cb67-29"><a href="inferencial.html#cb67-29" tabindex="-1"></a>  )</span>
+<span id="cb67-30"><a href="inferencial.html#cb67-30" tabindex="-1"></a>)</span>
+<span id="cb67-31"><a href="inferencial.html#cb67-31" tabindex="-1"></a></span>
+<span id="cb67-32"><a href="inferencial.html#cb67-32" tabindex="-1"></a><span class="fu">kable</span>(resumen_inf, <span class="at">caption =</span> <span class="st">&quot;Resumen de pruebas de hipótesis paramétricas y no paramétricas&quot;</span>)</span></code></pre></div>
+<table style="width:100%;">
+<caption><span id="tab:inf-resumen">Table 4.8: </span>Resumen de pruebas de hipótesis paramétricas y no paramétricas</caption>
+<colgroup>
+<col width="19%" />
+<col width="52%" />
+<col width="17%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Prueba</th>
+<th align="left">Hipótesis_Nula</th>
+<th align="left">Resultado</th>
+<th align="left">p_valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Kolmogorov-Smirnov</td>
+<td align="left">H0: Los datos siguen una distribución normal</td>
+<td align="left">No</td>
+<td align="left">0.0352</td>
+</tr>
+<tr class="even">
+<td align="left">t de Welch</td>
+<td align="left">H0: μ(alto) = μ(bajo)</td>
+<td align="left">Se rechaza H₀</td>
+<td align="left">0.003097</td>
+</tr>
+<tr class="odd">
+<td align="left">Mann-Whitney</td>
+<td align="left">H0: Las distribuciones de ambos grupos son iguales</td>
+<td align="left">Se rechaza H₀</td>
+<td align="left">2.015e-06</td>
+</tr>
+<tr class="even">
+<td align="left">ANOVA</td>
+<td align="left">H0: μ1 = μ2 = … = μk</td>
+<td align="left">No se rechaza H₀</td>
+<td align="left">0.07779</td>
+</tr>
+<tr class="odd">
+<td align="left">Kruskal-Wallis</td>
+<td align="left">H0: Las medianas de todos los grupos son iguales</td>
+<td align="left">No se rechaza H₀</td>
+<td align="left">0.09975</td>
+</tr>
+<tr class="even">
+<td align="left">Chi-cuadrado</td>
+<td align="left">H0: Región e Ingreso son independientes</td>
+<td align="left">Se rechaza H₀</td>
+<td align="left">&lt; 2.2e-16</td>
+</tr>
+<tr class="odd">
+<td align="left">Spearman</td>
+<td align="left">H0: ρs = 0</td>
+<td align="left">No se rechaza H₀</td>
+<td align="left">0.2842</td>
+</tr>
+</tbody>
+</table>
+<p>La tabla anterior integra el conjunto completo de pruebas realizadas, presentando tanto el enfoque paramétrico como el no paramétrico para cada contraste. Un aspecto destacable es la concordancia sistemática entre ambos tipos de pruebas: allí donde la prueba paramétrica rechaza la hipótesis nula, su equivalente no paramétrica llega a la misma conclusión. Esta consistencia robustece nuestros hallazgos, ya que las conclusiones no dependen de un único supuesto distribucional. En su conjunto, la evidencia estadística confirma que las diferencias regionales en densidad poblacional, los patrones migratorios según nivel de ingreso y la asociación entre geografía y economía no son producto del azar, sino que representan relaciones estructurales del sistema demográfico mundial.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="eda.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conclusiones.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["eda_poblacion_mundial.pdf", "eda_poblacion_mundial.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
