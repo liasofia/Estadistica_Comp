@@ -192,6 +192,10 @@ df_chi <- df_paises %>%
   droplevels()
 
 tabla_chi <- table(df_chi$region, df_chi$incomeLevel)
+
+# Añadir tabla de contingencia
+kable(addmargins(tabla_chi), caption = "Tabla de contingencia: Región vs Nivel de Ingreso")
+
 chi_result <- chisq.test(tabla_chi)
 
 chi_resumen <- data.frame(

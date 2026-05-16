@@ -226,7 +226,7 @@ ggplot(df_outliers_long, aes(x = "", y = Valor)) +
         strip.text = element_text(face = "bold", size = 12))
 ```
 
-Las variables demográficas presentan un alto porcentaje de outliers según el criterio IQR, pero esto no necesariamente implica que sean errores. En la variable población, valores como los de China e India son extremos pero correctos porque corresponden a datos reales. De manera similar, ciudades-estado como Macao o Mónaco son outliers válidos en densidad, dado que son territorios con una población muy concentrada en un área pequeña. Por esta razón, se tomó la decisión de conservar todos los outliers del dataset, ya que eliminarlos significaría descartar información legítima sobre la variabilidad real del fenómeno demográfico mundial.
+> Las variables demográficas presentan un alto porcentaje de outliers según el criterio IQR, pero esto no necesariamente implica que sean errores. En la variable población, valores como los de China e India son extremos pero correctos porque corresponden a datos reales. De manera similar, ciudades-estado como Macao o Mónaco son outliers válidos en densidad, dado que son territorios con una población muy concentrada en un área pequeña. Por esta razón, no se eliminó ningún outlier del dataset.
 
 ## Validación de rangos y consistencia
 
